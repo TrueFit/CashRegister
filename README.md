@@ -3,12 +3,12 @@ Cash Register
 
 The Problem
 -----------
-Creative Cash Draw Solutions is a client who wants to provide some fun for the users of their system (typically cashiers). The function of the application is to tell the cashier how much change to return to the user, and what denominations to do use when returning the change. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly return change denominations (but remember the algorithm needs to complete as well). 
+Creative Cash Draw Solutions is a client who wants to provide some fun for the users of their system (typically cashiers). The function of the application is to tell the cashier how much change to return to the user, and what denominations to do use when returning the change. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly return change denominations. 
 
 Please write a program which accomplishes the clients goals. The program should:
 
 1. Accept a flat file as input
-	1. Each line will contain the amount owed and the amount paid separated by a comma (for example, 2.13,3.00)
+	1. Each line will contain the amount owed and the amount paid separated by a comma (for example: 2.13,3.00)
 	2. Expect that there will be multiple lines
 2. Output the change the cashier should return to the customer
 	1. The return string should look like: 1 dollar,2 quarters,1 nickel, etc ...
