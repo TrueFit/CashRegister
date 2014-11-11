@@ -17,13 +17,17 @@ Please write a program which accomplishes the clients goals. The program should:
 Sample Input
 ------------
 2.12,3.00
+
 1.97,2.00
+
 3.33,5.00
 
 Sample Output
 -------------
 3 quarters,1 dime,3 pennies
+
 3 pennies
+
 1 dollar,1 quarter,6 nickels,12 pennies
 
 *Remember the last one is random
