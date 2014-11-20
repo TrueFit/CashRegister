@@ -15,9 +15,7 @@ object CashRegister {
                        0.01  -> "1 penny")
 
   def main(args: Array[String]) {
-    println(valuesFor("foo.csv"))
-    writeOut("bar.csv", List(List("a", "b"), List("baz", "c")))
-    cChange(1.13, USCurrency)
+    writeOut("bar.csv", calculateChange(valuesFor("foo.csv"), USCurrency))
   }
 
   def valuesFor(fileName: String): List[List[Double]] = {
@@ -27,33 +25,19 @@ object CashRegister {
     content
   }
 
-  def cChange(value: Double, currency: Map[Double, String]): List[String] = {
-    def recurs(amtLeft: Double, curr: List[Double], cnt: List[Double]): List[Double] = {
-      if (amtLeft <= 0.0) {
-        println("Terminating condition")
-        return cnt.drop(1)
+  def calculateChange(values: List[List[Double]], currency: Map[Double, String]): List[List[String]] = {
+    def recurs(amtLeft: Double, curr: List[Double], res: List[Double]): List[Double] = {
+      if (amtLeft <= 0.0) { return res.drop(1) }
+      else if (currencyRound(amtLeft - curr.head) >= 0.0) {
+        recurs(currencyRound(amtLeft - curr.head), curr, res ::: List(curr.head))
       }
-      else if (moneyPrecision(amtLeft - curr.head) >= 0.0) {
-        println("Remaining amount fits into this denomination")
-        recurs(moneyPrecision(amtLeft - curr.head), curr, cnt ::: List(curr.head))
-      }
-      else {
-        println("Currency too large, next")
-        recurs(amtLeft, curr.drop(1), cnt)
-      }
+      else { recurs(amtLeft, curr.drop(1), res) }
     }
 
-    val f = recurs(value, currency.keys.toList.sortBy(- _.toDouble), List(0.0))
-    println(f)
-    List("a", "b")
+    values.map(x =>
+      recurs(currencyRound(x.last - x.head), currency.keys.toList.sortBy(- _.toDouble), List(0.0)).map( x => currency(x) )
+    )
   }
-
-  //def calculateChange(values: List[List[Double]], currency: List[Map[Double, String]]): List[List[String]] = {
-    //def recurs(amt: Double, curr: List[Double], cnt: Double): List[Double] = {
-
-    //}
-
-  //}
 
   def writeOut(fileName: String, output: List[List[String]]) {
     val writer = CSVWriter.open(new File(fileName))
@@ -61,7 +45,7 @@ object CashRegister {
     writer.close
   }
 
-  def moneyPrecision(m: Double): Double = {
+  def currencyRound(m: Double): Double = {
     val t = math pow (10, 2)
     (math ceil m * t) / t
   }
