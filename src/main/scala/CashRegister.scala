@@ -47,6 +47,6 @@ object CashRegister {
 
   def currencyRound(m: Double): Double = {
     val t = math pow (10, 2)
-    (math ceil m * t) / t
+    (math round m * t) / t
   }
 }
