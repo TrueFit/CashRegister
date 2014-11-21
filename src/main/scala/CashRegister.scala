@@ -3,16 +3,34 @@ import java.io.{File}
 
 object CashRegister {
 
-  val USCurrency = Map(100.0 -> "100 dollars",
-                       50.0  -> "50 dollars",
-                       20.0  -> "20 dollars",
-                       10.0  -> "10 dollars",
-                        5.0  -> "5 dollars",
-                        1.0  -> "1 dollar",
-                       0.25  -> "1 quarter",
-                       0.10  -> "1 dime",
-                       0.05  -> "1 nickel",
-                       0.01  -> "1 penny")
+  object Currency {
+    def round(m: Double): Double = {
+      val t = math.pow(10, 2)
+      (math.round(m * t)) / t
+    }
+  }
+
+  object Presenter {
+    def format(input: List[Double], currency: Map[Double, String]): List[String] = {
+      val grouped = input.groupBy(identity).values
+      println(grouped)
+      grouped.toList.map(x =>
+          if (x.length > 1) { "%d %s".format(x.length, currency(x.head).split("/").last) }
+          else { "%d %s".format(x.length, currency(x.head).split("/").head) }
+          )
+    }
+  }
+
+  val USCurrency = Map(100.0 -> "100 dollar bill/100 dollar bills",
+                       50.0  -> "50 dollar bill/50 dollar bills",
+                       20.0  -> "20 dollar bill/20 dollar bills",
+                       10.0  -> "10 dollar bill/10 dollar bills",
+                        5.0  -> "5 dollar bill/5 dollar bills",
+                        1.0  -> "1 dollar bill/1 dollar bills",
+                       0.25  -> "quarter/quarters",
+                       0.10  -> "dime/dimes",
+                       0.05  -> "nickel/nickels",
+                       0.01  -> "penny/pennies")
 
   def main(args: Array[String]) {
     writeOut("bar.csv", calculateChange(valuesFor("foo.csv"), USCurrency))
@@ -27,15 +45,15 @@ object CashRegister {
 
   def calculateChange(values: List[List[Double]], currency: Map[Double, String]): List[List[String]] = {
     def recurs(amtLeft: Double, curr: List[Double], res: List[Double]): List[Double] = {
-      if (amtLeft <= 0.0) { return res.drop(1) }
-      else if (currencyRound(amtLeft - curr.head) >= 0.0) {
-        recurs(currencyRound(amtLeft - curr.head), curr, res ::: List(curr.head))
+      if (amtLeft <= 0.0) { return res }
+      else if (Currency.round(amtLeft - curr.head) >= 0.0) {
+        recurs(Currency.round(amtLeft - curr.head), curr, res ::: List(curr.head))
       }
       else { recurs(amtLeft, curr.drop(1), res) }
     }
 
     values.map(x =>
-      recurs(currencyRound(x.last - x.head), currency.keys.toList.sortBy(- _.toDouble), List(0.0)).map( x => currency(x) )
+      Presenter.format(recurs(Currency.round(x.last - x.head), currency.keys.toList.sortBy(- _.toDouble), List()), currency)
     )
   }
 
@@ -43,10 +61,5 @@ object CashRegister {
     val writer = CSVWriter.open(new File(fileName))
     writer.writeAll(output)
     writer.close
-  }
-
-  def currencyRound(m: Double): Double = {
-    val t = math pow (10, 2)
-    (math round m * t) / t
   }
 }
