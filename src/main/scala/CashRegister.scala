@@ -26,13 +26,12 @@ object CashRegister {
   object Presenter {
     def format(input: List[Double], currency: Map[Double, String]): List[String] = {
       val grouped = input.groupBy(identity).values
-      grouped.toList.map(x =>
+      grouped.toList.sortBy(- _.head).map(x =>
           if (x.length > 1) { "%d %s".format(x.length, currency(x.head).split("/").last) }
           else { "%d %s".format(x.length, currency(x.head).split("/").head) }
           )
     }
   }
-
 
   def main(args: Array[String]) {
     writeOut("bar.csv", calculateChange(valuesFor("foo.csv"), Currency.USA))
@@ -57,16 +56,16 @@ object CashRegister {
     def recursRandom(amtLeft: Double, curr: List[Double], res: List[Double]): List[Double] = {
       if (amtLeft <= 0.0) { return res }
       else if (Currency.round(amtLeft - curr.head) >= 0.0) {
-        recurs(Currency.round(amtLeft - curr.head), Random.shuffle(curr), res ::: List(curr.head))
+        recursRandom(Currency.round(amtLeft - curr.head), Random.shuffle(curr), res ::: List(curr.head))
       }
-      else { recurs(amtLeft, Random.shuffle(curr), res) }
+      else { recursRandom(amtLeft, Random.shuffle(curr), res) }
     }
 
     values.map(x =>
-      if ((x.head * 100) % 3 == 0) {
-        Presenter.format(recursRandom(Currency.round(x.last - x.head), currency.keys.toList, List()), currency)
+      if ((x.head * 100) % 3 == 0 && x.head > 0.0) {
+        Presenter.format(recursRandom(Currency.round(x.last - x.head), Random.shuffle(currency.keys.toList), List()), currency)
       } else {
-        Presenter.format(recurs(Currency.round(x.last - x.head), currency.keys.toList.sortBy(- _.toDouble), List()), currency)
+        Presenter.format(recurs(Currency.round(x.last - x.head), currency.keys.toList.sortBy(- _), List()), currency)
       }
     )
   }
