@@ -24,24 +24,36 @@ object CashRegister {
   }
 
   object Presenter {
-    def format(input: List[Double], currency: Map[Double, String]): List[String] = {
-      val grouped = input.groupBy(identity).values
-      grouped.toList.sortBy(- _.head).map(x =>
-          if (x.length > 1) { "%d %s".format(x.length, currency(x.head).split("/").last) }
-          else { "%d %s".format(x.length, currency(x.head).split("/").head) }
-          )
+    def format(input: List[Double], currency: Map[Double, String]): List[String] = input match {
+      case List() => List("No change")
+      case _ => {
+        val grouped = input.groupBy(identity).values
+        grouped.toList.sortBy(- _.head).map(x =>
+            if (x.length > 1) { "%d %s".format(x.length, currency(x.head).split("/").last) }
+            else { "%d %s".format(x.length, currency(x.head).split("/").head) }
+            )
+      }
+    }
+  }
+
+  class CSVFile(fName: String) {
+    def read(): List[List[Double]] = {
+      val reader = CSVReader.open(new File(fName))
+      val content = reader.all.map(x => x.map(_.toDouble))
+      reader.close
+      content
+    }
+
+    def writeOut(outData: List[List[String]]) {
+      val writer = CSVWriter.open(new File(fName))
+      writer.writeAll(outData)
+      writer.close
     }
   }
 
   def main(args: Array[String]) {
-    writeOut("bar.csv", calculateChange(valuesFor("foo.csv"), Currency.USA))
-  }
-
-  def valuesFor(fileName: String): List[List[Double]] = {
-    val reader = CSVReader.open(new File(fileName))
-    val content = reader.all.map(x => x.map(_.toDouble))
-    reader.close
-    content
+    val inData = new CSVFile("foo.csv").read
+    new CSVFile("bar.csv").writeOut(calculateChange(inData, Currency.USA))
   }
 
   def calculateChange(values: List[List[Double]], currency: Map[Double, String]): List[List[String]] = {
@@ -68,11 +80,5 @@ object CashRegister {
         Presenter.format(recurs(Currency.round(x.last - x.head), currency.keys.toList.sortBy(- _), List()), currency)
       }
     )
-  }
-
-  def writeOut(fileName: String, output: List[List[String]]) {
-    val writer = CSVWriter.open(new File(fileName))
-    writer.writeAll(output)
-    writer.close
   }
 }
