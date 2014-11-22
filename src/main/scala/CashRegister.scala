@@ -5,6 +5,8 @@ import util.{Random}
 object CashRegister {
 
   object Currency {
+    // Map the denomination to the output format including
+    // pluralized version
     val USA = Map(
       100.0 -> "100 dollar bill/100 dollar bills",
       50.0  -> "50 dollar bill/50 dollar bills",
@@ -52,11 +54,13 @@ object CashRegister {
   }
 
   def main(args: Array[String]) {
-    val inData = new CSVFile("foo.csv").read
-    new CSVFile("bar.csv").writeOut(calculateChange(inData, Currency.USA))
+    val inData = new CSVFile("input.csv").read
+    new CSVFile("output.csv").writeOut(calculateChange(inData, Currency.USA))
   }
 
   def calculateChange(values: List[List[Double]], currency: Map[Double, String]): List[List[String]] = {
+    // Recursively search for the largest denomination that fits into the amount due.  If the head of the
+    // List of denominations is too large, we pop it off of the List and move on
     def recurs(amtLeft: Double, curr: List[Double], res: List[Double]): List[Double] = {
       if (amtLeft <= 0.0) { return res }
       else if (Currency.round(amtLeft - curr.head) >= 0.0) {
@@ -65,6 +69,8 @@ object CashRegister {
       else { recurs(amtLeft, curr.drop(1), res) }
     }
 
+    // Similar to the approach above except that we never pop any elements from the List, instead
+    // we shuffle the List elements again and go for another iteration
     def recursRandom(amtLeft: Double, curr: List[Double], res: List[Double]): List[Double] = {
       if (amtLeft <= 0.0) { return res }
       else if (Currency.round(amtLeft - curr.head) >= 0.0) {

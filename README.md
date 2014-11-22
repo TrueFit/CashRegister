@@ -39,3 +39,23 @@ Please use whatever technology and techniques you feel are applicable to solve t
 Please fork this repository. When you have completed your solution, please issue a pull request to notify us that you are ready.
 
 Have fun.
+
+Solution
+--------
+
+Code is written in scala.  A jar file `CashRegister.jar` has been built and put in the root directory.  It can be run with `java -jar CashRegister.jar`.  If you'd like to modify and run the altered code, you can install [sbt](http://www.scala-sbt.org/index.html) and [scala](http://www.scala-lang.org).
+
+### Installation for Mac OS X
+
+```bash
+brew install scala
+brew install sbt
+```
+
+### Using sbt
+
+In the root of the directory type `sbt`.  This will drop you in an interactive console.  Typing `run` will compile and run the program, placing the `output.csv` file in the root directory.  If you modify the source code you can type `reload` to refresh the console session.  You can also build a new jar file by typing `assembly`, which will place the file as `target/scala-2.11/CashRegister.jar`
+
+### Thoughts, Critiques, and Future Features
+
+This was a fun exercise.  I approached this with the thought that I could find a nice recursive solution and scala seemed like a good choice for that.  When I began coding this, I thought the code would be a bit more concise than it turned out to be.  I'm not fond of how I handled the mapping of denominations to human readable output as far as separating the singular and pluralized versions with a slash.  The calculateChange function turned out to be kind of ugly with the two inner function definitions.  It's also not as DRY as I would have liked it.  I think I could shorten it into one function but I believe I'd lose some of the readability.  It would have been slick if I could have implemented either providing a file name to the jar file or have it scan some directory for a list of files that a user could choose from, but I think this is an acceptable first pass.

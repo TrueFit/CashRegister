@@ -1,3 +1,5 @@
+assemblyJarName in assembly := "CashRegister.jar"
+
 name := "CashRegister"
 
 version := "0.1"
