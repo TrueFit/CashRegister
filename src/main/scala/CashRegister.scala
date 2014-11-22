@@ -1,3 +1,5 @@
+package cashregister
+
 import com.github.tototoshi.csv._
 import java.io.{File}
 import util.{Random}
@@ -55,10 +57,11 @@ object CashRegister {
 
   def main(args: Array[String]) {
     val inData = new CSVFile("input.csv").read
-    new CSVFile("output.csv").writeOut(calculateChange(inData, Currency.USA))
+    val outData = calculateChange(inData, Currency.USA)
+    new CSVFile("output.csv").writeOut(outData.map(x => Presenter.format(x, Currency.USA)))
   }
 
-  def calculateChange(values: List[List[Double]], currency: Map[Double, String]): List[List[String]] = {
+  def calculateChange(values: List[List[Double]], currency: Map[Double, String]): List[List[Double]] = {
     // Recursively search for the largest denomination that fits into the amount due.  If the head of the
     // List of denominations is too large, we pop it off of the List and move on
     def recurs(amtLeft: Double, curr: List[Double], res: List[Double]): List[Double] = {
@@ -81,9 +84,9 @@ object CashRegister {
 
     values.map(x =>
       if ((x.head * 100) % 3 == 0 && x.head > 0.0) {
-        Presenter.format(recursRandom(Currency.round(x.last - x.head), Random.shuffle(currency.keys.toList), List()), currency)
+        recursRandom(Currency.round(x.last - x.head), Random.shuffle(currency.keys.toList), List())
       } else {
-        Presenter.format(recurs(Currency.round(x.last - x.head), currency.keys.toList.sortBy(- _), List()), currency)
+        recurs(Currency.round(x.last - x.head), currency.keys.toList.sortBy(- _), List())
       }
     )
   }
