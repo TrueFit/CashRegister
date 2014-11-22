@@ -54,7 +54,7 @@ brew install sbt
 
 ### Using sbt
 
-In the root of the directory type `sbt`.  This will drop you in an interactive console.  Typing `run` will compile and run the program, placing the `output.csv` file in the root directory.  If you modify the source code you can type `reload` to refresh the console session.  To run test you can use the `test` command.  You can also build a new jar file by typing `assembly`, which will place the file as `target/scala-2.11/CashRegister.jar`
+In the root of the directory type `sbt`.  This will drop you in an interactive console.  Typing `run` will compile and run the program, placing the `output.csv` file in the root directory.  If you modify the source code you can type `reload` to refresh the console session.  To run tests you can use the `test` command.  You can also build a new jar file by typing `assembly`, which will place the file as `target/scala-2.11/CashRegister.jar`
 
 ### Thoughts, Critiques, and Future Features
 
