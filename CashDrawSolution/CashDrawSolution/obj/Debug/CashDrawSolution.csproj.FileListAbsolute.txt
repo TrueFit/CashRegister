@@ -1,0 +1,26 @@
+c:\users\harsh\documents\visual studio 2013\Projects\CashDrawSolution\CashDrawSolution\bin\Debug\CashDrawSolution.exe.config
+c:\users\harsh\documents\visual studio 2013\Projects\CashDrawSolution\CashDrawSolution\bin\Debug\CashDrawSolution.exe
+c:\users\harsh\documents\visual studio 2013\Projects\CashDrawSolution\CashDrawSolution\bin\Debug\CashDrawSolution.pdb
+c:\users\harsh\documents\visual studio 2013\Projects\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.CashDrawSolution.resources
+c:\users\harsh\documents\visual studio 2013\Projects\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.Properties.Resources.resources
+c:\users\harsh\documents\visual studio 2013\Projects\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.csproj.GenerateResource.Cache
+c:\users\harsh\documents\visual studio 2013\Projects\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.exe
+c:\users\harsh\documents\visual studio 2013\Projects\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.pdb
+C:\Users\Harsh\Documents\GitHub\Git\CashDrawSolution\CashDrawSolution\bin\Debug\CashDrawSolution.exe.config
+C:\Users\Harsh\Documents\GitHub\Git\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.exe
+C:\Users\Harsh\Documents\GitHub\Git\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.pdb
+C:\Users\Harsh\Documents\GitHub\Git\CashDrawSolution\CashDrawSolution\bin\Debug\CashDrawSolution.exe
+C:\Users\Harsh\Documents\GitHub\Git\CashDrawSolution\CashDrawSolution\bin\Debug\CashDrawSolution.pdb
+C:\Users\Harsh\Documents\GitHub\Git\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.csprojResolveAssemblyReference.cache
+C:\Users\Harsh\Documents\GitHub\Git\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.CashDrawSolution.resources
+C:\Users\Harsh\Documents\GitHub\Git\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.Properties.Resources.resources
+C:\Users\Harsh\Documents\GitHub\Git\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.csproj.GenerateResource.Cache
+C:\Users\Harsh\Documents\GitHub\Git\CashRegister\CashDrawSolution\CashDrawSolution\bin\Debug\CashDrawSolution.exe.config
+C:\Users\Harsh\Documents\GitHub\Git\CashRegister\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.exe
+C:\Users\Harsh\Documents\GitHub\Git\CashRegister\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.pdb
+C:\Users\Harsh\Documents\GitHub\Git\CashRegister\CashDrawSolution\CashDrawSolution\bin\Debug\CashDrawSolution.exe
+C:\Users\Harsh\Documents\GitHub\Git\CashRegister\CashDrawSolution\CashDrawSolution\bin\Debug\CashDrawSolution.pdb
+C:\Users\Harsh\Documents\GitHub\Git\CashRegister\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.csprojResolveAssemblyReference.cache
+C:\Users\Harsh\Documents\GitHub\Git\CashRegister\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.CashDrawSolution.resources
+C:\Users\Harsh\Documents\GitHub\Git\CashRegister\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.Properties.Resources.resources
+C:\Users\Harsh\Documents\GitHub\Git\CashRegister\CashDrawSolution\CashDrawSolution\obj\Debug\CashDrawSolution.csproj.GenerateResource.Cache
