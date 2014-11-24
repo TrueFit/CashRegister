@@ -27,7 +27,7 @@ namespace CashDrawSolution
         {
             DialogResult uploadInputFile = uploadInputFileDialog.ShowDialog();
 
-            if (uploadInputFile == DialogResult.OK && uploadInputFileDialog.FileName.Contains("txt"))
+            if (uploadInputFile == DialogResult.OK && uploadInputFileDialog.FileName.Contains("csv"))
             {
                 string fileName = uploadInputFileDialog.FileName;
 
@@ -82,8 +82,8 @@ namespace CashDrawSolution
                 }
                 MessageBox.Show(createOutputFile(outPutfileData));
             }
-            else if (!uploadInputFileDialog.FileName.Contains("txt"))
-                MessageBox.Show("Invalid File. Please select text file");
+            else if (!uploadInputFileDialog.FileName.Contains("csv"))
+                MessageBox.Show("Invalid File. Please select flat file");
 
         }
         /// <summary>
@@ -101,7 +101,7 @@ namespace CashDrawSolution
                 System.IO.StreamWriter file = new System.IO.StreamWriter(path, false);
                 file.Write(outPutFileText.ToString());
                 file.Close();
-                status = string.Concat("Output file has been created at", path);
+                status = string.Concat("Output file has been created at ", path);
             }
             catch (Exception ex)
             {
