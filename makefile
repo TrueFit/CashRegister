@@ -13,7 +13,8 @@ build: clean
 	$(CC) build $(PROJECT_PATH)$(FILE).go
 
 test:
-	go test
+	$(CC) test util
+	$(CC) test money
 
 fmt:
 	$(CC) fmt $(PROJECT_PATH)$(FILE).go
