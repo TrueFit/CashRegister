@@ -121,7 +121,7 @@ func (r *CreativeCashRegister) GetDenominationsDue(t Transaction) []Denomination
   } else if amountDue == 0.00 {
     // if no change is due report that the user needs to give back zero of the
     // smallest denomination we have (r.Currency is sorted in descending order)
-    moneyStack = append(moneyStack, DenominationStack{Quantity: 0, Denomination: r.Currency[len(r.Currency) - 1]})
+    moneyStack = append(moneyStack, DenominationStack{quantity: 0, denomination: r.Currency[len(r.Currency) - 1]})
   } else if int(amountDue  * 100) % 3 == 0 {
     // if the amount returned to the customer is divisible by 3 pennies
     // give back random change
@@ -153,12 +153,12 @@ func getDenominationsForAmount(currency []DenominationType, amount float32, deno
     }
 
     // this covers if a random algorithm returns zero quantity denomination
-    if newStack.Quantity > 0 {
+    if newStack.quantity > 0 {
       moneyStack = append(moneyStack, newStack)
     }
 
     // update our values
-    amount -= float32(newStack.Quantity) * newStack.Denomination.value
+    amount -= float32(newStack.quantity) * newStack.denomination.value
     validCurrency = validCurrency[1:]
   }
 
@@ -172,7 +172,7 @@ type pickDenominationStack func (amount float32, denomination DenominationType) 
 // efficientDenominations puts as many of the denomination in as will fit in the amount
 func efficientDenominations(amount float32, denomination DenominationType) DenominationStack {
   quantity := int(amount * PRECISION_FACTOR) / int(denomination.value * PRECISION_FACTOR)
-  return DenominationStack{Quantity: uint32(quantity), Denomination: denomination}
+  return DenominationStack{quantity: uint32(quantity), denomination: denomination}
 }
 
 
@@ -182,7 +182,7 @@ func randomDenominations(amount float32, denomination DenominationType) Denomina
   rand.Seed(time.Now().Unix())
 
   maxQuantity := int(amount * PRECISION_FACTOR) / int(denomination.value * PRECISION_FACTOR) + 1
-  return DenominationStack{Quantity: uint32(rand.Intn(maxQuantity)), Denomination: denomination}
+  return DenominationStack{quantity: uint32(rand.Intn(maxQuantity)), denomination: denomination}
 }
 
 

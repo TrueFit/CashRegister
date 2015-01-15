@@ -32,18 +32,18 @@ func (d DenominationByValue) Less(a int, b int) bool {
 // DenominationStack could be replaced by an array, this way should be marginally
 // smaller in memory
 type DenominationStack struct {
-  Quantity uint32 // you can't have negative coins
-  Denomination DenominationType
+  quantity uint32 // you can't have negative coins or bills
+  denomination DenominationType
 }
 
 
 func (ds *DenominationStack) ToString() string {
-  denominationStack := strconv.Itoa(int(ds.Quantity)) + " "
+  denominationStack := strconv.Itoa(int(ds.quantity)) + " "
 
-  if ds.Quantity == 1 {
-     denominationStack += ds.Denomination.friendlyName
+  if ds.quantity == 1 {
+     denominationStack += ds.denomination.friendlyName
   } else {
-    denominationStack += util.GetPlural(ds.Denomination.friendlyName)
+    denominationStack += util.GetPlural(ds.denomination.friendlyName)
   }
 
   return denominationStack
