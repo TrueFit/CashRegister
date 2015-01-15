@@ -14,25 +14,31 @@ import (
 )
 
 
+// PRECISION_FACTOR use this to convert float values to/from ints for rounding/truncating
 const PRECISION_FACTOR = 100
 
 
+// A transaction represents money the customer owes for the transaction
+// and the amount the customer gave to cover the amountOwed
 type Transaction struct {
   amountOwed float32
   amountReceived float32
 }
 
 
+// IsEmpty checks to see if both transaction values are zero
 func (t *Transaction) IsEmpty() bool {
   return t.amountOwed == 0.0 && t.amountReceived == 0.0
 }
 
 
+// GetChangDue calculates the total change due to the customer
 func (t *Transaction) GetChangeDue() float32 {
   return t.amountReceived - t.amountOwed
 }
 
 
+// Register defines functions a register needs to possess
 type Register interface {
   initialize()
   GetTransactions() <-chan Transaction
@@ -40,14 +46,14 @@ type Register interface {
   RenderOutput(s string)
 }
 
-
+// NewRegister initializes a struct that implements Register
 func NewRegister(r Register) Register {
   r.initialize()
   return r
 }
 
 
-// we have infinite amounts of each Denomination in our register
+// CreativeCashRegister shows denominations necessary to give back change
 type CreativeCashRegister struct {
   Currency []DenominationType
   InputFileName string
@@ -70,6 +76,7 @@ func (r *CreativeCashRegister) GetTransactions() <-chan Transaction {
 func getTransactionsFromFile(fileName string, out chan Transaction) {
   fileIn, err := os.Open(fileName)
   if err != nil {
+    // abort if something goes wrong with our file input
     panic(errors.New("Failed to open transaction file.  Aborting."))
   }
   defer fileIn.Close()
@@ -80,13 +87,17 @@ func getTransactionsFromFile(fileName string, out chan Transaction) {
   scanner.Split(bufio.ScanLines)
 
   for scanner.Scan() {
-    out <- GetTransactionFromLine(scanner.Text())
+    out <- getTransactionFromLine(scanner.Text())
   }
 
   close(out)
 }
 
-func GetTransactionFromLine(line string) Transaction {
+
+// getTransactionFromLine uses regular expressions to get the two transaction
+// values from a line in the file, this allows the file to be a little messy
+// or change delimiters and still allow the application to get the information it needs
+func getTransactionFromLine(line string) Transaction {
   re := regexp.MustCompile("[0-9]*[.]{1}[0-9]{2}")
   values := re.FindAllString(line, 2)
 
@@ -100,6 +111,7 @@ func GetTransactionFromLine(line string) Transaction {
 }
 
 
+// GetDenominationsDue determines how to come up with the proper denominations necessary
 func (r *CreativeCashRegister) GetDenominationsDue(t Transaction) []DenominationStack {
   moneyStack := []DenominationStack{}
   amountDue := t.GetChangeDue()
@@ -110,7 +122,7 @@ func (r *CreativeCashRegister) GetDenominationsDue(t Transaction) []Denomination
     // if no change is due report that the user needs to give back zero of the
     // smallest denomination we have (r.Currency is sorted in descending order)
     moneyStack = append(moneyStack, DenominationStack{Quantity: 0, Denomination: r.Currency[len(r.Currency) - 1]})
-  } else if int(t.amountOwed  * 100) % 3 == 0 {
+  } else if int(amountDue  * 100) % 3 == 0 {
     // if the amount returned to the customer is divisible by 3 pennies
     // give back random change
     moneyStack = getDenominationsForAmount(r.Currency, amountDue, randomDenominations)
@@ -122,21 +134,31 @@ func (r *CreativeCashRegister) GetDenominationsDue(t Transaction) []Denomination
 }
 
 
+// getDenominationsForAmount iterates through all available denominations until the amount is reduced to zero
 func getDenominationsForAmount(currency []DenominationType, amount float32, denominationAlgorithm pickDenominationStack) []DenominationStack {
   validCurrency := currency
   moneyStack := []DenominationStack{}
 
-  for i := 0; int(amount * PRECISION_FACTOR) > 0; i++ { // cast to int to deal with float oddities
+  // iterate through each
+  for int(amount * PRECISION_FACTOR) > 0 { // cast to int to deal with float oddities
     validCurrency = getValidDenominations(validCurrency, amount)
     newStack := DenominationStack{}
 
+    // currency is sorted in descending order by value so if we are at our lowest currency
+    // we have to fill in the rest of the amount with it
     if len(validCurrency) > 1 {
       newStack = denominationAlgorithm(amount, validCurrency[0])
     } else {
       newStack = efficientDenominations(amount, validCurrency[0])
     }
-    moneyStack = append(moneyStack, newStack)
-    amount = amount - float32(newStack.Quantity) * newStack.Denomination.value
+
+    // this covers if a random algorithm returns zero quantity denomination
+    if newStack.Quantity > 0 {
+      moneyStack = append(moneyStack, newStack)
+    }
+
+    // update our values
+    amount -= float32(newStack.Quantity) * newStack.Denomination.value
     validCurrency = validCurrency[1:]
   }
 
@@ -147,17 +169,20 @@ func getDenominationsForAmount(currency []DenominationType, amount float32, deno
 type pickDenominationStack func (amount float32, denomination DenominationType) DenominationStack
 
 
+// efficientDenominations puts as many of the denomination in as will fit in the amount
 func efficientDenominations(amount float32, denomination DenominationType) DenominationStack {
   quantity := int(amount * PRECISION_FACTOR) / int(denomination.value * PRECISION_FACTOR)
   return DenominationStack{Quantity: uint32(quantity), Denomination: denomination}
 }
 
 
+// randomDenominations chooses a random quantity for the denomination between zero and the
+// highest multiple that will fit in the amount
 func randomDenominations(amount float32, denomination DenominationType) DenominationStack {
   rand.Seed(time.Now().Unix())
 
   maxQuantity := int(amount * PRECISION_FACTOR) / int(denomination.value * PRECISION_FACTOR) + 1
-  return DenominationStack{Quantity: uint32(rand.Intn(maxQuantity - 1) + 1), Denomination: denomination}
+  return DenominationStack{Quantity: uint32(rand.Intn(maxQuantity)), Denomination: denomination}
 }
 
 
