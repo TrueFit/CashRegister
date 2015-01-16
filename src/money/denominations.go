@@ -8,9 +8,12 @@ import (
 )
 
 
+type CurrencyUnit int
+
+
 // DenominationType defines a named value object (like a coin or bill)
 type DenominationType struct {
-  value float32
+  value CurrencyUnit
   friendlyName string
 }
 
@@ -32,7 +35,7 @@ func (d DenominationByValue) Less(a int, b int) bool {
 // DenominationStack could be replaced by an array, this way should be marginally
 // smaller in memory
 type DenominationStack struct {
-  quantity uint32 // you can't have negative coins or bills
+  quantity int
   denomination DenominationType
 }
 
@@ -40,8 +43,10 @@ type DenominationStack struct {
 func (ds *DenominationStack) ToString() string {
   denominationStack := strconv.Itoa(int(ds.quantity)) + " "
 
-  if ds.quantity == 1 {
-     denominationStack += ds.denomination.friendlyName
+  if ds.quantity == -1 { // signifies an exceptional case
+    denominationStack = ds.denomination.friendlyName
+  } else if ds.quantity == 1 {
+    denominationStack += ds.denomination.friendlyName
   } else {
     denominationStack += util.GetPlural(ds.denomination.friendlyName)
   }

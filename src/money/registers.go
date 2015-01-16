@@ -8,9 +8,8 @@ import (
   "os"
   "regexp"
   "sort"
+  "strconv"
   "time"
-
-  "util"
 )
 
 
@@ -21,19 +20,24 @@ const PRECISION_FACTOR = 100
 // A transaction represents money the customer owes for the transaction
 // and the amount the customer gave to cover the amountOwed
 type Transaction struct {
-  amountOwed float32
-  amountReceived float32
+  amountOwed CurrencyUnit
+  amountReceived CurrencyUnit
+}
+
+
+func (t *Transaction) ToString() string {
+  return "{amountOwed: " + strconv.Itoa(int(t.amountOwed)) + ", amountReceived: " + strconv.Itoa(int(t.amountReceived)) + "}"
 }
 
 
 // IsEmpty checks to see if both transaction values are zero
 func (t *Transaction) IsEmpty() bool {
-  return t.amountOwed == 0.0 && t.amountReceived == 0.0
+  return t.amountOwed == 0 && t.amountReceived == 0
 }
 
 
 // GetChangDue calculates the total change due to the customer
-func (t *Transaction) GetChangeDue() float32 {
+func (t *Transaction) GetChangeDue() CurrencyUnit {
   return t.amountReceived - t.amountOwed
 }
 
@@ -103,8 +107,18 @@ func getTransactionFromLine(line string) Transaction {
 
   var t Transaction
   if len(values) == 2 {
-    t.amountOwed = util.ParseFloat32(values[0])
-    t.amountReceived = util.ParseFloat32(values[1])
+
+    value1, err := strconv.ParseFloat(values[0], 64)
+    if err != nil {
+      value1 = 0
+    }
+    value2, err := strconv.ParseFloat(values[1], 64)
+    if err != nil {
+      value2 = 0
+    }
+
+
+    t = Transaction{amountOwed: CurrencyUnit(value1 * 100), amountReceived: CurrencyUnit(value2 * 100)}
   }
 
   return t
@@ -118,10 +132,12 @@ func (r *CreativeCashRegister) GetDenominationsDue(t Transaction) []Denomination
 
   if t.IsEmpty() {
     // pass
-  } else if amountDue == 0.00 {
+  } else if amountDue < 0 {
+    moneyStack = append(moneyStack, DenominationStack{quantity: -1, denomination: DenominationType{value: 0, friendlyName: "customer has not paid enough"}})
+  } else if amountDue == 0 {
     // if no change is due report that the user needs to give back zero of the
     // smallest denomination we have (r.Currency is sorted in descending order)
-    moneyStack = append(moneyStack, DenominationStack{quantity: 0, denomination: r.Currency[len(r.Currency) - 1]})
+    moneyStack = append(moneyStack, DenominationStack{quantity: -1, denomination: DenominationType{value: 0, friendlyName: "no change to give"}})
   } else if int(amountDue  * 100) % 3 == 0 {
     // if the amount returned to the customer is divisible by 3 pennies
     // give back random change
@@ -135,13 +151,13 @@ func (r *CreativeCashRegister) GetDenominationsDue(t Transaction) []Denomination
 
 
 // getDenominationsForAmount iterates through all available denominations until the amount is reduced to zero
-func getDenominationsForAmount(currency []DenominationType, amount float32, denominationAlgorithm pickDenominationStack) []DenominationStack {
+func getDenominationsForAmount(currency []DenominationType, amount CurrencyUnit, denominationAlgorithm pickDenominationStack) []DenominationStack {
   validCurrency := currency
   moneyStack := []DenominationStack{}
 
-  // iterate through each
-  for int(amount * PRECISION_FACTOR) > 0 { // cast to int to deal with float oddities
-    validCurrency = getValidDenominations(validCurrency, amount)
+  // iterate through each type of currency that fits in the amount
+  for amount > 0 {
+    validCurrency = getValidDenominations(amount, validCurrency)
     newStack := DenominationStack{}
 
     // currency is sorted in descending order by value so if we are at our lowest currency
@@ -158,7 +174,7 @@ func getDenominationsForAmount(currency []DenominationType, amount float32, deno
     }
 
     // update our values
-    amount -= float32(newStack.quantity) * newStack.denomination.value
+    amount -= CurrencyUnit(newStack.quantity) * newStack.denomination.value
     validCurrency = validCurrency[1:]
   }
 
@@ -166,29 +182,29 @@ func getDenominationsForAmount(currency []DenominationType, amount float32, deno
 }
 
 
-type pickDenominationStack func (amount float32, denomination DenominationType) DenominationStack
+type pickDenominationStack func (amount CurrencyUnit, denomination DenominationType) DenominationStack
 
 
 // efficientDenominations puts as many of the denomination in as will fit in the amount
-func efficientDenominations(amount float32, denomination DenominationType) DenominationStack {
-  quantity := int(amount * PRECISION_FACTOR) / int(denomination.value * PRECISION_FACTOR)
-  return DenominationStack{quantity: uint32(quantity), denomination: denomination}
+func efficientDenominations(amount CurrencyUnit, denomination DenominationType) DenominationStack {
+  quantity := amount / denomination.value
+  return DenominationStack{quantity: int(quantity), denomination: denomination}
 }
 
 
 // randomDenominations chooses a random quantity for the denomination between zero and the
 // highest multiple that will fit in the amount
-func randomDenominations(amount float32, denomination DenominationType) DenominationStack {
+func randomDenominations(amount CurrencyUnit, denomination DenominationType) DenominationStack {
   rand.Seed(time.Now().Unix())
 
-  maxQuantity := int(amount * PRECISION_FACTOR) / int(denomination.value * PRECISION_FACTOR) + 1
-  return DenominationStack{quantity: uint32(rand.Intn(maxQuantity)), denomination: denomination}
+  maxQuantity := amount / denomination.value
+  return DenominationStack{quantity: rand.Intn(int(maxQuantity)), denomination: denomination}
 }
 
 
 // getValidDenominations returns all denominations whose value is less than or equal to amount
 // This function assumes that the denominationList is sorted in descending order by denomination value
-func getValidDenominations(denominationList []DenominationType, amount float32) []DenominationType {
+func getValidDenominations(amount CurrencyUnit, denominationList []DenominationType) []DenominationType {
   var validDenominations []DenominationType
 
   for i, denomination := range denominationList {
