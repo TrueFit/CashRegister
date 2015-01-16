@@ -1,6 +1,17 @@
 Cash Register
 ============
 
+To run this solution
+-----------
+Install [Go](http://golang.org/dl/), I used version 1.4 but I imagine 1.3 would work as well if you already have that installed.  Once you unpack the files set the directory you unpacked them in as an environment variable called GOROOT.  After that assuming you have make installed just run make to run the code with the included test transaction file.  Alternatively you can run the following to generate an executable and run it.
+
+    $ make build
+    $ ./cashregister tests/transactions1.txt
+
+To run the tests.
+
+    $ make test
+
 The Problem
 -----------
 Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
