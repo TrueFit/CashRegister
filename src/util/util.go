@@ -1,7 +1,7 @@
 package util
 
 import (
-  "strconv"
+  "os"
 )
 
 
@@ -18,13 +18,11 @@ func GetPlural(s string) string {
 }
 
 
-// ParseFloat32 parses a string into a 32-bit float.
-// The return value is set to 0.0 if the string cannot be parsed.
-func ParseFloat32(s string) float32 {
-  value,err := strconv.ParseFloat(s, 32)
+func GetLogFile(filename string) *os.File {
+  f, err := os.OpenFile(filename, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0444)
   if err != nil {
-    value = 0.0
+    panic(err)
   }
 
-  return float32(value)
+  return f
 }
