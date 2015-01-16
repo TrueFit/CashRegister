@@ -4,9 +4,12 @@ Cash Register
 To run this solution
 -----------
 Install [Go](http://golang.org/dl/), I used version 1.4 but I imagine 1.3 would work as well if you already have that installed.  Once you unpack the files set the directory you unpacked them in as an environment variable called GOROOT.  After that assuming you have make installed just run make to run the code with the included test transaction file.  Alternatively you can run
+
     $ make build
     $ ./cashregister tests/transactions1.txt
+
 to generate a binary.  To run the tests.
+
     $ make test
 
 The Problem
