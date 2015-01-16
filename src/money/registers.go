@@ -3,7 +3,6 @@ package money
 import (
   "bufio"
   "errors"
-  "fmt"
   "math/rand"
   "os"
   "regexp"
@@ -60,7 +59,8 @@ func NewRegister(r Register) Register {
 // CreativeCashRegister shows denominations necessary to give back change
 type CreativeCashRegister struct {
   Currency []DenominationType
-  InputFileName string
+  InputFile *os.File
+  OutputFile *os.File
 }
 
 
@@ -72,20 +72,13 @@ func (r *CreativeCashRegister) initialize() {
 
 func (r *CreativeCashRegister) GetTransactions() <-chan Transaction {
   out := make(chan Transaction)
-  go getTransactionsFromFile(r.InputFileName, out)
+  go r.getTransactionsFromFile(out)
   return out
 }
 
 
-func getTransactionsFromFile(fileName string, out chan Transaction) {
-  fileIn, err := os.Open(fileName)
-  if err != nil {
-    // abort if something goes wrong with our file input
-    panic(errors.New("Failed to open transaction file.  Aborting."))
-  }
-  defer fileIn.Close()
-
-  reader := bufio.NewReader(fileIn)
+func (r *CreativeCashRegister) getTransactionsFromFile(out chan Transaction) {
+  reader := bufio.NewReader(r.InputFile)
   scanner := bufio.NewScanner(reader)
 
   scanner.Split(bufio.ScanLines)
@@ -136,7 +129,7 @@ func (r *CreativeCashRegister) GetDenominationsDue(t Transaction) []Denomination
     moneyStack = append(moneyStack, DenominationStack{quantity: -1, denomination: DenominationType{value: 0, friendlyName: "customer has not paid enough"}})
   } else if amountDue == 0 {
     // if no change is due report that the user needs to give back zero of the
-    // smallest denomination we have (r.Currency is sorted in descending order)
+    // smallest denomination we have (r.currency is sorted in descending order)
     moneyStack = append(moneyStack, DenominationStack{quantity: -1, denomination: DenominationType{value: 0, friendlyName: "no change to give"}})
   } else if int(amountDue  * 100) % 3 == 0 {
     // if the amount returned to the customer is divisible by 3 pennies
@@ -219,5 +212,8 @@ func getValidDenominations(amount CurrencyUnit, denominationList []DenominationT
 
 
 func (r *CreativeCashRegister) RenderOutput(s string) {
-  fmt.Println(s)
+  _, err := r.OutputFile.WriteString(s + "\n")
+  if err != nil {
+    panic(errors.New("Can't render output.  Aborting."))
+  }
 }
