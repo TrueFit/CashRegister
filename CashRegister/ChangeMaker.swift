@@ -9,7 +9,10 @@
 import Foundation
 
 class ChangeMaker {
+    
+    // Descending order allows for minimum change
     let denominations = [
+        (2000, "hamilton", "hamiltons"),
         (1000, "sawbuck", "sawbucks"),
         (500, "fiver", "fivers"),
         (100, "dollar", "dollars"),
@@ -31,9 +34,10 @@ class ChangeMaker {
     func computeCoinChange(pennyChange: Int, choice: (Int)->(Int)) {
         var pennies = pennyChange
         for (value, single, plural) in denominations {
-            if pennies > value {
-                let max = pennies / value
-                let count = (value == 1 ? pennies : choice(max))
+            if pennies >= value {
+                let maxCount = pennies / value
+                // When down to pennies take the rest, otherwise use the function
+                let count = (value == 1 ? pennies : choice(maxCount))
                 if (count > 0) {
                     pennies = pennies - (value * count)
                     print("\(count) \(count==1 ? single : plural)")

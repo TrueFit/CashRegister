@@ -2,34 +2,46 @@
 //  FileProcessor.swift
 //  CashRegister
 //
-//  Created by Daniel Otto Abeshouse on 2015-1-11.
-//  Copyright (c) 2015 Daniel Otto Abeshouse. All rights reserved.
+//  Processes a list of files line by line using two helpers:
+//    A reader to interpret each line into values.
+//    A processor to operate on those values when produced.
 //
 
 import Foundation
 
-class FileProcessor {
-    func processFiles<T>(files: [String], lineReader: (String)->(T?), helper: (T)->()) {
+class FileProcessor<T> {
+    let reader : (String)->(T?)
+    let processor : (T)->()
+    
+    init(lineReader: (String)->(T?), valueProcessor: (T)->()) {
+        reader = lineReader
+        processor = valueProcessor
+    }
+    
+    func processFiles(files: [String]) {
         for filename in files {
-            processFile(filename, lineReader: lineReader, helper: helper)
+            processFile(filename)
         }
     }
     
-    func processFile<T>(filename: String, lineReader: (String)->(T?), helper: (T)->()) {
+    func processFile(filename: String) {
         var error: NSError?
         if let fileContent = NSString(contentsOfFile: filename, encoding: NSUTF8StringEncoding, error: &error) {
-            let fileLines = String(fileContent)
-            let lines = split(String(fileLines)) {$0 == "\n"}
+            let lines = split(String(fileContent)) {$0 == "\n"}
             for line in lines {
-                if let lineValue = lineReader(line) {
-                    helper(lineValue)
-                }
+                processLine(line)
             }
         }
         else {
-            if  let fileError = error {
+            if let fileError = error {
                 println("Error processing \(filename) [\(fileError)]")
             }
+        }
+    }
+    
+    func processLine(line: String) {
+        if let lineValue = reader(line) {
+            processor(lineValue)
         }
     }
 }

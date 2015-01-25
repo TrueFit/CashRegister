@@ -29,15 +29,17 @@ class ValueReader {
     }
     
     func readCentValue(num: String) -> Int? {
-        let values = split(String(num)) {$0 == "."}
+        let trimmedNumber = num.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        let values = split(trimmedNumber) {$0 == "."}
         if values.count > 2 {
             error("Incorrect currency format.")
         } else {
             if let dollarValue = values[0].toInt() {
                 if values.count > 1 {
                     if let centValue = values[1].toInt() {
-                        return 100 * dollarValue + centValue
-                    } else {
+                        if centValue < 100 {
+                            return 100 * dollarValue + centValue
+                        }
                         error("Incorrect cent format.")
                     }
                 } else {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		652FD9CF1A75516600706362 /* ChangeFileProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652FD9CE1A75516600706362 /* ChangeFileProcessor.swift */; };
 		65A224F51A62D86200F7BEE9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A224F41A62D86200F7BEE9 /* main.swift */; };
 		65A2250F1A62DE1100F7BEE9 /* FileProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2250E1A62DE1100F7BEE9 /* FileProcessor.swift */; };
 		65A225111A62E21C00F7BEE9 /* ChangeMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A225101A62E21C00F7BEE9 /* ChangeMaker.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		652FD9CE1A75516600706362 /* ChangeFileProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeFileProcessor.swift; sourceTree = "<group>"; };
 		65A224F11A62D86200F7BEE9 /* CashRegister */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CashRegister; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A224F41A62D86200F7BEE9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		65A2250E1A62DE1100F7BEE9 /* FileProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileProcessor.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				65A224F41A62D86200F7BEE9 /* main.swift */,
 				65AC96D61A74396500F1F438 /* ValueReader.swift */,
 				65A2250E1A62DE1100F7BEE9 /* FileProcessor.swift */,
+				652FD9CE1A75516600706362 /* ChangeFileProcessor.swift */,
 				65A225101A62E21C00F7BEE9 /* ChangeMaker.swift */,
 				65A225121A62E7C200F7BEE9 /* change.txt */,
 			);
@@ -130,6 +133,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65A2250F1A62DE1100F7BEE9 /* FileProcessor.swift in Sources */,
+				652FD9CF1A75516600706362 /* ChangeFileProcessor.swift in Sources */,
 				65AC96D71A74396500F1F438 /* ValueReader.swift in Sources */,
 				65A225111A62E21C00F7BEE9 /* ChangeMaker.swift in Sources */,
 				65A224F51A62D86200F7BEE9 /* main.swift in Sources */,
