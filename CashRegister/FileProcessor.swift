@@ -9,13 +9,20 @@
 
 import Foundation
 
+enum ReadValue<T> {
+    case Result(T)
+    case Error(String)
+}
+
 class FileProcessor<T> {
-    let reader : (String)->(T?)
+    let reader : (String)->(ReadValue<T>)
     let processor : (T)->()
+    let reporter: (String)->()
     
-    init(lineReader: (String)->(T?), valueProcessor: (T)->()) {
+    init(lineReader: (String)->(ReadValue<T>), valueProcessor: (T)->(), errorReporter: (String)->()) {
         reader = lineReader
         processor = valueProcessor
+        reporter = errorReporter
     }
     
     func processFiles(files: [String]) {
@@ -40,8 +47,18 @@ class FileProcessor<T> {
     }
     
     func processLine(line: String) {
-        if let lineValue = reader(line) {
-            processor(lineValue)
+        let lineResult = reader(line)
+        switch lineResult {
+            case .Result(let lineValue):
+                processor(lineValue)
+            case .Error(let error):
+                reporter(error)
         }
+            
+        /*if let lineValue = reader(line) {
+            processor(lineValue)
+        }*/
     }
 }
+
+Unimplemented IR generation feature non-fixed multi-payload enum layout

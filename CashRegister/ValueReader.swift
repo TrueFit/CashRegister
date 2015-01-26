@@ -10,49 +10,49 @@ import Foundation
 
 class ValueReader {
     
-    func readTwoValues(line: String) -> (Int, Int)? {
+    func readTwoDollarValuesInPennies(line: String) -> ReadValue<(Int, Int)> {
         let values = split(String(line)) {$0 == ","}
         if values.count != 2 {
-            error("Incorrect number of values.")
-        } else {
-            if let cost = readCentValue(values[0]) {
-                if let payment = readCentValue(values[1]) {
-                    return (cost, payment)
-                } else {
-                    error("Invalid payment.")
-                }
-            } else {
-                error("Invalid cost.")
-            }
+            return ReadValue.Error("Incorrect number of values.")
         }
-        return nil
+        
+        switch readCentValue(values[0]) {
+        case .Result(let firstPennies):
+            switch readCentValue(values[1]) {
+            case .Result(let secondPennies):
+                return ReadValue.Result(firstPennies, secondPennies)
+            case .Error(let error):
+                return ReadValue.Error("Invalid second value: \(error)")
+            }
+        case .Error(let error):
+            return ReadValue.Error("Invalid first value: \(error)")
+        }
     }
-    
-    func readCentValue(num: String) -> Int? {
+
+    func readCentValue(num: String) -> ReadValue<Int> {
+//    func readCentValue(num: String) -> Int? {
         let trimmedNumber = num.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         let values = split(trimmedNumber) {$0 == "."}
         if values.count > 2 {
-            error("Incorrect currency format.")
-        } else {
-            if let dollarValue = values[0].toInt() {
-                if values.count > 1 {
-                    if let centValue = values[1].toInt() {
-                        if centValue < 100 {
-                            return 100 * dollarValue + centValue
-                        }
-                        error("Incorrect cent format.")
-                    }
-                } else {
-                    return 100 * dollarValue
-                }
-            } else {
-                error("Incorrect dollar format.")
-            }
+            return ReadValue.Error("Incorrect currency format.")
         }
-        return nil
+        if let dollarValue = values[0].toInt() {
+            if values.count > 1 {
+                if let centValue = values[1].toInt() {
+                    if centValue < 100 {
+                        return ReadValue.Result(100 * dollarValue + centValue)
+                    }
+                }
+                return ReadValue.Error("Incorrect cent format.")
+            } else {
+                return ReadValue.Result(100 * dollarValue)
+            }
+        } else {
+            return ReadValue.Error("Incorrect dollar format.")
+        }
     }
     
-    func error(message : String) {
+    /*func error(message : String) {
         println("Error: \(message)")
-    }
+    }*/
 }
