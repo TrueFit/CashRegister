@@ -1,0 +1,15 @@
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\TestData\BlankFile.txt
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\TestData\CashFile.txt
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\UnitTestCashRegister.dll
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\UnitTestCashRegister.pdb
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\CashRegister.dll
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\Ninject.dll
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\nunit.framework.dll
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\log4net.dll
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\CashRegister.pdb
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\Ninject.xml
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\nunit.framework.xml
+C:\TrueFit\CashRegister\UnitTestCashRegister\bin\Debug\log4net.xml
+C:\TrueFit\CashRegister\UnitTestCashRegister\obj\Debug\UnitTestCashRegister.csprojResolveAssemblyReference.cache
+C:\TrueFit\CashRegister\UnitTestCashRegister\obj\Debug\UnitTestCashRegister.dll
+C:\TrueFit\CashRegister\UnitTestCashRegister\obj\Debug\UnitTestCashRegister.pdb
