@@ -1,0 +1,9 @@
+{
+    "name": "Cash Register",
+    "main": "./app.js",
+    "version": "0.0.1",
+    "description": "Cash register application",
+    "dependencies": {
+
+    }
+}
