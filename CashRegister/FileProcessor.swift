@@ -10,19 +10,19 @@
 
 import Foundation
 
-public class FileProcessor<T> {
-    let reader : (String)->(T?, String?)
-    let processor : (T)->()
-    let reporter: (String)->()
+class FileProcessor<T> {
+    let read : (String, Reporter)->(T?)
+    let process : (T)->(String)
+    let report: Reporter
     
-    init(lineReader: (String)->(T?, String?), valueProcessor: (T)->(), errorReporter: (String)->()) {
-        reader = lineReader
-        processor = valueProcessor
-        reporter = errorReporter
+    init(lineReader: (String, Reporter)->(T?), valueProcessor: (T)->(String), reporter: Reporter) {
+        read = lineReader
+        process = valueProcessor
+        report = reporter
     }
-    
 
-    public func processFiles(files: [String]) {
+
+    func processFiles(files: [String]) {
         for filename in files {
             processFile(filename)
         }
@@ -38,17 +38,14 @@ public class FileProcessor<T> {
         }
         else {
             if let fileError = error {
-                reporter("Could not process file '\(filename)' [\(fileError)]")
+                report.error("Could not process file '\(filename)' [\(fileError)]")
             }
         }
     }
     
     private func processLine(line: String) {
-        let (lineResult, errorMessage) = reader(line)
-        if let error = errorMessage {
-            reporter(error)
-        } else if let lineValue = lineResult {
-            processor(lineValue)
+        if let lineValue = read(line, report) {
+            report.success(process(lineValue))
         }
     }
 }

@@ -12,6 +12,7 @@
 		65A2250F1A62DE1100F7BEE9 /* FileProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A2250E1A62DE1100F7BEE9 /* FileProcessor.swift */; };
 		65A225111A62E21C00F7BEE9 /* ChangeMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A225101A62E21C00F7BEE9 /* ChangeMaker.swift */; };
 		65AC96D71A74396500F1F438 /* ValueReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC96D61A74396500F1F438 /* ValueReader.swift */; };
+		65C4D2471A8BB9ED0062CD84 /* Reporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C4D2461A8BB9ED0062CD84 /* Reporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +35,7 @@
 		65A225101A62E21C00F7BEE9 /* ChangeMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeMaker.swift; sourceTree = "<group>"; };
 		65A225121A62E7C200F7BEE9 /* change.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = change.txt; path = ../change.txt; sourceTree = "<group>"; };
 		65AC96D61A74396500F1F438 /* ValueReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueReader.swift; sourceTree = "<group>"; };
+		65C4D2461A8BB9ED0062CD84 /* Reporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				652FD9CE1A75516600706362 /* ChangeFileProcessor.swift */,
 				65A225101A62E21C00F7BEE9 /* ChangeMaker.swift */,
 				65A225121A62E7C200F7BEE9 /* change.txt */,
+				65C4D2461A8BB9ED0062CD84 /* Reporter.swift */,
 			);
 			path = CashRegister;
 			sourceTree = "<group>";
@@ -136,6 +139,7 @@
 				652FD9CF1A75516600706362 /* ChangeFileProcessor.swift in Sources */,
 				65AC96D71A74396500F1F438 /* ValueReader.swift in Sources */,
 				65A225111A62E21C00F7BEE9 /* ChangeMaker.swift in Sources */,
+				65C4D2471A8BB9ED0062CD84 /* Reporter.swift in Sources */,
 				65A224F51A62D86200F7BEE9 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
