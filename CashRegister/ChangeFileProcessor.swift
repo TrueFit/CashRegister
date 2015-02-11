@@ -7,17 +7,16 @@
 
 import Foundation
 
-class ChangeFileProcessor {
-    class func processFiles(files: [String]) {
+public class ChangeFileProcessor {
+    public class func processFiles(files: [String]) {
         let lineReader = ValueReader().readTwoDollarValuesInPennies
         let computeChange = ChangeMaker().computeChange
-        //let reporter = ErrorReporter().reportError
         let fileProcessor = FileProcessor(lineReader: lineReader, valueProcessor: computeChange, errorReporter: writeError)
     
         fileProcessor.processFiles(files)
     }
     
-    class func writeError(message : String) {
+    private class func writeError(message : String) {
         println("Error: \(message)")
     }
 }

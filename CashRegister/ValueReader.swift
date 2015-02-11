@@ -2,57 +2,55 @@
 //  ValueReader.swift
 //  CashRegister
 //
-//  Created by Daniel Otto Abeshouse on 2015-1-24.
-//  Copyright (c) 2015 Daniel Otto Abeshouse. All rights reserved.
-//
 
 import Foundation
 
-class ValueReader {
+public class ValueReader {
     
-    func readTwoDollarValuesInPennies(line: String) -> ReadValue<(Int, Int)> {
+    public func readTwoDollarValuesInPennies(line: String) -> ((Int, Int)?, String?) {
         let values = split(String(line)) {$0 == ","}
         if values.count != 2 {
-            return ReadValue.Error("Incorrect number of values.")
+            return (nil, "Incorrect number of values in '\(line)'.")
         }
         
-        switch readCentValue(values[0]) {
-        case .Result(let firstPennies):
-            switch readCentValue(values[1]) {
-            case .Result(let secondPennies):
-                return ReadValue.Result(firstPennies, secondPennies)
-            case .Error(let error):
-                return ReadValue.Error("Invalid second value: \(error)")
-            }
-        case .Error(let error):
-            return ReadValue.Error("Invalid first value: \(error)")
+        let (firstPennies, firstError) = readPennyValue(values[0])
+        if let error = firstError {
+            return (nil, "Invalid first value - \(error)")
         }
+        
+        let (secondPennies, secondError) = readPennyValue(values[1])
+        if let error = secondError {
+            return (nil, "Invalid second value - \(error)")
+        }
+        
+        if let first = firstPennies {
+            if let second = secondPennies {
+                return ((first, second), nil)
+            }
+        }
+        assert (false, "Will always get result or error and never reach here.")
+        return (nil, "Will not reach here.")
     }
 
-    func readCentValue(num: String) -> ReadValue<Int> {
-//    func readCentValue(num: String) -> Int? {
+    private func readPennyValue(num: String) -> (Int?, String?) {
         let trimmedNumber = num.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         let values = split(trimmedNumber) {$0 == "."}
         if values.count > 2 {
-            return ReadValue.Error("Incorrect currency format.")
+            return (nil, "Incorrect currency format in '\(num)'.")
         }
         if let dollarValue = values[0].toInt() {
             if values.count > 1 {
                 if let centValue = values[1].toInt() {
                     if centValue < 100 {
-                        return ReadValue.Result(100 * dollarValue + centValue)
+                        return (100 * dollarValue + centValue, nil)
                     }
                 }
-                return ReadValue.Error("Incorrect cent format.")
+                return (nil, "Incorrect cent format in '\(num)'.")
             } else {
-                return ReadValue.Result(100 * dollarValue)
+                return (100 * dollarValue, nil)
             }
         } else {
-            return ReadValue.Error("Incorrect dollar format.")
+            return (nil, "Incorrect dollar format in '\(num)'.")
         }
     }
-    
-    /*func error(message : String) {
-        println("Error: \(message)")
-    }*/
 }

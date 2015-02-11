@@ -2,8 +2,7 @@
 //  main.swift
 //  CashRegister
 //
-//  Check for presence of file arguments.
-//  Exit if there are none otherwise invoke main process.
+//  Exit if there are no file arguments, otherwise invoke ChangeFileProcessor.
 //
 
 import Foundation
