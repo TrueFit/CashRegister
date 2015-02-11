@@ -11,8 +11,7 @@ class ChangeFileProcessor {
     class func processFiles(files: [String]) {
         let lineReader = ValueReader().readTwoDollarValuesInPennies
         let computeChange = ChangeMaker().computeChange
-        let r = Reporter()
-        let fileProcessor = FileProcessor(lineReader: lineReader, valueProcessor: computeChange, reporter: r)
+        let fileProcessor = FileProcessor(lineReader: lineReader, valueProcessor: computeChange, reporter: Reporter())
     
         fileProcessor.processFiles(files)
     }

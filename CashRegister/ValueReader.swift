@@ -2,6 +2,9 @@
 //  ValueReader.swift
 //  CashRegister
 //
+//  Reads single lines for expected values, either returning the values or reporting any errors.
+//  Initially only supports the reading of two dollar and cents values returned in pennies.
+//
 
 import Foundation
 
@@ -36,6 +39,8 @@ class ValueReader {
         return nil
     }
     
+    // Reads a single dollar value (e.g. 8 or 6.44) and converts it to integer pennies.
+    // Does not use existing number parsing to avoid floats holding currencies.
     private func readPennyValue(num: String, inout error: String?) -> (Int?) {
         let trimmedNumber = num.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         let values = split(trimmedNumber) {$0 == "."}

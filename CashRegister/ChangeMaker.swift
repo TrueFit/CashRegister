@@ -7,7 +7,7 @@ import Foundation
 
 class ChangeMaker {
     
-    // For each denomination there is penny value, singular description and plural
+    // For each denomination there is penny value, singular name, and plural name
     let descendingDenominations = [
         (2000, "hamilton", "hamiltons"),
         (1000, "sawbuck", "sawbucks"),
