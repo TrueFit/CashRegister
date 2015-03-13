@@ -1,0 +1,60 @@
+Amount owed = 12.65 Amount paid = 15.05 
+Your change is 2 dollars 1 quarter 1 dime 1 nickel 
+
+Amount owed = 1.33 Amount paid = 9.3 
+Your change is 7 dollars 3 quarters 2 dimes 2 pennies 
+
+Amount owed = 1.83 Amount paid = 15.23 
+Your change is 13 dollars 1 quarter 1 dime 1 nickel 
+
+Amount owed = 1.16 Amount paid = 13.14 
+Your change is 11 dollars 3 quarters 2 dimes 3 pennies 
+
+Amount owed = 6.05 Amount paid = 26.09 
+Your change is 20 dollars 4 pennies 
+
+Amount owed = 0.56 Amount paid = 0.84 
+Your change is 1 quarter 3 pennies 
+
+Amount owed = 4.67 Amount paid = 16.49 
+Your change is 11 dollars 3 quarters 1 nickel 2 pennies 
+
+Amount owed = 3 Amount paid = 27.52 
+Your change is 24 dollars 2 quarters 2 pennies 
+
+Amount owed = 1.25 Amount paid = 14.73 
+Your change is 13 dollars 1 quarter 2 dimes 3 pennies 
+
+Amount owed = 2.14 Amount paid = 7.41 
+Your change is 5 dollars 1 quarter 2 pennies 
+
+Amount owed = 1.84 Amount paid = 3.25 
+Your change is 1 dollar 1 quarter 1 dime 1 nickel 1 penny 
+
+Amount owed = 6.4 Amount paid = 40.69 
+Your change is 34 dollars 1 quarter 4 pennies 
+
+Amount owed = 0.53 Amount paid = 17.7 
+Your change is 17 dollars 1 dime 1 nickel 2 pennies 
+
+Amount owed = 0.1 Amount paid = 1.28 
+Your change is 1 dollar 1 dime 1 nickel 3 pennies 
+
+Amount owed = 14.22 Amount paid = 25.57 
+Your change is 11 dollars 1 quarter 1 dime 
+
+Amount owed = 2.23 Amount paid = 9.93 
+Your change is 7 dollars 2 quarters 2 dimes 
+
+Amount owed = 17.03 Amount paid = 36.13 
+Your change is 19 dollars 1 dime 
+
+Amount owed = 7.24 Amount paid = 14.05 
+Your change is 6 dollars 3 quarters 6 pennies 
+
+Amount owed = 13.18 Amount paid = 25.92 
+Your change is 12 dollars 2 quarters 24 pennies 
+
+Amount owed = 4.24 Amount paid = 25.89 
+Your change is 21 dollars 2 quarters 15 pennies 
+
