@@ -1,0 +1,10 @@
+c:\users\pat\documents\visual studio 2013\Projects\CashRegister\CashRegister\bin\docs\example_transactions.txt
+c:\users\pat\documents\visual studio 2013\Projects\CashRegister\CashRegister\bin\CashRegister.dll.config
+c:\users\pat\documents\visual studio 2013\Projects\CashRegister\CashRegister\bin\CashRegister.dll
+c:\users\pat\documents\visual studio 2013\Projects\CashRegister\CashRegister\bin\CashRegister.pdb
+c:\users\pat\documents\visual studio 2013\Projects\CashRegister\CashRegister\bin\CashRegister.xml
+c:\users\pat\documents\visual studio 2013\Projects\CashRegister\CashRegister\obj\Debug\CashRegister.Resources.resources
+c:\users\pat\documents\visual studio 2013\Projects\CashRegister\CashRegister\obj\Debug\CashRegister.vbproj.GenerateResource.Cache
+c:\users\pat\documents\visual studio 2013\Projects\CashRegister\CashRegister\obj\Debug\CashRegister.dll
+c:\users\pat\documents\visual studio 2013\Projects\CashRegister\CashRegister\obj\Debug\CashRegister.xml
+c:\users\pat\documents\visual studio 2013\Projects\CashRegister\CashRegister\obj\Debug\CashRegister.pdb
