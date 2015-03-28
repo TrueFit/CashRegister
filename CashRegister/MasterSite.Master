@@ -1,0 +1,16 @@
+﻿<%@ Master Language="vb" AutoEventWireup="false" CodeBehind="MasterSite.Master.vb" Inherits="CashRegister.MasterSite" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Cash Register</title>
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body>
+    <form id="formSite" runat="server">
+    <div>
+        <asp:ContentPlaceHolder ID="content_main" runat="server" />
+    </div>
+    </form>
+    <asp:ContentPlaceHolder ID="scripts" runat="server" />
+</body>
+</html>
