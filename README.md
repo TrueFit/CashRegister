@@ -1,6 +1,18 @@
 Cash Register
 ============
 
+The Solution
+------------
+
+Josh, The files are uploaded and ready to be looked at.  To run teh code you just have to run php start.php input.rxt (or whatever flatfile you want to test with.)  Per the
+instructions I assumed that this was part of a bigger system so the start script just handles autoloading and looping through the input file and calling the cashRegister class.  Output is sent
+sent back as an array and a hacked together "view" outputs the data to the screen.  AGain, I assumed there would be real view management in the "real" system so I did not
+address it here in my solution.  Looking forward to your feedback.
+
+Let me know if you have questions.  You can get me direct at scottmadeira@gmail.com
+
+Scott
+
 The Problem
 -----------
 Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
