@@ -1,6 +1,6 @@
 <?php
 
-class standardDenominationFactory
+class standardDenominationFactory extends denominationFactory
 {
 
     /**
@@ -33,13 +33,8 @@ class standardDenominationFactory
         $d->makeChange($amount);
 
         // Return amount and text string
-        $result[ 'quantity' ] = $d->getSelectedQuantity();
-        $result[ 'text' ] = $d->getText();
-        $result[ 'subTotal' ] = $d->getTotal();
-
-        return $result;
+        return $this->returnResults($d);
 
     }
-
 
 }

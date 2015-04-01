@@ -8,6 +8,8 @@ abstract class changeDrawer
      */
     const ONE_PENNY = 0.01;
 
+    const FLOAT_TOLERANCE = 0.00001;
+
     /**
      * @var float
      */
@@ -35,8 +37,8 @@ abstract class changeDrawer
 
     public function __construct($amount)
     {
-        $this->amount = $amount;
-        $this->amountRemaining = $amount;
+        $this->amount = $amount + changeDrawer::FLOAT_TOLERANCE;
+        $this->amountRemaining = $amount + changeDrawer::FLOAT_TOLERANCE;
     }
 
     /**

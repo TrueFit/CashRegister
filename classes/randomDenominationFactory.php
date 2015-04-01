@@ -1,23 +1,27 @@
 <?php
 
-class randomDenominationFactory
+class randomDenominationFactory extends denominationFactory
 {
 
     /**
      * Used by the drawer to know how many random choices it has
      *
      * @var int */
-    public $numDenominations = 8;
+    private $numDenominations = 8;
 
     /**
      * Based on the amount of change needed and the
      *
      * @param $amount - value of change still needed
-     * @param $index - which kind (penny, quarter, etc.) do I use
      * @return mixed
      */
-    public function getDenomination($amount, $index)
+    public function getDenomination($amount)
     {
+
+        /**
+         * Randomly pick a denomination to grab
+         */
+        $index = $this->randomAmount();
 
         switch ($index) {
             case 0:
@@ -51,12 +55,12 @@ class randomDenominationFactory
         $d->makeChange($amount);
 
         // Return amount and text string
-        $result[ 'quantity' ] = $d->getSelectedQuantity();
-        $result[ 'text' ] = $d->getText();
-        $result[ 'subTotal' ] = $d->getTotal();
+        return $this->returnResults($d);
 
-        return $result;
+    }
 
+    private function randomAmount(){
+        return rand(0, $this->numDenominations - 1);
     }
 
 }
