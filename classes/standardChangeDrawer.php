@@ -15,7 +15,7 @@ class standardChangeDrawer extends changeDrawer
      */
     public function calculateChange()
     {
-        $denominations = new standardDenominationFactory();
+        $denominations = DenominationFactory::build('standard');
 
         // Loop through the change "compartments"
         while ($this->amountRemaining >= changeDrawer::ONE_PENNY) {

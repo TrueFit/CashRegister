@@ -1,22 +1,17 @@
 <?php
 
-class denominationFactory
+class DenominationFactory
 {
 
-
-    /**
-     * Return the results of the cash grab
-     *
-     * @param $d
-     * @return mixed
-     */
-   protected function returnResults($d){
-       // Return amount and text string
-       $result[ 'quantity' ] = $d->getSelectedQuantity();
-       $result[ 'text' ] = $d->getText();
-       $result[ 'subTotal' ] = $d->getTotal();
-       return $result;
-   }
-
+    public static function build($type) {
+        // assumes the use of an autoloader
+        $drawer = $type . 'Denomination';
+        if (class_exists($drawer)) {
+            return new $drawer();
+        }
+        else {
+            throw new Exception("Invalid drawer type given.");
+        }
+    }
 
 }

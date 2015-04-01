@@ -14,7 +14,7 @@ class randomChangeDrawer extends changeDrawer
      */
     public function calculateChange()
     {
-        $denominations = new randomDenominationFactory();
+        $denominations = DenominationFactory::build('random');
 
         // Loop through random change "compartments" until we have the right amount of change
         while ($this->amountRemaining > changeDrawer::ONE_PENNY) {

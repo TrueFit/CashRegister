@@ -29,19 +29,14 @@ class CashRegister
         $this->amount = $tendered - $cost;
     }
 
-    /**
-     * Determine which change drawer you want to use based on business rules.
-     * The two defined here are standard (minimal "pieces" of change) and
-     * random (pull stuff from the drawer until you have the right amount)
-     *
-     */
+
     public function makeChange()
     {
-        if ($this->costDivisibleByThree()){
-            $this->changeDrawer = new randomChangeDrawer($this->amount);
-        } else {
-            $this->changeDrawer = new standardChangeDrawer($this->amount);
-        }
+        // Determine type based on the business rules.
+        $type = ($this->costDivisibleByThree($this->cost))? 'random': 'standard';
+
+        // Create a change drawer
+        $this->changeDrawer = DrawerFactory::build($type, $this->amount);
 
         // Calculate their change
         $this->changeDrawer->calculateChange();
@@ -72,14 +67,16 @@ class CashRegister
     }
 
     /**
-     * A business rule that determines how change is calculated
+     * Test for divisible by three - it gets a special drawer
      *
      * @return bool
      */
-    private function costDivisibleByThree()
+    private function costDivisibleByThree($amount)
     {
-        $divByThree = ! (bool) (($this->cost * 100) % 3);
+        $divByThree = ! (bool) (($amount * 100) % 3);
         return $divByThree;
     }
+
+
 
 }
