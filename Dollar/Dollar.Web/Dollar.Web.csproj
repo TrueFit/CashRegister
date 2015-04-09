@@ -89,8 +89,6 @@
     <Content Include="Assets\Fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Scripts\bootstrap.min.js" />
-    <Content Include="Assets\Scripts\dropzone.min.js" />
-    <Content Include="Assets\Scripts\file.js" />
     <Content Include="Assets\Scripts\jquery.min.js" />
     <Content Include="Assets\Styles\animate.min.css" />
     <Content Include="Assets\Styles\dropzone.min.css" />
