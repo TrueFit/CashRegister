@@ -20,14 +20,14 @@ namespace CashRegister
 
         public void CreateDefaultCurrencies()
         {
-            currencies.Add(new Currency("Twenty", "Twenties", (decimal)20.00));
-            currencies.Add(new Currency("Ten", "Tens", (decimal)10.00));
-            currencies.Add(new Currency("Five", "Fives", (decimal)5.00));
-            currencies.Add(new Currency("One", "Ones", (decimal)1.00));
-            currencies.Add(new Currency("Quarter", "Quarters", (decimal)0.25));
-            currencies.Add(new Currency("Dime", "Dimes", (decimal)0.10));
-            currencies.Add(new Currency("Nickle", "Nickles", (decimal)0.05));
-            currencies.Add(new Currency("Penny", "Pennies", (decimal)0.01));
+            currencies.Add(new Currency("twenty", "twenties", (decimal)20.00));
+            currencies.Add(new Currency("ten", "tens", (decimal)10.00));
+            currencies.Add(new Currency("five", "fives", (decimal)5.00));
+            currencies.Add(new Currency("one", "ones", (decimal)1.00));
+            currencies.Add(new Currency("quarter", "quarters", (decimal)0.25));
+            currencies.Add(new Currency("dime", "dimes", (decimal)0.10));
+            currencies.Add(new Currency("nickle", "nickles", (decimal)0.05));
+            currencies.Add(new Currency("penny", "pennies", (decimal)0.01));
         }
     }
     public class Currency

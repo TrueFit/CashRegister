@@ -8,19 +8,43 @@ namespace CashRegister
 {
     public class Change
     {
-        
+        private Currencies curr;
+
+        public Change()
+        {
+            curr = new Currencies();
+            curr.CreateDefaultCurrencies();
+        }
+
         public string GetChange(decimal total, decimal paid)
         {
             
-            return "1 Dollar";
+            return GetChange(paid - total);
         }
 
-        private string GetChange(int change)
+        private string GetChange(decimal change)
         {
-            return "";
+            string result = "";
+            string currencyName = "";
+            int value = 0;
+            foreach (Currency c in curr.currencies)
+            {
+                value = (int)(change / c.value);
+                change = change - ((decimal)value * c.value);
+                if (value > 0)
+                {
+                    if (value > 1)
+                    { currencyName = c.plural; }
+                    else
+                    { currencyName = c.name; }
+                    if (result.Length > 0) result += ",";
+                    result += value + " " + currencyName;
+                }
+            }
+            return result;
         }
 
-        private string GetChangeRandom(int change)
+        private string GetChangeRandom(decimal change)
         {
             return "";
         }
