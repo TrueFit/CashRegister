@@ -18,8 +18,15 @@ namespace CashRegister
 
         public string GetChange(decimal total, decimal paid)
         {
-            
-            return GetChange(paid - total);
+            decimal change = paid - total;
+            if (decimal.Remainder(total, 0.03m) == 0)
+            {
+                return GetChangeRandom(change);
+            }
+            else
+            {
+                return GetChange(change);
+            }
         }
 
         private string GetChange(decimal change)
@@ -50,7 +57,7 @@ namespace CashRegister
 
         private string GetChangeRandom(decimal change)
         {
-            return "";
+            return "Random Change";
         }
     }
 }

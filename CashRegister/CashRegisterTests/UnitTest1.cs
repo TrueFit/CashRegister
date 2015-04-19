@@ -15,10 +15,10 @@ namespace CashRegisterTests
         }
 
         [TestMethod]
-        public void Total_30_Paid_50_Result_20()
+        public void Total_10_Paid_30_Result_20()
         {
             var chng = new CashRegister.Change();
-            string result = chng.GetChange(30, 50);
+            string result = chng.GetChange(10, 30);
             Assert.AreEqual("1 twenty", result);
         }
 
@@ -39,11 +39,11 @@ namespace CashRegisterTests
         }
 
         [TestMethod]
-        public void Total_15_Paid_30_Result_15()
+        public void Total_16_Paid_30_Result_14()
         {
             var chng = new CashRegister.Change();
-            string result = chng.GetChange(15, 30);
-            Assert.AreEqual("1 ten,1 five", result);
+            string result = chng.GetChange(16, 30);
+            Assert.AreEqual("1 ten,4 ones", result);
         }
 
         [TestMethod]
@@ -68,6 +68,8 @@ namespace CashRegisterTests
             var chng = new CashRegister.Change();
             string result = chng.GetChange(3.33m, 5.00m);
             Assert.AreNotEqual("1 one,2 quarters,1 dime,1 nickle,2 pennies", result);
+            // this is a not great test as every so often it will randomly manage to actually get this value
+            // the chances of this are so small that I'm not actually worried about it, though
         }
     }
 }

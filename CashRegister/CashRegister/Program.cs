@@ -17,6 +17,8 @@ namespace CashRegister
                 Console.WriteLine("{0} or {1} and has a value of {2}", crn.name, crn.plural, crn.value);
             }
             Console.ReadLine();
+
+
         }
     }
 }
