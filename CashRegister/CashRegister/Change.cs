@@ -57,7 +57,7 @@ namespace CashRegister
 
         private string GetChangeRandom(decimal change)
         {
-            Random rnd = new Random(1234);
+            Random rnd = new Random(Guid.NewGuid().GetHashCode());
             List<Currency> currencyRemaining = new List<Currency>(curr.currencies);
             List<Currency> currencyRemove = new List<Currency>();
             Dictionary<Currency, int> results = new Dictionary<Currency, int>();
@@ -100,6 +100,8 @@ namespace CashRegister
                 change -= currencyRemaining[rndCurrency].value * rndValue;
 
             }
+
+            // put these in order, no guarantee that this is actually ordered largest -> smallest
             foreach (KeyValuePair<Currency, int> kvp in results)
             {
                 if (kvp.Value > 1)
