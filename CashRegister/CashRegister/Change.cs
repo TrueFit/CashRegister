@@ -32,12 +32,16 @@ namespace CashRegister
                 value = (int)(change / c.value);
                 change = change - ((decimal)value * c.value);
                 if (value > 0)
-                {
+                {   
+                    // choose either singular or plural version
                     if (value > 1)
                     { currencyName = c.plural; }
                     else
                     { currencyName = c.name; }
+
+                    // if this is not the first thing added to result, add a comma
                     if (result.Length > 0) result += ",";
+
                     result += value + " " + currencyName;
                 }
             }
