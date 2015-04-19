@@ -57,7 +57,64 @@ namespace CashRegister
 
         private string GetChangeRandom(decimal change)
         {
-            return "Random Change";
+            Random rnd = new Random(1234);
+            List<Currency> currencyRemaining = new List<Currency>(curr.currencies);
+            List<Currency> currencyRemove = new List<Currency>();
+            Dictionary<Currency, int> results = new Dictionary<Currency, int>();
+
+            string result = "";
+            string currencyName = "";
+            int rndCurrency;
+            int rndValue;
+
+            while (change > 0)
+            {
+                // list all currencies and remove any that are too large to be useful
+                foreach (Currency currency in currencyRemaining)
+                {
+                    if (currency.value > change)
+                    {
+                        currencyRemove.Add(currency);
+                    }
+                }
+                
+                foreach (Currency currency in currencyRemove)
+                {
+                    currencyRemaining.Remove(currency);
+                }
+                currencyRemove.Clear();
+
+                rndCurrency = rnd.Next(currencyRemaining.Count);
+                rndValue = rnd.Next((int)(change / currencyRemaining[rndCurrency].value));
+                if (rndValue == 0) rndValue = 1; // don't waste time going through iterations that don't actually change the value
+
+                if (results.ContainsKey(currencyRemaining[rndCurrency]))
+                {
+                    results[currencyRemaining[rndCurrency]] += rndValue;
+                }
+                else
+                {
+                    results.Add(currencyRemaining[rndCurrency], rndValue);
+                }
+
+                change -= currencyRemaining[rndCurrency].value * rndValue;
+
+            }
+            foreach (KeyValuePair<Currency, int> kvp in results)
+            {
+                if (kvp.Value > 1)
+                {
+                    currencyName = kvp.Key.plural;
+                }
+                else
+                {
+                    currencyName = kvp.Key.name;
+                }
+                if (result.Length > 0) result += ",";
+                result += kvp.Value + " " + currencyName;
+
+            }
+            return result;
         }
     }
 }
