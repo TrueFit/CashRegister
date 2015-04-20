@@ -14,7 +14,7 @@ namespace CashRegister
         {
             curr = new Currencies();
             curr.CreateDefaultCurrencies();
-            curr.Add(new Currency("Fifty", "Fifties", 50m));
+            curr.Add(new Currency("fifty", "fifties", 50m));  // example of adding user currency
         }
 
         public string GetChange(decimal total, decimal paid)
@@ -57,7 +57,6 @@ namespace CashRegister
         {
             Random rnd = new Random(Guid.NewGuid().GetHashCode());
             List<Currency> currencyRemaining = new List<Currency>(curr.currencies);
-            List<Currency> currencyRemove = new List<Currency>();
             Dictionary<Currency, int> results = new Dictionary<Currency, int>();
 
             string result = "";
@@ -67,19 +66,7 @@ namespace CashRegister
             while (change > 0)
             {
                 // list all currencies and remove any that are too large to be useful
-                foreach (Currency currency in currencyRemaining)
-                {
-                    if (currency.value > change)
-                    {
-                        currencyRemove.Add(currency);
-                    }
-                }
-                
-                foreach (Currency currency in currencyRemove)
-                {
-                    currencyRemaining.Remove(currency);
-                }
-                currencyRemove.Clear();
+                RemoveLargeCurrencies(currencyRemaining, change);
 
                 rndCurrency = rnd.Next(currencyRemaining.Count);
                 rndValue = rnd.Next((int)(change / currencyRemaining[rndCurrency].value));
@@ -98,14 +85,34 @@ namespace CashRegister
 
             }
 
-            // put these in order, no guarantee that this is actually ordered largest -> smallest
-            foreach (KeyValuePair<Currency, int> kvp in results)
+            // put these in order, no guarantee that results is actually ordered largest -> smallest
+            var sortedResults = from entry in results orderby entry.Key.value descending select entry;
+
+            foreach (KeyValuePair<Currency, int> kvp in sortedResults)
             {
                 if (result.Length > 0) result += ",";
-                result += kvp.Value + " " + kvp.Key.Name();
+                result += kvp.Value + " " + kvp.Key.Name(kvp.Value);
 
             }
             return result;
+        }
+
+        private void RemoveLargeCurrencies(List<Currency> currencies, decimal change)
+        {
+            List<Currency> currencyRemove = new List<Currency>();
+            foreach (Currency currency in currencies)
+            {
+                if (currency.value > change)
+                {
+                    currencyRemove.Add(currency);
+                }
+            }
+
+            foreach (Currency currency in currencyRemove)
+            {
+                currencies.Remove(currency);
+            }
+            currencyRemove.Clear();
         }
     }
 }

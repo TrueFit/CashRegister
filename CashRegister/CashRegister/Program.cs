@@ -12,16 +12,19 @@ namespace CashRegister
         static void Main(string[] args)
         {
             Change change = new Change();
-
-            List<RegisterTransaction> transactions;
+            string filename;
             if (args.Length > 0)
             {
-                transactions = ReadFile(args[0]);
+                filename = args[0];
             }
             else
             {
-                transactions = ReadFile("tests.txt");
+                Console.WriteLine("Please enter a file name to parse: ");
+                filename = Console.ReadLine();
             }
+
+            List<RegisterTransaction> transactions;
+            transactions = ReadFile(filename);
 
             foreach (RegisterTransaction trans in transactions)
             {
@@ -29,6 +32,7 @@ namespace CashRegister
                 Console.WriteLine(trans.change);
             }
 
+            Console.WriteLine("Press enter to exit.");
             Console.ReadLine();
         }
 

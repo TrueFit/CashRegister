@@ -1,6 +1,6 @@
 ﻿To use:
 
-This program will take in an input file on the command line or default to tests.txt if no input is given.
+This program will take in an input file as the first argument on the command line or wait for a user to put in a file name if no arguments are given.
 
 It will output the most efficient change needed in most cases, unless the total cost of the items is evenly divisble by three. In this case, it will give a random amount of change.
 
@@ -15,7 +15,7 @@ ex Change.GetChange(1, 5) will return the following string: 4 ones
 
 Currencies
 ---
-This class holds the list of currencies that are available. This list can be altered, as long as the list is still in order from largest to smallest.
+This class holds the list of currencies that are available. Defaults to blank so users must either call CreateDefaultCurrencies() or add their own list. New entries can be added to this list and it will be automatically sorted properly.
 
 Currency
 ---

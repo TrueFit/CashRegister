@@ -68,9 +68,9 @@ namespace CashRegister
         {
             // gets the name for a given number
             // default is singular
-            // 0 is plural cause English is weird
+            // 0 is plural because English is weird
             // Also, this could be done with the System.Data.Entity.Design - might be worth looking into
-            // if it is used more often
+            // if it is used more often or going to be multi-lingual
 
             if ( number == 1)
             {
