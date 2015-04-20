@@ -11,7 +11,9 @@ namespace CashRegister
     {
         static void Main(string[] args)
         {
-            Change change = new Change();
+            ChangeMaker change = new ChangeMaker();
+            change.AddDefaultCurrencies();
+
             string filename;
             if (args.Length > 0)
             {

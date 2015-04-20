@@ -6,15 +6,37 @@ using System.Threading.Tasks;
 
 namespace CashRegister
 {
-    public class Change
+    public class ChangeMaker
     {
         private Currencies curr;
 
-        public Change()
+        public ChangeMaker()
         {
             curr = new Currencies();
-            curr.CreateDefaultCurrencies();
+        }
+
+        public Currencies currencies
+        {
+            get
+            {
+                return curr;
+            }
+        }
+
+        public void ClearCurrencies()
+        {
+            curr.Clear();
+        }
+
+        public void AddDefaultCurrencies()
+        {
+            curr.CreateDefaultCurrencies();            
             curr.Add(new Currency("fifty", "fifties", 50m));  // example of adding user currency
+        }
+
+        public void AddCurrency(Currency currency)
+        {
+            curr.Add(currency);
         }
 
         public string GetChange(decimal total, decimal paid)
@@ -30,6 +52,10 @@ namespace CashRegister
                 {
                     return GetChange(change);
                 }
+            }
+            if (change == 0)
+            {
+                return "No Change.";
             }
             return "Total was more than amount paid.";
         }
