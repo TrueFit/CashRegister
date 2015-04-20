@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CashRegisterTests
 {
     [TestClass]
-    public class CashRegisterTests
+    public class CashRegisterChangeIntegrationTests
     {
         private CashRegister.Change chng = new CashRegister.Change();
 

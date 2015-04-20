@@ -14,25 +14,29 @@ namespace CashRegister
         {
             curr = new Currencies();
             curr.CreateDefaultCurrencies();
+            curr.Add(new Currency("Fifty", "Fifties", 50m));
         }
 
         public string GetChange(decimal total, decimal paid)
         {
             decimal change = paid - total;
-            if (decimal.Remainder(total, 0.03m) == 0)
+            if (change > 0)
             {
-                return GetChangeRandom(change);
+                if (decimal.Remainder(total, 0.03m) == 0)
+                {
+                    return GetChangeRandom(change);
+                }
+                else
+                {
+                    return GetChange(change);
+                }
             }
-            else
-            {
-                return GetChange(change);
-            }
+            return "Total was more than amount paid.";
         }
 
         private string GetChange(decimal change)
         {
             string result = "";
-            string currencyName = "";
             int value = 0;
             foreach (Currency c in curr.currencies)
             {
@@ -40,16 +44,10 @@ namespace CashRegister
                 change = change - ((decimal)value * c.value);
                 if (value > 0)
                 {   
-                    // choose either singular or plural version
-                    if (value > 1)
-                    { currencyName = c.plural; }
-                    else
-                    { currencyName = c.name; }
-
                     // if this is not the first thing added to result, add a comma
                     if (result.Length > 0) result += ",";
 
-                    result += value + " " + currencyName;
+                    result += value + " " + c.Name(value);
                 }
             }
             return result;
@@ -63,7 +61,6 @@ namespace CashRegister
             Dictionary<Currency, int> results = new Dictionary<Currency, int>();
 
             string result = "";
-            string currencyName = "";
             int rndCurrency;
             int rndValue;
 
@@ -104,16 +101,8 @@ namespace CashRegister
             // put these in order, no guarantee that this is actually ordered largest -> smallest
             foreach (KeyValuePair<Currency, int> kvp in results)
             {
-                if (kvp.Value > 1)
-                {
-                    currencyName = kvp.Key.plural;
-                }
-                else
-                {
-                    currencyName = kvp.Key.name;
-                }
                 if (result.Length > 0) result += ",";
-                result += kvp.Value + " " + currencyName;
+                result += kvp.Value + " " + kvp.Key.Name();
 
             }
             return result;

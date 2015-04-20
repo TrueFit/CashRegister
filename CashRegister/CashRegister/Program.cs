@@ -44,11 +44,12 @@ namespace CashRegister
                 while ((line = file.ReadLine()) != null)
                 {
                     splitLine = line.Split(',');
+                    // if there are fewer or more than 2 items, the input line is invalid
                     if (splitLine.Length == 2)
                     {
+                        // verify input
                         if (decimal.TryParse(splitLine[0], out total) && (decimal.TryParse(splitLine[1], out paid)))
                         {
-                            //not the cleanest way to do this
                             transactions.Add(new RegisterTransaction { total = total, paid = paid });
                             Console.Write("Added -> ");
                         }

@@ -38,7 +38,18 @@ namespace CashRegister
             _currencies.Add(new Currency("penny", "pennies", (decimal)0.01));
         }
 
-        
+        public void Clear()
+        {
+            _currencies.Clear();
+        }
+
+        public void Add(Currency currency)
+        {
+            _currencies.Add(currency);
+
+            _currencies = _currencies.OrderByDescending(o => o.value).ToList();
+        }
+
     }
     public class Currency
     {
@@ -51,6 +62,21 @@ namespace CashRegister
             name = Name;
             plural = Plural;
             value = Value;
+        }
+
+        public string Name(int number = 1)
+        {
+            // gets the name for a given number
+            // default is singular
+            // 0 is plural cause English is weird
+            // Also, this could be done with the System.Data.Entity.Design - might be worth looking into
+            // if it is used more often
+
+            if ( number == 1)
+            {
+                return name;
+            }
+            return plural;
         }
 
     }
