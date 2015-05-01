@@ -1,0 +1,195 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>Creative Cash Draw Solutions Register</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+            	var changeHTML = "";
+			    $("#filename").change(function(e) {
+			    	//clear output field
+			    	$("#change").html("Getting Receipt");
+
+			    	checkFileExtension() ? $("#change").html(makeChange(e)) : $("#change").html("Please upload a CSV file");
+			    });
+			});
+        </script>
+    </head>
+    <body>
+        <a>Creative Cash Draw Solutions Register</a><br /><br />
+		<input type="file" name="filename" id="filename"><br/><br />
+        <div id="change"></div>
+    </body>
+</html>
+
+<script>
+	//check that the file is a csv on input
+	function checkFileExtension() {
+		//get file extension so we can make sure it is a csv file
+		var ext = $("input#filename").val().split(".").pop().toLowerCase();
+
+		//if file not a csv stop processing
+		if($.inArray(ext, ["csv"]) == -1) {
+		    return false;
+		}
+		return true;
+	}
+
+	function makeChange(e, callback){
+		var change = "";
+		if (e.target.files != undefined) {
+			var reader = new FileReader();
+			//set file reader
+			reader.readAsText(e.target.files.item(0));
+			reader.onload = function(e) {
+				var lineSplit = e.target.result.split("\n");
+				//loop the lines
+				for(var j = 0; j < lineSplit.length; j++) {
+					var commaSplit = lineSplit[j].split(",");
+					 //check line has two numbers as first to values
+					 if($.isNumeric(commaSplit[0]) && $.isNumeric(commaSplit[1])){
+						 //convert strings to floats so we can do arithmatic
+						 var amtOwed = parseFloat(commaSplit[0]);
+						 var amtPaid = parseFloat(commaSplit[1]);
+
+						 //make sure second value is greater than the first value
+						 if(amtPaid >= amtOwed){
+							//check if amtOwed divisible by three - if it is random change
+							if(amtOwed * 100 % 3 == 0){
+								//change += "Random Change. <br/>";
+								change += getChangeRandom(amtOwed);
+							}
+							//check if amtOwed divisible by three - if it is not then least amount of change
+							else
+							{
+								//change += "Optimized Change. <br/>";
+								change += getChangeMinPhysical(amtOwed);
+							}			  	
+
+						 }else{
+						 	change += "Not enough payement rendered. <br/>";
+						 }
+					 }else{
+					 	change += "One of the values supplied is not a number. <br/>";
+					 }
+				}
+			};
+		}
+
+		//Output change 
+		alert("File Done Processing.")
+		return change;
+	}
+	
+	function getChangeMinPhysical(amtOwed){
+		//amount owed in pennies
+		var amtStillOwed = amtOwed * 100;
+		var change = "";
+
+		//loop through currencyDict
+		$.each(currencyDict, function(denomination, pennies){
+			if (amtStillOwed > pennies){				
+				
+				//get the number of the denomination used
+				var wipChange = parseInt(amtStillOwed/pennies)
+
+				//if change is a white space then no need for a comma
+				change != "" ? change += ", " : false;
+
+				//want to have the correct suffix on the denomination
+				var wipDenomination = getDenomination(denomination, wipChange);
+
+				change += wipChange + " " + wipDenomination;
+
+				amtStillOwed = parseInt(amtStillOwed%pennies )
+				
+			}
+		});
+
+		return change + "<br />";
+		
+	}
+
+	function getChangeRandom(amtOwed){
+		//amount owed in pennies
+		var amtStillOwed = amtOwed * 100;
+		var change = "";
+		
+
+		while(amtStillOwed > 0){
+			var wipCurrencyDict = {};
+
+			//Make dictionary only values less than amount owed
+			$.each(currencyDict, function(denomination, pennies){
+				if (amtStillOwed > pennies){
+					wipCurrencyDict[denomination] = pennies;
+				}
+
+				
+			});
+
+			//get random change
+			var rdmCurrencyKey = fetchRandom(wipCurrencyDict);
+
+			//recalculate amount owed
+			//get the number of the denomination used
+			var wipChange = parseInt(amtStillOwed/currencyDict[rdmCurrencyKey])
+
+			//if change is a white space then no need for a comma
+			change != "" ? change += ", " : false;
+
+			//want to have the correct suffix on the denomination
+			var wipDenomination = getDenomination(rdmCurrencyKey, wipChange);
+
+			change += wipChange + " " + wipDenomination;
+
+			amtStillOwed = parseInt(amtStillOwed%currencyDict[rdmCurrencyKey] )
+
+		}
+
+		return change + "<br />";
+	}
+
+	function fetchRandom(dict) {
+	    var result;
+	    var count = 0;
+	    for (var prop in dict)
+	        if (Math.random() < 1/++count)
+	           result = prop;
+	    return result;
+	}
+
+	function getDenomination(denomination, wipChange){
+		var correctPluralOfDenomination = denomination;
+		if(wipChange > 1) {
+			switch (denomination){
+				case "Hundred":
+				case "Ten":
+				case "Dollar":
+				case "Quarter":
+				case "Dime":
+				case "Nickel":
+					correctPluralOfDenomination = denomination + "s";
+					break;
+				case "Fifty":
+				case "Twenty":
+				case "Penny":
+					correctPluralOfDenomination = denomination.substring(0, denomination.length - 1) + "ies";
+			}
+		}
+
+		return correctPluralOfDenomination;
+	}
+
+	var currencyDict ={
+		"Hundred" : 10000,
+		"Fifty" : 5000,
+		"Twenty" : 2000,
+		"Ten" : 1000,
+		"Dollar" : 100,
+		"Quarter" : 25,
+		"Dime" : 10,
+		"Nickel" : 5,
+		"Penny" : 1
+	};
+</script>
