@@ -1,0 +1,5 @@
+6 Dollars, 11 Nickles, 
+1 Ten, 1 Five, 4 Dollars, 1 Dime, 1 Penny 
+4 Twenties, 1 Five, 4 Dollars, 1 Quarter, 
+3 Quarters, 1 Dime, 
+5 Pennies 
