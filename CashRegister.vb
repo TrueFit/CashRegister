@@ -195,5 +195,4 @@ Module CashRegister
             remaingchange = remaingchange - (NumberOfDenomination * Denomination)
         Loop
     End Sub
-
 End Module
