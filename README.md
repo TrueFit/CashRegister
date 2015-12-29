@@ -42,5 +42,6 @@ Have fun.
 
 Usage
 --------------
-mvn clean install package
+mvn clean install
+
 java -jar ./target/cash-register-1.0.0.jar input.csv output.txt
