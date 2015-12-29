@@ -39,3 +39,8 @@ Please use whatever technology and techniques you feel are applicable to solve t
 Please fork this repository. When you have completed your solution, please issue a pull request to notify us that you are ready.
 
 Have fun.
+
+Usage
+--------------
+mvn clean install package
+java -jar ./target/cash-register-1.0.0.jar input.csv output.txt
