@@ -31,7 +31,7 @@ public class ChangeCreatorImpl implements ChangeCreator {
    */
   @Override
   public Map<Denomination, Integer> createChange(BigDecimal cost, BigDecimal paid) {
-    EnumMap<Denomination, Integer> output;
+    Map<Denomination, Integer> output;
     BigDecimal changeToMake = paid.subtract(cost);
 
     BigDecimal val = cost.multiply(ChangeCreatorImpl.ONE_HUNDRED);
@@ -52,8 +52,8 @@ public class ChangeCreatorImpl implements ChangeCreator {
    * @param changeToMake the amount of change needed
    * @return map of amount with matching denomination
    */
-  private EnumMap<Denomination, Integer> createRandomChange(BigDecimal changeToMake) {
-    EnumMap<Denomination, Integer> output;
+  private Map<Denomination, Integer> createRandomChange(BigDecimal changeToMake) {
+    Map<Denomination, Integer> output;
     List<Denomination> denominations = ChangeCreatorImpl.generateRandomList();
 
     output = this.makeChange(denominations, changeToMake);
@@ -106,8 +106,8 @@ public class ChangeCreatorImpl implements ChangeCreator {
    * @param changeToMake the amount of change required
    * @return map of amount with matching denomination
    */
-  private EnumMap<Denomination, Integer> createSmallestChange(BigDecimal changeToMake) {
-    EnumMap<Denomination, Integer> output;
+  private Map<Denomination, Integer> createSmallestChange(BigDecimal changeToMake) {
+    Map<Denomination, Integer> output;
     List<Denomination> denominations = ChangeCreatorImpl.generateLargestToSmallestList();
 
     output = this.makeChange(denominations, changeToMake);
@@ -122,9 +122,9 @@ public class ChangeCreatorImpl implements ChangeCreator {
    * @param changeToMake the amount of change to make
    * @return a map with denomination and amounts to make given change
    */
-  private EnumMap<Denomination, Integer> makeChange(List<Denomination> denominations,
+  private Map<Denomination, Integer> makeChange(List<Denomination> denominations,
       BigDecimal changeToMake) {
-    EnumMap<Denomination, Integer> output = new EnumMap<>(Denomination.class);
+    Map<Denomination, Integer> output = new EnumMap<>(Denomination.class);
     BigDecimal changeLeft = changeToMake;
 
     for (Denomination denomination : denominations) {
