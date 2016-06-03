@@ -10,6 +10,7 @@ Run It!
 -------
 `
 npm start
+Point your browser to http://localhost:8090/
 `
 Discussion
 ----------

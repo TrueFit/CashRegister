@@ -1,0 +1,14 @@
+body {
+    background: #eee url('../assets/images/CafePatio_StockImage.jpg') no-repeat fixed center;
+}
+
+.container {
+}
+
+.row {
+}
+
+.register {
+    margin-top: 200px;
+    background-color: #ddd;
+}
