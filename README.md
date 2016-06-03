@@ -1,6 +1,26 @@
 Cash Register
 ============
 
+Installation
+------------
+`
+npm install
+`
+Run It!
+-------
+`
+npm start
+`
+Discussion
+----------
+Since we met at the React/Redux meetup, I decided to make mine a React component.
+Actually, two components, one that is interactive and one that accepts an input file.
+
+Clarification
+-------------
+Requirement 1 "Accept a flat file as input" is ambiguous. In the real world, I would ask
+the product owner how they want to go about this. In my example, it is uploaded via a web form.
+
 The Problem
 -----------
 Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
@@ -39,3 +59,4 @@ Please use whatever technology and techniques you feel are applicable to solve t
 Please fork this repository. When you have completed your solution, please issue a pull request to notify us that you are ready.
 
 Have fun.
+
