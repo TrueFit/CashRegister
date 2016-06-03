@@ -21,9 +21,16 @@ Clarification
 Requirement 1 "Accept a flat file as input" is ambiguous. In the real world, I would ask
 the product owner how they want to go about this. In my example, it is uploaded via a web form.
 
+"Randomly generate change denominations" is also ambiguous. In my example, the app will 
+randomly choose which denomination to start with, then which one is next, etc. until 
+all change has been allocated.
+
 The Problem
 -----------
-Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
+Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. 
+The function of the application is to tell the cashier how much change is owed, and what denominations should be used. 
+In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. 
+If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
 
 Please write a program which accomplishes the clients goals. The program should:
 
