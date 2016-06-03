@@ -1,0 +1,39 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="995" measuredH="741" mockupW="915" mockupH="702">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="80" y="39" w="915" h="702" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cafe%20Pierre%20Cappuccino%20%26%20Bistro</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Image" x="105" y="167" w="464" h="398" measuredW="1698" measuredH="1131" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>../../src/assets/images/CafePatio_StockImage.jpg</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="154" y="126" w="-1" h="-1" measuredW="301" measuredH="32" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>1265500</color>
+        <size>24</size>
+        <text>Record%20Customer%20Purchase</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Canvas" x="636" y="374" w="327" h="191" measuredW="100" measuredH="70" zOrder="3" locked="false" isInGroup="-1"/>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="707" y="447" w="-1" h="-1" measuredW="184" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cash%20Register%20component%20here</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::StickyNote" x="503" y="487" w="197" h="168" measuredW="109" measuredH="123" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>The%20barista%20uses%20this%20page%20%0Ato%20record%20the%20customer%27s%20%0Apurchase%20and%20compute%20change%20due.</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Canvas" x="636" y="167" w="327" h="194" measuredW="100" measuredH="70" zOrder="6" locked="false" isInGroup="-1"/>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="700" y="246" w="-1" h="-1" measuredW="199" measuredH="21" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Purchase%2C%20quantity%2C%20price%2C%20etc%20here</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

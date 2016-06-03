@@ -1,0 +1,54 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="702" measuredH="545" mockupW="664" mockupH="518">
+  <controls>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Canvas" x="38" y="27" w="382" h="518" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::StickyNote" x="398" y="213" w="304" h="168" measuredW="109" measuredH="123" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>This%20is%20the%20batch%20cash%20register.%0A%20%0ASee%20previous%20mockup%20for%20the%20interactive%20version.</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::Label" x="52" y="57" w="-1" h="-1" measuredW="55" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Input%20file%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::TextInput" x="116" y="54" w="175" h="-1" measuredW="169" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>/Users/Fred/cash/test.txt</text>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Button" x="306" y="53" w="-1" h="-1" measuredW="30" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>...</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::DataGrid" x="63" y="367" w="-1" h="-1" measuredW="320" measuredH="141" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Line%2CDollars%2CQuarters%2CDimes%2CNickels%2CPennies%0A1%2C1%2C2%2C%2C%2C4%0A2%2C6%2C%2C%2C%2C4%0A3%2C5%2C%2C1%2C1%2C3%0A4%2C%2C41%2C%2C2%2C2</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Label" x="165" y="327" w="-1" h="-1" measuredW="102" measuredH="26" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <size>18</size>
+        <text>Change%20Due</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::DataGrid" x="63" y="147" w="320" h="141" measuredW="241" measuredH="141" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Line%2CAmount%20Due%2CAmount%20Tendered%0A1%2C3.46%2C5.00%0A2%2C4.21%2C10.25%0A3%2C4.82%2C10.00%0A4%2C9.63%20*%2C20.00</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Label" x="197" y="111" w="-1" h="-1" measuredW="53" measuredH="26" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <size>18</size>
+        <text>Inputs</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::Label" x="111" y="297" w="-1" h="-1" measuredW="111" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>*%20Random%20Change%21</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
