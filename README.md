@@ -26,6 +26,10 @@ the product owner how they want to go about this. In my example, it is uploaded 
 randomly choose which denomination to start with, then which one is next, etc. until 
 all change has been allocated.
 
+Even the definition of "divisible by 3" can be confusing. For example, 3.33 clearly is,
+and 2.18 clearly is not, but what about 2.34? The quotient is 0.78. Since we are dealing
+with money, my definition is "multiply by 100 and then is it divisible by 3"?
+
 The Problem
 -----------
 Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. 
