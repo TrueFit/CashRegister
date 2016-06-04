@@ -1,9 +1,52 @@
 Cash Register
 ============
 
+Installation
+------------
+``
+npm install
+``
+Run It!
+-------
+``
+npm start
+``
+
+After it starts, point your browser to `http://localhost:8090/`
+
+Discussion
+----------
+Since we met at the React/Redux meetup, I decided to make my cash register a React component that uses a Redux store. It's actually two components that share a store: one that is interactive and one that accepts an input file.
+
+In the interactive cash register, if you put in a value divisible by 3, click "Make Change" several times, you'll see the randomization change.
+ 
+In the batch cash register, I didn't want to take any more time on this to use redux-thunk and do the file upload "right". So there is a 2-step process to work around asynchronous file loading.
+
+For the batch cash register, there are two test files sitting in the /test directory if you want to use them. Or upload your own.
+
+The "meat" of the app is in /src/js/utilities/register.js and all the functions in there have tests.
+ 
+The UI is laid out with Bootstrap and is fully responsive.
+
+Assumptions
+-----------
+Requirement 1 "Accept a flat file as input" is ambiguous. In the real world, I would ask
+the product owner how they want to go about this. In my example, it is uploaded via a web form.
+
+"Randomly generate change denominations" is also ambiguous. In my example, the app will 
+randomly choose which denomination to start with, then which one is next, etc. until 
+all change has been allocated.
+
+Even the definition of "divisible by 3" can be confusing. For example, 3.33 clearly is,
+and 2.18 clearly is not, but what about 2.34? The quotient is 0.78. Since we are dealing
+with money, my definition is "multiply by 100 and then is it divisible by 3"?
+
 The Problem
 -----------
-Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
+Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. 
+The function of the application is to tell the cashier how much change is owed, and what denominations should be used. 
+In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. 
+If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
 
 Please write a program which accomplishes the clients goals. The program should:
 
@@ -39,3 +82,4 @@ Please use whatever technology and techniques you feel are applicable to solve t
 Please fork this repository. When you have completed your solution, please issue a pull request to notify us that you are ready.
 
 Have fun.
+

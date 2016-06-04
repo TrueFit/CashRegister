@@ -1,0 +1,39 @@
+body {
+    background: #eee url('../assets/images/CafePatio_StockImage.jpg') no-repeat fixed center;
+}
+
+.ccr {
+    margin-top: 50px;
+    padding-left: 20px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.ccr .title, .ccr-batch .title {
+    text-align: center;
+}
+
+.ccr-batch {
+    margin-top: 50px;
+    padding-left: 20px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.change {
+    padding-bottom: 20px;
+}
+
+.change .form-group {
+    margin-bottom: 0px;
+}
+
+.change-table {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    background-color: #ddd;
+}
+
+.change-table th, .change-table td {
+    text-align: center;
+}
