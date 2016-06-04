@@ -11,9 +11,8 @@ Run It!
 ``
 npm start
 ``
-``
-After it starts, point your browser to http://localhost:8090/
-``
+After it starts, point your browser to `http://localhost:8090/`
+
 Discussion
 ----------
 Since we met at the React/Redux meetup, I decided to make my cash register a React component that uses a Redux store. It's actually two components that share a store: one that is interactive and one that accepts an input file.
@@ -24,7 +23,9 @@ In the batch cash register, I didn't want to take any more time on this to use r
 
 For the batch cash register, there are two test files sitting in the /test directory if you want to use them. Or upload your own.
 
-The "meat" of the app is in /src/js/utilities/register.js and all the functions in there have tests. 
+The "meat" of the app is in /src/js/utilities/register.js and all the functions in there have tests.
+ 
+The UI is laid out with Bootstrap and is fully responsive.
 
 Assumptions
 -----------

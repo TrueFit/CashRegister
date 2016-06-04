@@ -3,7 +3,7 @@ import React, {PropTypes} from "react";
 const CashRegister = ({purchaseAmount, tenderedAmount, change, onMakeChange}) => {
     let inputPurch, inputTendered;
     return (
-        <div className="ccr">
+        <div className="ccr col-md-5 col-md-offset-1">
             <div className="row">
                 <h2 className="title">Creative Cash Register</h2>
                 <form className="form-horizontal"
@@ -17,7 +17,7 @@ const CashRegister = ({purchaseAmount, tenderedAmount, change, onMakeChange}) =>
                         }>
                     <div className="form-group">
                         <label htmlFor="inputPurch" className="col-xs-4 control-label">Purchase</label>
-                        <div className="col-xs-7">
+                        <div className="col-xs-6">
                             <input type="text"
                                    className="form-control"
                                    id="inputPurch"
@@ -29,7 +29,7 @@ const CashRegister = ({purchaseAmount, tenderedAmount, change, onMakeChange}) =>
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputTendered" className="col-xs-4 control-label">Amount Tendered</label>
-                        <div className="col-xs-7">
+                        <div className="col-xs-6">
                             <input type="text"
                                    className="form-control"
                                    id="inputTendered"
@@ -40,7 +40,7 @@ const CashRegister = ({purchaseAmount, tenderedAmount, change, onMakeChange}) =>
                         </div>
                     </div>
                     <div className="form-group">
-                        <div className="col-xs-offset-4 col-xs-7">
+                        <div className="col-xs-offset-4 col-xs-6">
                             <button type="submit"
                                     className="btn btn-default">
                                 Make Change

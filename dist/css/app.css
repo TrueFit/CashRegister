@@ -5,7 +5,7 @@ body {
 .ccr {
     margin-top: 50px;
     padding-left: 20px;
-    background-color: #ddd;
+    background-color: #eee;
     border-radius: 5px;
 }
 
@@ -14,7 +14,7 @@ body {
 }
 
 .ccr-batch {
-    margin-top: 20px;
+    margin-top: 50px;
     padding-left: 20px;
     background-color: #eee;
     border-radius: 5px;
@@ -30,6 +30,8 @@ body {
 
 .change-table {
     margin-bottom: 20px;
+    border: 1px solid #ccc;
+    background-color: #ddd;
 }
 
 .change-table th, .change-table td {

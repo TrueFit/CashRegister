@@ -4,14 +4,16 @@ const BatchFileInput = ({changeInputs, changeOutputs, onReadFile, onMakeBulkChan
     let inputFile;
 
     return (
-        <div className="ccr-batch">
+        <div className="ccr-batch col-md-5 col-md-offset-1">
             <div className="row">
                 <h2 className="title">Creative Bulk Cash Register</h2>
                 <form className="form-horizontal"
                       onSubmit={
                         e => {
                             e.preventDefault();
-                            onReadFile(inputFile.files[0]);
+                            if (inputFile.files && inputFile.files[0]) {
+                                onReadFile(inputFile.files[0]);
+                            }
                         }
                     }>
                     <div className="form-group">
@@ -102,6 +104,13 @@ const BatchFileInput = ({changeInputs, changeOutputs, onReadFile, onMakeBulkChan
             </div>
         </div>
     )
+}
+
+BatchFileInput.propTypes = {
+    changeInputs: PropTypes.array.isRequired,
+    changeOutputs: PropTypes.array.isRequired,
+    onReadFile: PropTypes.func.isRequired,
+    onMakeBulkChange: PropTypes.func.isRequired
 }
 
 const toTitleCase = (str) => {
