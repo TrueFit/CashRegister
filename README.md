@@ -3,22 +3,31 @@ Cash Register
 
 Installation
 ------------
-`
+``
 npm install
-`
+``
 Run It!
 -------
-`
+``
 npm start
-Point your browser to http://localhost:8090/
-`
+``
+``
+After it starts, point your browser to http://localhost:8090/
+``
 Discussion
 ----------
-Since we met at the React/Redux meetup, I decided to make mine a React component.
-Actually, two components, one that is interactive and one that accepts an input file.
+Since we met at the React/Redux meetup, I decided to make my cash register a React component that uses a Redux store. It's actually two components that share a store: one that is interactive and one that accepts an input file.
 
-Clarification
--------------
+In the interactive cash register, if you put in a value divisible by 3, click "Make Change" several times, you'll see the randomization change.
+ 
+In the batch cash register, I didn't want to take any more time on this to use redux-thunk and do the file upload "right". So there is a 2-step process to work around asynchronous file loading.
+
+For the batch cash register, there are two test files sitting in the /test directory if you want to use them. Or upload your own.
+
+The "meat" of the app is in /src/js/utilities/register.js and all the functions in there have tests. 
+
+Assumptions
+-----------
 Requirement 1 "Accept a flat file as input" is ambiguous. In the real world, I would ask
 the product owner how they want to go about this. In my example, it is uploaded via a web form.
 

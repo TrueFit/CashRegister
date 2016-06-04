@@ -55,7 +55,7 @@ export const makeOptimalChange = (changeAmount) => {
  * @returns {*|number}
  */
 export const makeChangeWithRandomDenominations = (changeAmount) => {
-    let remainder = changeAmount * 100;
+    let remainder = Math.round(changeAmount * 100);
     let denomCounts = [0, 0, 0, 0, 0];
     let denomInds = [0, 1, 2, 3, 4];
     while (denomInds.length) {
@@ -72,6 +72,25 @@ export const makeChangeWithRandomDenominations = (changeAmount) => {
     return convertToChangeObject(denomCounts);
 }
 
+/**
+ * Exactly like makeChange() except this accepts an array of N inputs and returns an array of N outputs
+ *
+ * @param bulkInputs
+ * @returns [{}]
+ */
+export const makeBulkChange = (bulkInputs) => {
+    let bulkOutputs = [];
+    bulkInputs.forEach(input => {
+        let output = makeChange(input.purchaseAmount, input.tenderedAmount);
+        if (output) {
+            bulkOutputs.push(output);
+        }
+        else {
+            bulkOutputs.push(convertToChangeObject([0, 0, 0, 0, 0]));
+        }
+    });
+    return bulkOutputs;
+}
 
 /**
  * Returns the highest number of the given denomination to return in change without going over.

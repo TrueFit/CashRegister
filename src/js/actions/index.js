@@ -6,3 +6,16 @@ export const makeChange = (purchaseAmount, tenderedAmount) => {
     }
 }
 
+export const readFile = (file) => {
+    return {
+        type: 'READ_FILE',
+        textFile: file
+    }
+}
+
+export const makeBulkChange = () => {
+    return {
+        type: 'MAKE_BULK_CHANGE'
+    }
+}
+

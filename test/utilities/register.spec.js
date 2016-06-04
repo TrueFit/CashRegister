@@ -3,7 +3,8 @@ import {
     getDenominationCount,
     makeChange,
     makeOptimalChange,
-    makeChangeWithRandomDenominations
+    makeChangeWithRandomDenominations,
+    makeBulkChange
 } from "../../src/js/utilities/register";
 
 describe('register utilities', () => {
@@ -119,6 +120,47 @@ describe('register utilities', () => {
             nickels: 1,
             pennies: 2
         })
+    })
+
+    it('should handle empty bulk inputs', () => {
+        let inputs = [];
+        let outputs = makeBulkChange(inputs);
+        expect(
+            outputs
+        ).toEqual([]);
+    })
+
+    it('should handle bulk inputs', () => {
+        let inputs = [{purchaseAmount: 1.43, tenderedAmount: 5.00}, {
+            purchaseAmount: 10,
+            tenderedAmount: 4.5
+        }, {purchaseAmount: 4.6, tenderedAmount: 10}];
+        let outputs = makeBulkChange(inputs);
+        expect(
+            outputs
+        ).toEqual([
+            {
+                dollars: 3,
+                quarters: 2,
+                dimes: 0,
+                nickels: 1,
+                pennies: 2
+            },
+            {
+                dollars: 0,
+                quarters: 0,
+                dimes: 0,
+                nickels: 0,
+                pennies: 0
+            },
+            {
+                dollars: 5,
+                quarters: 1,
+                dimes: 1,
+                nickels: 1,
+                pennies: 0
+            }
+        ]);
     })
 
 })

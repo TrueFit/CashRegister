@@ -2,21 +2,22 @@ body {
     background: #eee url('../assets/images/CafePatio_StockImage.jpg') no-repeat fixed center;
 }
 
-.container {
-}
-
-.row {
-}
-
 .ccr {
-    margin-top: 100px;
+    margin-top: 50px;
     padding-left: 20px;
     background-color: #ddd;
     border-radius: 5px;
 }
 
-.ccr .title {
+.ccr .title, .ccr-batch .title {
     text-align: center;
+}
+
+.ccr-batch {
+    margin-top: 20px;
+    padding-left: 20px;
+    background-color: #eee;
+    border-radius: 5px;
 }
 
 .change {
@@ -25,4 +26,12 @@ body {
 
 .change .form-group {
     margin-bottom: 0px;
+}
+
+.change-table {
+    margin-bottom: 20px;
+}
+
+.change-table th, .change-table td {
+    text-align: center;
 }
