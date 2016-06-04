@@ -49,6 +49,18 @@ describe('register utilities', () => {
         })
     })
 
+    it('should handle rounding property', () => {
+        expect(
+            makeOptimalChange(76.6)
+        ).toEqual({
+            dollars: 76,
+            quarters: 2,
+            dimes: 1,
+            nickels: 0,
+            pennies: 0
+        })
+    })
+
     it('should make random change totalling 6.54', () => {
         let change = makeChangeWithRandomDenominations(6.54);
         expect(
@@ -80,7 +92,13 @@ describe('register utilities', () => {
     it('should not handle negative amounts', () => {
         expect(
             makeChange(12.34, 5.00)
-        ).toEqual({})
+        ).toNotExist()
+    })
+
+    it('should only handle numbers', () => {
+        expect(
+            makeChange("abc", 5.00)
+        ).toNotExist()
     })
 
     it('should randomize', () => {

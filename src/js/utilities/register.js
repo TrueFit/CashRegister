@@ -12,9 +12,12 @@ const DENOMINATIONS = [100, 25, 10, 5, 1];
  * @returns {*|number}
  */
 export const makeChange = (purchaseAmount, tenderedAmount) => {
+    if (isNaN(purchaseAmount) || isNaN(tenderedAmount)) {
+        return null;
+    }
     let changeAmount = tenderedAmount - purchaseAmount;
     if (changeAmount <= 0) {
-        return {};
+        return null;
     }
     if ((purchaseAmount * 100) % 3 == 0) {
         return makeChangeWithRandomDenominations(changeAmount)
@@ -33,7 +36,7 @@ export const makeChange = (purchaseAmount, tenderedAmount) => {
  * @returns {*|number}
  */
 export const makeOptimalChange = (changeAmount) => {
-    let remainder = changeAmount * 100;
+    let remainder = Math.round(changeAmount * 100);
     let denomCounts = DENOMINATIONS.map(d => {
         let tempResult = getDenominationCount(remainder, d);
         remainder = tempResult.remainder;

@@ -1,8 +1,8 @@
 export const makeChange = (purchaseAmount, tenderedAmount) => {
     return {
         type: 'MAKE_CHANGE',
-        purchaseAmount: purchaseAmount,
-        tenderedAmount: tenderedAmount
+        purchaseAmount: Number(purchaseAmount),
+        tenderedAmount: Number(tenderedAmount)
     }
 }
 
