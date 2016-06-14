@@ -46,8 +46,14 @@ Usage
 Requires Ruby 2.0.0p643 or higher
 
 To run all tests:
-  % gem install 'test-unit'
-  % rake test
+
+```
+% gem install 'test-unit'
+% rake test
+```
 
 CLI:
-  % ./bin/CashRegister [filename]
+
+```
+% ./bin/CashRegister [filename]
+```
