@@ -39,3 +39,15 @@ Please use whatever technology and techniques you feel are applicable to solve t
 Please fork this repository. When you have completed your solution, please issue a pull request to notify us that you are ready.
 
 Have fun.
+
+
+Usage
+-----
+Requires Ruby 2.0.0p643 or higher
+
+To run all tests:
+  % gem install 'test-unit'
+  % rake test
+
+CLI:
+  % ./bin/CashRegister [filename]
