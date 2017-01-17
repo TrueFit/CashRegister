@@ -12,16 +12,35 @@ class Change
     convert_to_cents(amount_paid) - convert_to_cents(amount_owed)
   end
 
+  ##
+  # Generates a hash of denominations and the number of each
+  # to add up to the total owed to the customer.
+  #
+  # = Example:
+  #
+  #    {
+  #      dollar: 1,
+  #      quarter: 1,
+  #      dime: 2,
+  #      nickel: 4,
+  #      penny: 2
+  #    }
+
   def denominations
-    minimum_change = {}
+    random = (convert_to_cents(amount_owed) % 3 == 0)
     cents_remaining = cents
-    available_denominations.each do |d|
-      count = cents_remaining / d[:value]
-      next if count == 0
-      minimum_change[d[:name]] = count
-      cents_remaining = cents_remaining % (d[:value] * count)
+    available_denominations.inject({}) do |denom, v|
+      max_count = cents_remaining / v[:value]
+      count = random ? rand(max_count + 1) : max_count
+      if count > 0
+        denom[v[:name]] = count
+        cents_remaining = cents_remaining - (v[:value] * count)
+      end
+      if v[:name] == :penny && cents_remaining > 0
+        denom[:penny] = denom.fetch(:penny, 0) + cents_remaining
+      end
+      denom
     end
-    minimum_change
   end
 
   def to_s
