@@ -1,4 +1,4 @@
-require "change"
+require_relative "change"
 
 class Transaction
   attr_reader :change

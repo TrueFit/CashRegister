@@ -1,5 +1,3 @@
-require "pry"
-
 class Change
   attr_reader :amount_owed, :amount_paid
 
