@@ -1,0 +1,17 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+Style/StringLiterals:
+  Description: "Checks if uses of quotes match the configured preference."
+  StyleGuide: "https://github.com/bbatsov/ruby-style-guide#consistent-string-literals"
+  Enabled: false
+
+Style/Documentation:
+  Description: 'Document classes and non-namespace modules.'
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
