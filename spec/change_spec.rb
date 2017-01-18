@@ -31,8 +31,8 @@ describe Change do
     end
 
     it "calculates pennies" do
-      change = Change.new(amount_owed: 1.97, amount_paid: 2.00)
-      expect(change.denominations).to eql(penny: 3)
+      change = Change.new(amount_owed: 1.99, amount_paid: 2.00)
+      expect(change.denominations).to eql(penny: 1)
     end
 
     it "calculates nickels and pennies" do
@@ -57,8 +57,9 @@ describe Change do
         srand(82636)
       end
 
-      it "returns a random amount of denominations" do
+      it "returns a random amount of denominations for 3.33 paid with 5.00" do
         change = Change.new(amount_owed: 3.33, amount_paid: 5.00)
+        expect(change.sum_denominations).to eq 1.67
         expect(change.denominations).to eql(
           dollar: 1,
           quarter: 1,
@@ -66,23 +67,29 @@ describe Change do
           nickel: 4,
           penny: 2
         )
+      end
 
+      it "returns a random amount of denominations for 6.36 paid with 10.00" do
         change = Change.new(amount_owed: 6.36, amount_paid: 10.00)
+        expect(change.sum_denominations).to eq 3.64
         expect(change.denominations).to eql(
-          dollar: 1,
-          quarter: 9,
+          dollar: 3,
+          quarter: 1,
           dime: 2,
-          nickel: 2,
-          penny: 9
+          nickel: 1,
+          penny: 14
         )
+      end
 
+      it "returns a random amount of denominations for 0.03 paid with 5.00" do
         change = Change.new(amount_owed: 0.03, amount_paid: 5.00)
+        expect(change.sum_denominations).to eq 4.97
         expect(change.denominations).to eql(
           dollar: 2,
-          quarter: 6,
-          dime: 12,
-          nickel: 3,
-          penny: 12
+          quarter: 5,
+          dime: 10,
+          nickel: 5,
+          penny: 47
         )
       end
     end

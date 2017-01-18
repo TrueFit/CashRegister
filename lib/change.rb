@@ -6,10 +6,6 @@ class Change
     @amount_paid = amount_paid
   end
 
-  def cents
-    convert_to_cents(amount_paid) - convert_to_cents(amount_owed)
-  end
-
   ##
   # Generates a hash of denominations and the number of each
   # to add up to the total owed to the customer.
@@ -25,20 +21,21 @@ class Change
   #    }
 
   def denominations
-    random = (convert_to_cents(amount_owed) % 3 == 0)
-    cents_remaining = cents
-    available_denominations.inject({}) do |denom, v|
-      max_count = cents_remaining / v[:value]
-      count = random ? rand(max_count + 1) : max_count
-      if count > 0
-        denom[v[:name]] = count
-        cents_remaining = cents_remaining - (v[:value] * count)
-      end
-      if v[:name] == :penny && cents_remaining > 0
-        denom[:penny] = denom.fetch(:penny, 0) + cents_remaining
-      end
-      denom
+    @denominations ||= calculate_denominations(cents)
+  end
+
+  def cents
+    convert_to_cents(amount_paid) - convert_to_cents(amount_owed)
+  end
+
+  def sum_denominations
+    total_cents = denominations.reduce(0) do |sum, denom_count|
+      name = denom_count[0]
+      count = denom_count[1]
+      denom = available_denominations.find { |ad| ad[:name] == name }
+      sum + count * denom[:value]
     end
+    total_cents / 100.0
   end
 
   def to_s
@@ -52,6 +49,15 @@ class Change
   end
 
   private
+
+  def calculate_denominations(cents_remaining)
+    available_denominations.each_with_object({}) do |denom, change_amounts|
+      count = cents_remaining / denom[:value]
+      count = rand(count + 1) if random_change? && denom[:name] != :penny
+      change_amounts[denom[:name]] = count if count > 0
+      cents_remaining -= denom[:value] * count
+    end
+  end
 
   def convert_to_cents(amount)
     (amount * 100).to_i
@@ -69,6 +75,10 @@ class Change
     {
       penny: "pennies"
     }
+  end
+
+  def random_change?
+    convert_to_cents(amount_owed) % 3 == 0
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -95,5 +105,9 @@ class Change
         value: 1
       }
     ]
+  end
+
+  def random_amount?
+    (convert_to_cents(amount_owed) % 3 == 0)
   end
 end
