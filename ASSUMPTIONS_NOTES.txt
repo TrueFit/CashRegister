@@ -1,0 +1,11 @@
+Assumptions:
+
+-> Input files are located directly in the BIN directory
+-> Output files are created directly into the BIN directory
+-> This program can support more than just US Currency
+-> If the chosen currency does not have coins to represent all possible amount of change due (ie if pennis didn't exist), return the closest possible.
+-> This method would be called by some interface other than a file input.  As such, the console app portion of the code performs all parsing, error checking, etc.
+
+Future Improvements:
+
+-> It would be interesting to calculate and output all possible combinations of change that could be given for an amount (Dynamic Programming, anyone???)
