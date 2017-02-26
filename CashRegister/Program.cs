@@ -14,17 +14,18 @@ namespace CashRegister
         /// Gets Names of each money denomination.
         /// </summary>
         /// <returns>List of money denomination names.</returns>
-        public static List<string> GetDenominationNames()
+        public static List<string> GetDenominationNames(string keyName) 
         {
             var denominationNames = new List<string>();
             var numDenoms = Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfDenominations"]);
-  
-            for(int i = 0; i < numDenoms; i++)
-            {
-                var denomination = ConfigurationManager.AppSettings["DenominationName" + i];
+            
+
+            for (int i = 0; i < numDenoms; i++)
+            {    
+                var denomination = ConfigurationManager.AppSettings[keyName + i];
                 denominationNames.Add(denomination);
             }
-
+                        
             return denominationNames;
         }
 
@@ -94,26 +95,35 @@ namespace CashRegister
         /// <param name="denominationNames">Names of the money denominations.</param>
         /// <param name="moniesUsedDict">Dictionary containing the amounts of each denomination used.</param>
         /// <returns></returns>
-        public static string GenerateOutput(List<string> denominationNames, Dictionary<string, int> moniesUsedDict)
+        public static string GenerateOutput(List<string> denominationNames, List<string> pluralDenomination, Dictionary<string, int> moniesUsedDict)
         {
             var output = new StringBuilder();
 
-            foreach(string name in denominationNames)
+            for (int i = 0; i < denominationNames.Count; i++)
             {
-                if(!moniesUsedDict.ContainsKey(name))
+                var name = denominationNames[i];
+                if (!moniesUsedDict.ContainsKey(name))
                 {
                     continue;
                 }
+
                 var numUsed = moniesUsedDict[name];
                 if(numUsed == 0)
                 {
                     continue;
                 }
 
+                //use plural name
+                if(numUsed > 1)
+                {
+                    name = pluralDenomination[i];
+                }
+
                 var entry = $@"{numUsed} {name}, ";
                 output.Append(entry);
             }
-            
+
+                        
             output.Remove(output.Length - 2, 2);
             output.Append(".");
             output.Append(Environment.NewLine);
@@ -127,7 +137,8 @@ namespace CashRegister
             bool isDivisibleBy3 = false;
             var register = new CashRegister();
             var fileUtil = new FileProcessorUtil(@"E:\My Documents\Projects\CashRegister\CashRegister\input.txt");
-            var denominationNames = GetDenominationNames();
+            var denominationNames = GetDenominationNames("DenominationName");
+            var pluralDenominationNames = GetDenominationNames("DenominationNamePlural");
             var denominationValues = GetDenominationValues();
             StringBuilder output = new StringBuilder();
             
@@ -141,8 +152,11 @@ namespace CashRegister
                 isDivisibleBy3 = register.Action.Cost  % 3  == 0 ? true : false;
                 var change = register.Action.PerformTransaction();
                 var moneyUsed = CreateChange(change, denominationValues, denominationNames, isDivisibleBy3);
-                output.Append(GenerateOutput(denominationNames, moneyUsed));
+                output.Append(GenerateOutput(denominationNames, pluralDenominationNames, moneyUsed));
             }
+
+            fileUtil.Change = output.ToString();
+            fileUtil.WriteToFile(@"E:\My Documents\Projects\CashRegister\CashRegister\output.txt");
             
         }
     }

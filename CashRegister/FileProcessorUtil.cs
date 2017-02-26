@@ -62,5 +62,25 @@ namespace CashRegister
                 Console.WriteLine(Ex.Message);
             }
         }
+
+        internal void WriteToFile(string path)
+        {
+            path = Path.GetFullPath(path);
+
+            try
+            {
+
+                using (FileStream fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
+                using (BufferedStream bs = new BufferedStream(fs))
+                using (StreamWriter sw = new StreamWriter(bs))
+                {
+                    sw.Write(Change);
+                }                
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
     }
 }
