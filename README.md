@@ -4,7 +4,8 @@ Cash Register
 Solution
 -----------
 Below is a set of instructions to run the CashRegister Application:
-1. Ensure that the InputPath key in app.config contains the file path of the input file.
+
+1. Ensure that the InputPath key in app.config contains the file path of the input file
 2. The desired location of the output file should be contained in the OutputPath key of the app.config file.
 3. Either execute the application via Visual Studio or the executable located in bin folder.
 4. Inspect the output file for correctness.
