@@ -45,14 +45,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CashRegister.cs" />
-    <Compile Include="FileProcessorUtil.cs" />
+    <Compile Include="Utilities\FileProcessorUtil.cs" />
     <Compile Include="ITransaction.cs" />
+    <Compile Include="Utilities\ErrorLog.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sale.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

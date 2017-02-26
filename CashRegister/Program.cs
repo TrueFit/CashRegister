@@ -17,15 +17,26 @@ namespace CashRegister
         public static List<string> GetDenominationNames(string keyName) 
         {
             var denominationNames = new List<string>();
-            var numDenoms = Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfDenominations"]);
-            
+            try
+            {
+                var numDenoms = Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfDenominations"]);
 
-            for (int i = 0; i < numDenoms; i++)
-            {    
-                var denomination = ConfigurationManager.AppSettings[keyName + i];
-                denominationNames.Add(denomination);
+                for (int i = 0; i < numDenoms; i++)
+                {
+                    var denomination = ConfigurationManager.AppSettings[keyName + i];
+                    denominationNames.Add(denomination);
+                }
             }
-                        
+            catch (Exception ex)
+            {
+                string errorLogPath = AppDomain.CurrentDomain.BaseDirectory +
+                    "ErrorLog " + DateTime.Now.Date.Month + "-" +
+                    DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + " " +
+                    DateTime.Now.TimeOfDay.Hours + "H" + DateTime.Now.TimeOfDay.Minutes + "M" + ".txt";
+                ErrorLog log = new ErrorLog(errorLogPath);
+                log.WriteError(ex.Message);
+            }
+
             return denominationNames;
         }
 
@@ -36,14 +47,26 @@ namespace CashRegister
         public static List<int> GetDenominationValues()
         {
             var denominationValues = new List<int>();
-            var numDenoms = Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfDenominations"]);
-
-            for (int i = 0; i < numDenoms; i++)
+            try
             {
-                var value = Convert.ToInt32(ConfigurationManager.AppSettings["DenominationValue" + i]);
-                denominationValues.Add(value);
-            }
+                var numDenoms = Convert.ToInt32(ConfigurationManager.AppSettings["NumberOfDenominations"]);
 
+                for (int i = 0; i < numDenoms; i++)
+                {
+                    var value = Convert.ToInt32(ConfigurationManager.AppSettings["DenominationValue" + i]);
+                    denominationValues.Add(value);
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorLogPath = AppDomain.CurrentDomain.BaseDirectory +
+                    "ErrorLog " + DateTime.Now.Date.Month + "-" +
+                    DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + " " +
+                    DateTime.Now.TimeOfDay.Hours + "H" + DateTime.Now.TimeOfDay.Minutes + "M" + ".txt";
+                ErrorLog log = new ErrorLog(errorLogPath);
+                log.WriteError(ex.Message);
+            }
+            
             return denominationValues;
         }
 
@@ -60,32 +83,46 @@ namespace CashRegister
             var denominationsUsedDict = new Dictionary<string, int>();
             var indicesUsed = new HashSet<int>();
             
-            if(!isDivisibleBy3)
+            try
             {
-                for (int i = 0; i < denominationValues.Count; i++)
+                if (!isDivisibleBy3)
                 {
-                    var numItems = change / denominationValues[i];
-                    change %= denominationValues[i];
-                    denominationsUsedDict.Add(denominationNames[i], numItems);
-                }
-            }
-            else
-            {
-                while((indicesUsed.Count < denominationValues.Count) && (change != 0))
-                {
-                    var index = rnd.Next(denominationValues.Count);
-                    if(indicesUsed.Contains(index))
+                    for (int i = 0; i < denominationValues.Count; i++)
                     {
-                        continue;
+                        var numItems = change / denominationValues[i];
+                        change %= denominationValues[i];
+                        denominationsUsedDict.Add(denominationNames[i], numItems);
                     }
+                }
+                else
+                {
+                    //randomly chooses an index to determine which denomination to check until 
+                    //the change amount reaches 0.
+                    while ((indicesUsed.Count < denominationValues.Count) && (change != 0))
+                    {
+                        var index = rnd.Next(denominationValues.Count);
+                        if (indicesUsed.Contains(index))
+                        {
+                            continue;
+                        }
 
-                    indicesUsed.Add(index);
-                    var numItems = change / denominationValues[index];
-                    change %= denominationValues[index];
-                    denominationsUsedDict.Add(denominationNames[index], numItems);
+                        indicesUsed.Add(index);
+                        var numItems = change / denominationValues[index];
+                        change %= denominationValues[index];
+                        denominationsUsedDict.Add(denominationNames[index], numItems);
+                    }
                 }
             }
-            
+            catch (Exception ex)
+            {
+                string errorLogPath = AppDomain.CurrentDomain.BaseDirectory +
+                    "ErrorLog " + DateTime.Now.Date.Month + "-" +
+                    DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + " " +
+                    DateTime.Now.TimeOfDay.Hours + "H" + DateTime.Now.TimeOfDay.Minutes + "M" + ".txt";
+                ErrorLog log = new ErrorLog(errorLogPath);
+                log.WriteError(ex.Message);
+            }
+
             return denominationsUsedDict;
         }
 
@@ -99,65 +136,91 @@ namespace CashRegister
         {
             var output = new StringBuilder();
 
-            for (int i = 0; i < denominationNames.Count; i++)
+            try
             {
-                var name = denominationNames[i];
-                if (!moniesUsedDict.ContainsKey(name))
+                for (int i = 0; i < denominationNames.Count; i++)
                 {
-                    continue;
+                    var name = denominationNames[i];
+                    if (!moniesUsedDict.ContainsKey(name))
+                    {
+                        continue;
+                    }
+
+                    //get number of a given denomination used.
+                    var numUsed = moniesUsedDict[name];
+                    if (numUsed == 0)
+                    {
+                        continue;
+                    }
+
+                    //use plural name if more than one of said denomination is used.
+                    if (numUsed > 1)
+                    {
+                        name = pluralDenomination[i];
+                    }
+
+                    var entry = $@"{numUsed} {name}, ";
+                    output.Append(entry);
                 }
 
-                var numUsed = moniesUsedDict[name];
-                if(numUsed == 0)
-                {
-                    continue;
-                }
-
-                //use plural name
-                if(numUsed > 1)
-                {
-                    name = pluralDenomination[i];
-                }
-
-                var entry = $@"{numUsed} {name}, ";
-                output.Append(entry);
+                output.Remove(output.Length - 2, 2);
+                output.Append(".");
+                output.Append(Environment.NewLine);
             }
-
-                        
-            output.Remove(output.Length - 2, 2);
-            output.Append(".");
-            output.Append(Environment.NewLine);
+            catch (Exception ex)
+            {
+                string errorLogPath = AppDomain.CurrentDomain.BaseDirectory +
+                    "ErrorLog " + DateTime.Now.Date.Month + "-" +
+                    DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + " " +
+                    DateTime.Now.TimeOfDay.Hours + "H" + DateTime.Now.TimeOfDay.Minutes + "M" + ".txt";
+                ErrorLog log = new ErrorLog(errorLogPath);
+                log.WriteError(ex.Message);
+            }
 
             return output.ToString();
         }
-
 
         static void Main(string[] args)
         {
             bool isDivisibleBy3 = false;
             var register = new CashRegister();
-            var fileUtil = new FileProcessorUtil(@"E:\My Documents\Projects\CashRegister\CashRegister\input.txt");
-            var denominationNames = GetDenominationNames("DenominationName");
-            var pluralDenominationNames = GetDenominationNames("DenominationNamePlural");
-            var denominationValues = GetDenominationValues();
-            StringBuilder output = new StringBuilder();
-            
-            foreach(string sale in fileUtil.Transactions)
+
+            try
             {
-                var transactionSet = sale.Split(',');
-                register.Action = new Sale();
-                register.Action.Cost = (int)(Convert.ToDouble(transactionSet[0]) * 100);
-                register.Action.AmountPaid = (int)Convert.ToDouble(transactionSet[1]) * 100;
+                var inputPath = ConfigurationManager.AppSettings["InputPath"];
+                var outputPath = ConfigurationManager.AppSettings["OutputPath"];
+                var fileUtil = new FileProcessorUtil(@inputPath);
+                var denominationNames = GetDenominationNames("DenominationName");
+                var pluralDenominationNames = GetDenominationNames("DenominationNamePlural");
+                var denominationValues = GetDenominationValues();
+                StringBuilder output = new StringBuilder();
 
-                isDivisibleBy3 = register.Action.Cost  % 3  == 0 ? true : false;
-                var change = register.Action.PerformTransaction();
-                var moneyUsed = CreateChange(change, denominationValues, denominationNames, isDivisibleBy3);
-                output.Append(GenerateOutput(denominationNames, pluralDenominationNames, moneyUsed));
+                //loop through each transaction from the input file and determine how change should be dispersed.
+                foreach (string sale in fileUtil.Transactions)
+                {
+                    var transactionSet = sale.Split(',');
+                    register.Action = new Sale();
+                    register.Action.Cost = (int)(Convert.ToDouble(transactionSet[0]) * 100);
+                    register.Action.AmountPaid = (int)Convert.ToDouble(transactionSet[1]) * 100;
+
+                    isDivisibleBy3 = register.Action.Cost % 3 == 0 ? true : false;
+                    var change = register.Action.PerformTransaction();
+                    var moneyUsed = CreateChange(change, denominationValues, denominationNames, isDivisibleBy3);
+                    output.Append(GenerateOutput(denominationNames, pluralDenominationNames, moneyUsed));
+                }
+
+                fileUtil.Change = output.ToString();
+                fileUtil.WriteToFile(@outputPath);
             }
-
-            fileUtil.Change = output.ToString();
-            fileUtil.WriteToFile(@"E:\My Documents\Projects\CashRegister\CashRegister\output.txt");
-            
+            catch (Exception ex)
+            {
+                string errorLogPath = AppDomain.CurrentDomain.BaseDirectory +
+                    "ErrorLog " + DateTime.Now.Date.Month + "-" +
+                    DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + " " +
+                    DateTime.Now.TimeOfDay.Hours + "H" + DateTime.Now.TimeOfDay.Minutes + "M" + ".txt";
+                ErrorLog log = new ErrorLog(errorLogPath);
+                log.WriteError(ex.Message);
+            }
         }
     }
 }
