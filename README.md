@@ -9,6 +9,7 @@ Below is a set of instructions to run the CashRegister Application:
 2. The desired location of the output file should be contained in the OutputPath key of the app.config file.
 3. Either execute the application via Visual Studio or the executable located in bin folder.
 4. Inspect the output file for correctness.
+5. Error logs are contained within the bin folder.
 
 The Problem
 -----------
