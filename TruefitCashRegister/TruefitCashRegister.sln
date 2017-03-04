@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruefitCashRegister", "TruefitCashRegister\TruefitCashRegister.csproj", "{817C8234-80A6-44F4-900A-9C556BA44A4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeCalculator", "ChangeCalculator\ChangeCalculator.csproj", "{71149FE4-6459-4D8E-AB6E-864252A244F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelObjects", "ModelObjects\ModelObjects.csproj", "{6FFFB648-5929-4429-9B2B-0483AB90ACFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{817C8234-80A6-44F4-900A-9C556BA44A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{817C8234-80A6-44F4-900A-9C556BA44A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{817C8234-80A6-44F4-900A-9C556BA44A4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71149FE4-6459-4D8E-AB6E-864252A244F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71149FE4-6459-4D8E-AB6E-864252A244F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71149FE4-6459-4D8E-AB6E-864252A244F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71149FE4-6459-4D8E-AB6E-864252A244F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FFFB648-5929-4429-9B2B-0483AB90ACFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FFFB648-5929-4429-9B2B-0483AB90ACFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FFFB648-5929-4429-9B2B-0483AB90ACFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FFFB648-5929-4429-9B2B-0483AB90ACFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

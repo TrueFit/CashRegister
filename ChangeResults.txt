@@ -1,0 +1,6 @@
+3 Quarters,1 Dime,3 Pennies
+1 Twenty,1 Five,3 Quarters,1 Dime,1 Nickle,2 Pennies
+6 Quarters,1 Dime,7 Pennies
+3 Fifties,2 Twenties,3 Tens,3 Ones,4 Quarters,7 Dimes,2 Nickles,17 Pennies
+3 Pennies
+1 Insufficient Payment
