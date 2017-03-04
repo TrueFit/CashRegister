@@ -17,18 +17,22 @@ namespace TruefitCashRegister
     {
         private Queue<Tuple<decimal, decimal>> costThenReceived;
         private Queue<ChangeSummary> currentChangeDue;
+        private List<Tuple<decimal, decimal>> preservedOrderCostThenReceived;
         private ICalculator changeCalculator;
 
         public Form1()
         {
             InitializeComponent();
             costThenReceived = new Queue<Tuple<decimal, decimal>>();
+            currentChangeDue = new Queue<ChangeSummary>();
             changeCalculator = new USDollarChangeCalculator();
         }
 
         private void OpenFileButton_Click(object sender, EventArgs e)
         {
             var result = openPriceFile.ShowDialog();
+            costThenReceived = new Queue<Tuple<decimal, decimal>>();
+            preservedOrderCostThenReceived = new List<Tuple<decimal, decimal>>();
 
             if (result == DialogResult.OK)
             {
@@ -38,13 +42,14 @@ namespace TruefitCashRegister
                     {
                         var temp = p.Split(',');
                         costThenReceived.Enqueue(new Tuple<decimal, decimal>(decimal.Parse(temp[0]), decimal.Parse(temp[1])));
-                        DisplayNextPreview();
+                        preservedOrderCostThenReceived.Add(new Tuple<decimal, decimal>(decimal.Parse(temp[0]), decimal.Parse(temp[1])));
                     }
                     catch
                     {
                         changeViewer.Clear();
                         changeViewer.Text = "File format is incorrect.\nEx. 2.14,3.00";
                     }
+                    DisplayNextPreview();
                 }
             }
         }
@@ -87,7 +92,7 @@ namespace TruefitCashRegister
         {
             currentChangeDue = new Queue<ChangeSummary>();
 
-            foreach (var transaction in costThenReceived)
+            foreach (var transaction in preservedOrderCostThenReceived)
                 currentChangeDue.Enqueue(changeCalculator.GetChange(transaction.Item1, transaction.Item2));
 
             SaveChangeToFile();
@@ -112,8 +117,8 @@ namespace TruefitCashRegister
                             if (saveLine.Length > 0)
                             {
                                 saveLine.Remove(saveLine.Length - 1, 1);
-                                writer.WriteLine(saveLine.ToString());
                             }
+                            writer.WriteLine(saveLine.ToString());
                         }
 
                         changeViewer.Text = $"Results saved to {saveFileDialog1.FileName}. Press next to preview results";
