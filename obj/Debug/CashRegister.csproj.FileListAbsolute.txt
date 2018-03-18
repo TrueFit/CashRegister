@@ -1,0 +1,7 @@
+C:\Users\cjayn\Documents\Visual Studio 2017\Projects\CashRegister\CashRegister\bin\Debug\CashRegister.exe.config
+C:\Users\cjayn\Documents\Visual Studio 2017\Projects\CashRegister\CashRegister\bin\Debug\CashRegister.exe
+C:\Users\cjayn\Documents\Visual Studio 2017\Projects\CashRegister\CashRegister\bin\Debug\CashRegister.pdb
+C:\Users\cjayn\Documents\Visual Studio 2017\Projects\CashRegister\CashRegister\obj\Debug\CashRegister.csprojResolveAssemblyReference.cache
+C:\Users\cjayn\Documents\Visual Studio 2017\Projects\CashRegister\CashRegister\obj\Debug\CashRegister.csproj.CoreCompileInputs.cache
+C:\Users\cjayn\Documents\Visual Studio 2017\Projects\CashRegister\CashRegister\obj\Debug\CashRegister.exe
+C:\Users\cjayn\Documents\Visual Studio 2017\Projects\CashRegister\CashRegister\obj\Debug\CashRegister.pdb
