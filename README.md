@@ -39,3 +39,11 @@ Please use whatever technology and techniques you feel are applicable to solve t
 Please fork this repository. When you have completed your solution, please issue a pull request to notify us that you are ready.
 
 Have fun.
+
+The Result
+--------------
+Variables are created at the start of the Watcher.cs file
+        pFolderPath - is the directory in which the .txt files will be dropped
+        outPutFolderPath - is the directory in which the results will be saved
+        processFolderPath - is the directory in which the originating file will be saved
+        errorFolderPath - is the directory in which any files that did not finish succesfully can be saved to be edited and tried again once fixed
