@@ -43,7 +43,7 @@ Have fun.
 The Result
 --------------
 Variables are created at the start of the Watcher.cs file
-        pFolderPath - is the directory in which the .txt files will be dropped
-        outPutFolderPath - is the directory in which the results will be saved
-        processFolderPath - is the directory in which the originating file will be saved
-        errorFolderPath - is the directory in which any files that did not finish succesfully can be saved to be edited and tried again once fixed
+	1. pFolderPath - is the directory in which the .txt files will be dropped
+	2. outPutFolderPath - is the directory in which the results will be saved
+	3. processFolderPath - is the directory in which the originating file will be saved
+	4. errorFolderPath - is the directory in which any files that did not finish succesfully can be saved to be edited and tried again once fixed
