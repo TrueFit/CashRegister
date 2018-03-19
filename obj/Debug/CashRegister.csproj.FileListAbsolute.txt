@@ -11,3 +11,4 @@ C:\Users\cjayn\Source\Repos\CashRegister\CashRegister\bin\Debug\CashRegister.exe
 C:\Users\cjayn\Source\Repos\CashRegister\CashRegister\bin\Debug\CashRegister.pdb
 C:\Users\cjayn\Source\Repos\CashRegister\CashRegister\obj\Debug\CashRegister.exe
 C:\Users\cjayn\Source\Repos\CashRegister\CashRegister\obj\Debug\CashRegister.pdb
+C:\Users\cjayn\Source\Repos\CashRegister\CashRegister\obj\Debug\CashRegister.csprojResolveAssemblyReference.cache
