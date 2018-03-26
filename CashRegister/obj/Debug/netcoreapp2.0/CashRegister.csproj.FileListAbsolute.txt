@@ -1,0 +1,11 @@
+C:\Users\Vrump\source\repos\CashRegister\CashRegister\bin\Debug\netcoreapp2.0\CashRegister.deps.json
+C:\Users\Vrump\source\repos\CashRegister\CashRegister\bin\Debug\netcoreapp2.0\CashRegister.runtimeconfig.json
+C:\Users\Vrump\source\repos\CashRegister\CashRegister\bin\Debug\netcoreapp2.0\CashRegister.runtimeconfig.dev.json
+C:\Users\Vrump\source\repos\CashRegister\CashRegister\bin\Debug\netcoreapp2.0\CashRegister.dll
+C:\Users\Vrump\source\repos\CashRegister\CashRegister\bin\Debug\netcoreapp2.0\CashRegister.pdb
+C:\Users\Vrump\source\repos\CashRegister\CashRegister\obj\Debug\netcoreapp2.0\CashRegister.csprojResolveAssemblyReference.cache
+C:\Users\Vrump\source\repos\CashRegister\CashRegister\obj\Debug\netcoreapp2.0\CashRegister.csproj.CoreCompileInputs.cache
+C:\Users\Vrump\source\repos\CashRegister\CashRegister\obj\Debug\netcoreapp2.0\CashRegister.AssemblyInfoInputs.cache
+C:\Users\Vrump\source\repos\CashRegister\CashRegister\obj\Debug\netcoreapp2.0\CashRegister.AssemblyInfo.cs
+C:\Users\Vrump\source\repos\CashRegister\CashRegister\obj\Debug\netcoreapp2.0\CashRegister.dll
+C:\Users\Vrump\source\repos\CashRegister\CashRegister\obj\Debug\netcoreapp2.0\CashRegister.pdb
