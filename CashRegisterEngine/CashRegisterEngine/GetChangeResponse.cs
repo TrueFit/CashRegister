@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CashRegisterEngine
@@ -12,12 +13,33 @@ namespace CashRegisterEngine
 
         public decimal amtChange { get; set; }
 
-        public ICollection<ChangeResponseItem> items { get; set; }
+        public ICollection<CurrencyItem> currencyItems { get; set; }
 
         public GetChangeResponse()
         {
-            this.items = new List<ChangeResponseItem>();
+            this.currencyItems = new List<CurrencyItem>();
         }
 
+        public override string ToString()
+        {
+            StringBuilder sbValue = new StringBuilder();
+
+            int _itmIdx = 0;
+            var _allCurrencyItems = new List<CurrencyItem>();
+            _allCurrencyItems.AddRange(this.currencyItems.Where(i => i.currencyType == CurrencyType.paper).OrderByDescending(i => i.currencyValue));
+            _allCurrencyItems.AddRange(this.currencyItems.Where(i => i.currencyType == CurrencyType.coin).OrderByDescending(i => i.currencyValue));
+
+            foreach(var itm in _allCurrencyItems)
+            {
+                sbValue.Append(itm.ToString());
+                _itmIdx++;
+                if (_itmIdx > 0 && _itmIdx < _allCurrencyItems.Count)
+                {
+                    sbValue.Append(", ");
+                }
+            }
+
+            return sbValue.ToString();
+        }
     }
 }
