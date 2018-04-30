@@ -1,0 +1,16 @@
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\bin\Debug\netcoreapp2.0\CashRegisterTests.deps.json
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\bin\Debug\netcoreapp2.0\CashRegisterTests.runtimeconfig.json
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\bin\Debug\netcoreapp2.0\CashRegisterTests.runtimeconfig.dev.json
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\bin\Debug\netcoreapp2.0\CashRegisterTests.dll
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\bin\Debug\netcoreapp2.0\CashRegisterTests.pdb
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\bin\Debug\netcoreapp2.0\CashRegisterEngine.dll
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\bin\Debug\netcoreapp2.0\CashRegisterEngine.pdb
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\obj\Debug\netcoreapp2.0\CashRegisterTests.csprojResolveAssemblyReference.cache
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\obj\Debug\netcoreapp2.0\CashRegisterTests.csproj.CoreCompileInputs.cache
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\obj\Debug\netcoreapp2.0\CashRegisterTests.AssemblyInfoInputs.cache
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\obj\Debug\netcoreapp2.0\CashRegisterTests.AssemblyInfo.cs
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\obj\Debug\netcoreapp2.0\CashRegisterTests.dll
+C:\Users\Charlie\Documents\GitHub\CashRegister\CashRegisterEngine\CashRegisterTests\obj\Debug\netcoreapp2.0\CashRegisterTests.pdb
