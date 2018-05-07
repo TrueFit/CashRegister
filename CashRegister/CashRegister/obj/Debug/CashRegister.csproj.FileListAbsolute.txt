@@ -1,0 +1,7 @@
+C:\Users\ashis\source\repos\CashRegister\CashRegister\bin\Debug\CashRegister.exe.config
+C:\Users\ashis\source\repos\CashRegister\CashRegister\bin\Debug\CashRegister.exe
+C:\Users\ashis\source\repos\CashRegister\CashRegister\bin\Debug\CashRegister.pdb
+C:\Users\ashis\source\repos\CashRegister\CashRegister\obj\Debug\CashRegister.csprojResolveAssemblyReference.cache
+C:\Users\ashis\source\repos\CashRegister\CashRegister\obj\Debug\CashRegister.csproj.CoreCompileInputs.cache
+C:\Users\ashis\source\repos\CashRegister\CashRegister\obj\Debug\CashRegister.exe
+C:\Users\ashis\source\repos\CashRegister\CashRegister\obj\Debug\CashRegister.pdb

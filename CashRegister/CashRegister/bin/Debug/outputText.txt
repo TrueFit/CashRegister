@@ -1,0 +1,3 @@
+0 Dollars, 3 Quaters, 1 Dimes, 0 Nickels, 3 Pennies
+0 Dollars, 0 Quaters, 0 Dimes, 0 Nickels, 3 Pennies
+1 Dollars, 1 Quaters, 3 Dimes, 1 Nickels, 7 Pennies
