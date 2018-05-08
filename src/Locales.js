@@ -8,7 +8,7 @@ module.exports = {
 			twenties : {value : 2000 },
 			tens : { value : 1000 },
 			fives : { value : 500 },
-			dollars : {value : 100},
+			ones : {value : 100},
 			quarters : { value : 25 },
 			dimes : { value : 10},
 			nickels : {value : 5 },
