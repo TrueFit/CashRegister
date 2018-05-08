@@ -3,16 +3,16 @@ module.exports = {
 	USD : { 
 		base: 100, 
 		denominations: {
-			10000 : {name : 'one hundred dollars', value : 10000, base : 100 },
-			5000 : {name : 'fifty dollars', value : 5000, base: 50 },
-			2000 : {name : 'twenty dollars', value : 2000, base: 20 },
-			1000 : {name : 'ten dollars', value : 1000, base: 10 },
-			500 : {name : 'five dollars', value : 500, base: 5 },
-			100 : {name : 'one dollars', value : 100, base: 1 },
-			25 : {name : 'quarter', value : 25, base: 0.25 },
-			10 : {name : 'dime', value : 10, base: 0.1 },
-			5 : {name : 'nickel', value : 5, base: 0.05 },
-			1 : {name : 'penny', value : 1, base: 0.01 },
+			hundreds : {value : 10000 },
+			fifties : {value : 5000 },
+			twenties : {value : 2000 },
+			tens : { value : 1000 },
+			fives : { value : 500 },
+			dollars : {value : 100},
+			quarters : { value : 25 },
+			dimes : { value : 10},
+			nickels : {value : 5 },
+			pennies : {value : 1 },
 		}
 	},
 //For Example
