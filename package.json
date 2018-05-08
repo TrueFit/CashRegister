@@ -1,0 +1,19 @@
+{
+  "name": "cashregister",
+  "version": "0.0.1",
+  "description": "A simple cash register app for truefit",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JMoli/CashRegister.git"
+  },
+  "author": "JMoli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JMoli/CashRegister/issues"
+  },
+  "homepage": "https://github.com/JMoli/CashRegister#readme"
+}
