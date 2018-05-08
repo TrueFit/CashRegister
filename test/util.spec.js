@@ -12,7 +12,7 @@ describe('Util', function(){
 		it('should return false when not divisible by 3', function(){
 			assert.equal(utils.checkModulus(332), false);
 		});
-	
+
 	});
 
 	describe('#covertToSmallest', function(){
@@ -59,7 +59,7 @@ describe('Util', function(){
 		});
 		it('$0.10 should return 1 dime', function(){
 			utils.calcChange.standard(10, 'USD', function(r){
-			assert.equal(r.pennies, undefined);
+				assert.equal(r.pennies, undefined);
 				assert.equal(r.nickels, undefined);
 				assert.equal(r.dimes, 1);
 				assert.equal(r.quarters, undefined);
@@ -85,6 +85,42 @@ describe('Util', function(){
 				assert.equal(r.hundreds, undefined);
 			});
 		});
-	
+
+		describe('#calcChange.random', function(){
+			it('should work', function(){
+				utils.calcChange.random(333, 'USD', function(r){
+					console.log(r);	
+				});	
+			});	
+			it('should work', function(){
+				utils.calcChange.random(3, 'USD', function(r){
+					console.log(r);	
+				});	
+			});	
+			it('should work', function(){
+				utils.calcChange.random(6, 'USD', function(r){
+					console.log(r);	
+				});	
+			});	
+			it('should work', function(){
+				utils.calcChange.random(9, 'USD', function(r){
+					console.log(r);	
+				});	
+			});	
+			it('should work', function(){
+				utils.calcChange.random(12, 'USD', function(r){
+					console.log(r);	
+				});	
+			});	
+			it('should work', function(){
+				utils.calcChange.random(3, 'USD', function(r){
+					console.log(r);	
+				});	
+			});	
+
+
+		});
+
 	});
+
 });

@@ -12,10 +12,10 @@ module.exports = {
 				owed = utils.convertToSmallest(owed, locale);
 				if(utils.checkModulus(owed)){
 					//is divisible by 3 return random string
-					return utils.calcChange.random(xOwed, locale);
+					return utils.calcChange.random(owed, locale);
 				}else{
 					//calculate 
-					return utils.calcChange.standard(xOwed, locale);
+					return utils.calcChange.standard(owed, locale);
 				}
 				//convert to float
 				//convert total amount to pennies
