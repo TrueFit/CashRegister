@@ -1,22 +1,28 @@
 const Locales = require('./Locales.js');
 const _ = require('underscore');
 
-
+//@PARAMS {data} - The calculated change object { ones: 1, quarters: 2, dimes: 3, ...}
 module.exports.formatString = function(data){
 	var out = [];
 	for(var obj in data){
 		out.push(`${data[obj]} ${obj}`);
 	}
+	//TODO add custom new line character option
 	return out.join(', ').toString() + '\n';
 };
 
-//@PARAMS owedMaximized (int) - The Amount owed converted to the smallest denomination
+
+//@PARAMS owedMaximized (int) - The Amount owed converted to the smallest denomination unit
 module.exports.checkModulus = function(owedMaximized){
 	return (owedMaximized % 3 === 0);
 };
 
 module.exports.calcChange = function(){
 
+	//@PARAMS owedMax(int) - the maximized amount to be converted to change 
+	//@PARAMS 'locale' - the desired currency 
+	//@PARAMS {result} - initial empty object for the recursion to build upon
+	//@PARAMS {callback}
 	const _recursiveSearch = function(owedMax, locale, result, callback){
 		for(var key in Locales[locale].denominations){
 			var obj = Locales[locale].denominations[key]; 
@@ -46,9 +52,9 @@ module.exports.calcChange = function(){
 
 
 	return{
-		//@PARAMS owedMax(int) - the maximized owed 
+		//@PARAMS owedMax(int) - the maximized amount to be converted to change 
 		//@PARAMs 'locale' - the desired locale
-		//@PARAMS callback
+		//@PARAMS {callback}
 		standard: function(owedMax, locale, callback){
 			_recursiveSearch(owedMax, locale, {}, function(result){
 				callback(result);	
@@ -105,7 +111,7 @@ module.exports.calcChange = function(){
 						}
 					}
 				}
-
+			
 				callback(final);
 
 
