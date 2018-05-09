@@ -1,0 +1,14 @@
+C:\Users\naren\source\repos\Change\Change\bin\Debug\Change.exe.config
+C:\Users\naren\source\repos\Change\Change\bin\Debug\Change.exe
+C:\Users\naren\source\repos\Change\Change\bin\Debug\Change.pdb
+C:\Users\naren\source\repos\Change\Change\obj\Debug\ChangeRegister.csprojResolveAssemblyReference.cache
+C:\Users\naren\source\repos\Change\Change\obj\Debug\ChangeRegister.csproj.CoreCompileInputs.cache
+C:\Users\naren\source\repos\Change\Change\obj\Debug\Change.exe
+C:\Users\naren\source\repos\Change\Change\obj\Debug\Change.pdb
+C:\Users\naren\OneDrive\Desktop\Akshay\Change\Change\bin\Debug\Change.exe.config
+C:\Users\naren\OneDrive\Desktop\Akshay\Change\Change\bin\Debug\Change.exe
+C:\Users\naren\OneDrive\Desktop\Akshay\Change\Change\bin\Debug\Change.pdb
+C:\Users\naren\OneDrive\Desktop\Akshay\Change\Change\obj\Debug\ChangeRegister.csprojResolveAssemblyReference.cache
+C:\Users\naren\OneDrive\Desktop\Akshay\Change\Change\obj\Debug\ChangeRegister.csproj.CoreCompileInputs.cache
+C:\Users\naren\OneDrive\Desktop\Akshay\Change\Change\obj\Debug\Change.exe
+C:\Users\naren\OneDrive\Desktop\Akshay\Change\Change\obj\Debug\Change.pdb

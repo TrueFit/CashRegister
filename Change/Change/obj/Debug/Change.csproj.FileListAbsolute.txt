@@ -1,0 +1,7 @@
+C:\Users\naren\source\repos\Change\Change\bin\Debug\Change.exe.config
+C:\Users\naren\source\repos\Change\Change\bin\Debug\Change.exe
+C:\Users\naren\source\repos\Change\Change\bin\Debug\Change.pdb
+C:\Users\naren\source\repos\Change\Change\obj\Debug\Change.csprojResolveAssemblyReference.cache
+C:\Users\naren\source\repos\Change\Change\obj\Debug\Change.csproj.CoreCompileInputs.cache
+C:\Users\naren\source\repos\Change\Change\obj\Debug\Change.exe
+C:\Users\naren\source\repos\Change\Change\obj\Debug\Change.pdb
