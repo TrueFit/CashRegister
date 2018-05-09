@@ -24,7 +24,9 @@ namespace CashRegister.Core
             var isOutputRandom = price * 100 % 3 == 0;
 
             var totalChange = paid - price;
-            
+
+            if (totalChange == 0) return "No Change Required!";
+
             return isOutputRandom
                 ? CalculateRandomChange(totalChange)
                 : CalculateLowestAmountOfChange(totalChange);
@@ -119,7 +121,7 @@ namespace CashRegister.Core
             }
 
             throw new ArgumentException($"Input string not in correct format: ({input}). " +
-                                        "Should be in the format \"price,paid\". E.g. \"1.97,2.00\"", nameof(input));
+                                        "Should be in the format \"price,paid\". Ex: 1.97,2.00");
         }
     }
 }
