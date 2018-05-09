@@ -20,9 +20,9 @@
         /// <summary>
         /// Matches by the decimal representation of the denomination. Sets the corresponding property to the supplied value.
         /// </summary>
-        /// <param name="denomination">Integer representation of the denomination. E.g. 0.01 * 100 = 1</param>
-        /// <param name="amount">Physical amount of the denomination to return to the customer.</param>
-        public void AddDenomination(decimal denomination, int amount)
+        /// <param name="denomination">Decimal representation of the denomination. E.g. 0.01m</param>
+        /// <param name="amount">Physical amount of the denomination to be returned to the customer.</param>
+        internal void AddDenomination(decimal denomination, int amount)
         {
             switch (denomination)
             {
@@ -67,52 +67,52 @@
         {
             var result = string.Empty;
 
-            if (Hundreds != 0)
+            if (Hundreds > 0)
             {
                 result += $"{Hundreds} hundred{(Hundreds > 1 ? "s" : string.Empty)},";
             }
 
-            if (Fifties != 0)
+            if (Fifties > 0)
             {
                 result += $"{Fifties} fift{(Fifties > 1 ? "ies" : "y")},";
             }
 
-            if (Twenties != 0)
+            if (Twenties > 0)
             {
                 result += $"{Twenties} twent{(Twenties > 1 ? "ies" : "y")},";
             }
 
-            if (Tens != 0)
+            if (Tens > 0)
             {
                 result += $"{Tens} ten{(Tens > 1 ? "s" : string.Empty)},";
             }
 
-            if (Fives != 0)
+            if (Fives > 0)
             {
                 result += $"{Fives} five{(Fives > 1 ? "s" : string.Empty)},";
             }
 
-            if (Dollars != 0)
+            if (Dollars > 0)
             {
                 result += $"{Dollars} dollar{(Dollars > 1 ? "s" : string.Empty)},";
             }
 
-            if (Quarters != 0)
+            if (Quarters > 0)
             {
                 result += $"{Quarters} quarter{(Quarters > 1 ? "s" : string.Empty)},";
             }
 
-            if (Dimes != 0)
+            if (Dimes > 0)
             {
                 result += $"{Dimes} dime{(Dimes > 1 ? "s" : string.Empty)},";
             }
 
-            if (Nickles != 0)
+            if (Nickles > 0)
             {
                 result += $"{Nickles} nickle{(Nickles > 1 ? "s" : string.Empty)},";
             }
 
-            if (Pennies != 0)
+            if (Pennies > 0)
             {
                 result += $"{Pennies} penn{(Pennies > 1 ? "ies" : "y")},";
             }
