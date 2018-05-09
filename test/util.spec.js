@@ -3,6 +3,19 @@ const utils = require('../src/Utils.js');
 const chai = require('chai');
 const expect = chai.expect
 
+const values = {
+	pennies: 0.01,	
+	nickels: 0.05,	
+	dimes: 0.1,	
+	quarters: 0.25,	
+	ones: 1,	
+	fives: 5,	
+	tens: 10,	
+	twenties: 20,	
+	fifties: 50,	
+	hundreds: 100,	
+}; 
+
 
 describe('Util', function(){
 	describe('#checkModulus', function(){
@@ -87,6 +100,41 @@ describe('Util', function(){
 		});
 
 		describe('#calcChange.random', function(){
+
+			it('should not return the same values', function(){
+				var return1, return2;
+				utils.calcChange.random(168, 'USD', function(d){
+					return1 = d;
+					utils.calcChange.random(168,'USD', function(d){
+						return2 = d;
+						var hash1 = [] , hash2 = [];
+						for(var obj in return1){
+							hash1.push(return1[obj]);	
+						}
+						for(var obj in return2){
+							hash2.push(return2[obj]); 	
+						}
+						hash1.sort();
+						hash2.sort();
+						assert.notEqual(JSON.stringify(hash1), JSON.stringify(hash2));
+					});
+
+				});
+			});	
+
+			it('should not be more or less than $3.33', function(){
+				utils.calcChange.random(168, 'USD', function(d){
+					var total = 0;
+					for(var obj in d){
+						total += (d[obj] * values[obj]); 
+					}
+					assert.equal(total.toPrecision(3), 1.68);
+				});
+			});
+
+
+
+			//TODO make these tests actual assertions
 			it('should work', function(){
 				utils.calcChange.random(333, 'USD', function(r){
 					console.log(r);	
