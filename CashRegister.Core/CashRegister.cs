@@ -3,7 +3,7 @@
 namespace CashRegister.Core
 {
     /// <summary>
-    /// Class containing the logic to either a random amount or 
+    /// Class containing the logic to return either a random amount or 
     /// the least amount of each denomination of physical change.
     /// </summary>
     public class CashRegister : ICashRegister
@@ -11,9 +11,10 @@ namespace CashRegister.Core
         private static readonly Random Random = new Random();
 
         /// <summary>
-        /// Calculates either a random amount or the least amount of each denomination of physical change.
+        /// Begins the process of producing either a random amount, or the lowest amount, 
+        /// of physical change to return to the customer.
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="input">Input should be in the format "price,paid". E.g. "1.97,2.00"</param>
         /// <returns></returns>
         public string ProcessChange(string input)
         {
@@ -30,11 +31,11 @@ namespace CashRegister.Core
         }
 
         /// <summary>
-        /// Uses integer math to provide the least physical amount of change to the customer.
+        /// Uses integer math to provide the least physical amount of change to provide back to the customer.
         /// </summary>
         /// <param name="totalChange">The total amount of change owed to the customer.</param>
         /// <returns>A string containing the lowest amount of physical change possible given the amount owed/paid.</returns>
-        private string CalculateLowestAmountOfChange(decimal totalChange)
+        public static string CalculateLowestAmountOfChange(decimal totalChange)
         {
             // convert to use integer math below.
             var changeInt = (int)Math.Round(totalChange * 100);
@@ -73,11 +74,11 @@ namespace CashRegister.Core
         }
 
         /// <summary>
-        /// Generates a random amount of each physical denomination to add up to the amount of change owed.
+        /// Generates a random amount of each physical denomination that adds up to the amount of change owed.
         /// </summary>
         /// <param name="totalChange">The total amount of change owed to the customer.</param>
-        /// <returns>A string containing a random amount of physical change possible given the amount owed/paid.</returns>
-        private string CalculateRandomChange(decimal totalChange)
+        /// <returns>A string containing a random amount of physical change owed given the amount owed/paid.</returns>
+        public static string CalculateRandomChange(decimal totalChange)
         {
             var denominations = new[] { 100.00m, 50.00m, 20.00m, 10.00m, 5.00m, 1.00m, 0.25m, 0.10m, 0.05m, 0.01m };
             var changeResult = new ChangeResult();
@@ -85,7 +86,7 @@ namespace CashRegister.Core
             foreach (var denomination in denominations)
             {
                 if (denomination > totalChange) continue;
-                // if we're at the last interation, set pennies equal to the remainder
+                // if we're on the last iteration, set pennies equal to the total change remaining
                 if (denomination == 0.01m)
                 {
                     changeResult.AddDenomination(denomination, (int)(totalChange * 100));
@@ -93,6 +94,7 @@ namespace CashRegister.Core
                 }
                 // we can use this denomination, so lets find a random value we can use
                 var randomAmount = Random.Next(0, (int) (totalChange / denomination));
+
                 totalChange -= denomination * randomAmount;
                 changeResult.AddDenomination(denomination, randomAmount);
             }
@@ -101,15 +103,15 @@ namespace CashRegister.Core
         }
 
         /// <summary>
-        /// Consumes a string, performs validation, and returns price/paid decimals.
+        /// Consumes a string, performs validation, and returns both price and paid decimals.
         /// </summary>
         /// <param name="input">Input should be in the format "price,paid". E.g. "1.97,2.00"</param>
         /// <returns>Two parsed decimals 'Price' and 'Paid'.</returns>
         private (decimal, decimal) ParseDecimals(string input)
         {
-            var split = input.Split(',');
+            var split = input?.Split(',');
 
-            if (split.Length == 2 && decimal.TryParse(split[0], out var price) && decimal.TryParse(split[1], out var paid))
+            if (split?.Length == 2 && decimal.TryParse(split[0], out var price) && decimal.TryParse(split[1], out var paid))
             {
                 if (price <= paid) return (price, paid);
 
