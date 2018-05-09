@@ -6,12 +6,12 @@ const util = require('util');
 
 
 program.option('-p, --path <path>', 'Path to Flat File')
-.option('-d, --delimiter', 'Input Delimiter - leave blank for comma')
-.option('-n, --newline', 'Input New Line Character - leave blank for \\n')
+.option('-w, --windows', '"\\r\\n" newline flag')
+.option('-b, --bars', '"|" bars flag')
 .parse(process.argv);
 
-program.delimiter = program.delimiter || ',';
-program.newline = program.newline || '\n';
+program.newline = program.windows ? '\r\n' : '\n';
+program.delimiter = program.bars ? '|' : ',';
 
 function cashTransform(options) {
 	if (!(this instanceof cashTransform)) 
