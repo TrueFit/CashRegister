@@ -24,11 +24,12 @@ util.inherits(cashTransform, Transform);
 cashTransform.prototype._transform = function(chunk, enc, cb){
 	var rows = chunk.toString().split(program.newline);
 	for(var i=0; i < rows.length; i++){
-		var input = rows[i].split(program.delimiter);
-		register.getChange(input[0], input[1], 'USD', function(d){
-			console.log(input, d);
-			this.push(d);	
-		}.bind(this));
+		if(rows[i] !== ''){
+			var input = rows[i].split(program.delimiter);
+			register.getChange(input[0], input[1], 'USD', function(d){
+				this.push(d);	
+			}.bind(this));
+		}
 	}
 	cb();
 };
