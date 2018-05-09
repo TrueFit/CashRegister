@@ -27,15 +27,9 @@ module.exports = {
 				if(owed < 0){
 					//TODO add test case for this
 					//Full Change is due
-					callback('Invalid Transaction');
+					callback('Invalid Transaction - Someone Robbed the Register');
 				}else{
-					if(owed === 0){
-						//TODO add test case for this
-						callback('Invalid Transaction - Someone robbed the register');
-					}else{
-						//TODO add test case for this
-						callback('Exact Change - Nothing is Owed');	
-					}
+					callback('Exact Payment - Nothing is Owed');	
 				}
 			}
 	}
