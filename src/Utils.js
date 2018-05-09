@@ -1,6 +1,15 @@
 const Locales = require('./Locales.js');
 const _ = require('underscore');
 
+
+module.exports.formatString = function(data){
+	var out = [];
+	for(var obj in data){
+		out.push(`${data[obj]} ${obj}`);
+	}
+	return out.join(', ').toString() + '\n';
+};
+
 //@PARAMS owedMaximized (int) - The Amount owed converted to the smallest denomination
 module.exports.checkModulus = function(owedMaximized){
 	return (owedMaximized % 3 === 0);
@@ -71,12 +80,13 @@ module.exports.calcChange = function(){
 					//TODO seems like a waste to import all of underscore for this
 					var largest = _.max(converted);
 					converted[converted.indexOf(largest)] = largest - (totalConverted - owedMax);		
-				//add whatever amount has been rounded out to the smallest percent
+					//add whatever amount has been rounded out to the smallest percent
 				}else if(totalConverted < owedMax){
 					//TODO seems like a waste to import all of underscore for this
 					var smallest = _.min(converted);
 					converted[converted.indexOf(smallest)] = smallest + (owedMax - totalConverted);		
 				}
+
 				//start the recursion
 				var working = [];
 				for(var i=0; i<converted.length; i++){
@@ -97,7 +107,7 @@ module.exports.calcChange = function(){
 				}
 
 				callback(final);
-				
+
 
 			}	
 	}	
