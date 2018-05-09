@@ -2,12 +2,12 @@ Cash Register
 ============
 The Solution
 ------------
-###Getting Started
+### Getting Started
     npm install
     npm test
     npm start
 
-###Options
+### Options
 Alternatively you can run index.js from the command line which allows you to specify a custom path, delimiter, and new line character
 Flag | Required | Default | About
 ---|---|---|---
@@ -18,7 +18,7 @@ Flag | Required | Default | About
 example:
     node index.js -p /pathtocsv.csv -b -w
 
-###Caveats
+### Caveats
 Make sure you have proper read/write access on the location of the CSV as well as this directory
 
 
