@@ -3,12 +3,14 @@ const _ = require('underscore');
 
 //@PARAMS {data} - The calculated change object { ones: 1, quarters: 2, dimes: 3, ...}
 module.exports.formatString = function(data){
-	var out = [];
+	var out = [], order = [];
+
+	//format to text
 	for(var obj in data){
 		out.push(`${data[obj]} ${obj}`);
 	}
 	//TODO add custom new line character option
-	return out.join(', ').toString() + '\n';
+	return out.join(',').toString() + '\n';
 };
 
 
@@ -100,21 +102,22 @@ module.exports.calcChange = function(){
 						working.push(result);	
 					});
 				}
-				//merge the results
-				var final = {};
+
+				//merge and order the results
+				var final = {hundreds: 0, fifties: 0, twenties: 0, tens: 0, fives: 0, ones: 0, quarters: 0, dimes: 0, nickels: 0, pennies: 0 };
 				for(var i=0; i<working.length; i++){
 					for(var key in working[i]){
-						if(final[key] === undefined){
-							final[key] = working[i][key];	
-						}else{
 							final[key] += working[i][key];	
-						}
 					}
 				}
-			
+
+				//remove unused keys
+				for(var key in final){
+					if(final[key] === 0) delete final[key];	
+				}
+
+				//send it
 				callback(final);
-
-
 			}	
 	}	
 }();
