@@ -133,7 +133,6 @@ describe('Util', function(){
 			});
 
 
-
 			//TODO make these tests actual assertions
 			it('should work', function(){
 				utils.calcChange.random(333, 'USD', function(r){
