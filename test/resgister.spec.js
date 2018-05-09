@@ -5,14 +5,14 @@ const expect = chai.expect
 
 describe('CashRegister', function(){
 	describe('#getChange', function(){
-		it('should return Invalid Transaction', function(){
+		it('should return Invalid Transaction\\n', function(){
 			cash.getChange(10, 0, 'USD', function(d){
-				assert.equal(d, 'Invalid Transaction - Someone Robbed the Register');	
+				assert.equal(d, 'Invalid Transaction - Someone Robbed the Register\n');	
 			});	
 		});
-		it('should return Exact Payment - Nothing is Owed', function(){
+		it('should return Exact Payment - Nothing is Owed\\n', function(){
 			cash.getChange(100.01, 100.01, 'USD', function(d){
-				assert.equal(d, 'Exact Payment - Nothing is Owed');	
+				assert.equal(d, 'Exact Payment - Nothing is Owed\n');	
 			});	
 		});
 

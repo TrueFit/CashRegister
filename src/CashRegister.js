@@ -26,9 +26,9 @@ module.exports = {
 			}else{
 				if(owed < 0){
 					//Full Change is due
-					callback('Invalid Transaction - Someone Robbed the Register');
+					callback('Invalid Transaction - Someone Robbed the Register\n');
 				}else{
-					callback('Exact Payment - Nothing is Owed');	
+					callback('Exact Payment - Nothing is Owed\n');	
 				}
 			}
 	}
