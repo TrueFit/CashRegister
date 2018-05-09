@@ -4,7 +4,8 @@
   "description": "A simple cash register app for truefit",
   "main": "index.js",
   "scripts": {
-    "test": "find ./test -name '*.spec.js' | xargs mocha -R spec"
+    "test": "find ./test -name '*.spec.js' | xargs mocha -R spec",
+    "start": "node ./index.js -p test-data.csv"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
     "mocha": "^5.1.1"
   },
   "dependencies": {
+    "commander": "^2.15.1",
     "underscore": "^1.9.0"
   }
 }
