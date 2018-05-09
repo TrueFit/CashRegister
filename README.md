@@ -9,14 +9,15 @@ The Solution
 
 ### Options
 Alternatively you can run index.js from the command line which allows you to specify a custom path, delimiter, and new line character
+
 Flag | Required | Default | About
----|---|---|---
+--- | --- | --- | ---
 -p | true | none | --path Sets the path to the desired CSV file
 -b | false | , | --bars Overrides the default comma delimiter of the CSV file to a single bar
 -w | false | '\n' | --windows Overrides the default newline character of '\n' on the CSV file to '\r\n\' (useful for differnt enviroments)
 
 example:
-    node index.js -p /pathtocsv.csv -b -w
+    `node index.js -p /pathtocsv.csv -b -w`
 
 ### Caveats
 Make sure you have proper read/write access on the location of the CSV as well as this directory
