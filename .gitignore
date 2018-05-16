@@ -3,8 +3,8 @@
 ################################################################################
 
 /.vs
-/CashRegister/bin/Debug
+/CashRegister/bin
 /CashRegister/obj
-/CashRegisterLib/bin/Debug
+/CashRegisterLib/bin
 /CashRegisterLib/obj
 /TestData/TransactionsOut.txt

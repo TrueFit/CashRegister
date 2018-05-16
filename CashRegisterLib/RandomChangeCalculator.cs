@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CashRegisterLib.Enum;
 
 namespace CashRegisterLib
 {
@@ -8,7 +9,7 @@ namespace CashRegisterLib
         public ChangeCounter GetChangeOutput(decimal changeDue)
         {
             ChangeCounter counter = new ChangeCounter();
-            USDDenominations denominations = new USDDenominations();
+            CurrencySet denominations = CurrencyFactory.CreateCurrencySet(CurrencyType.Usd);
             Random random = new Random();
 
             while (changeDue > 0)

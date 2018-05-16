@@ -1,11 +1,13 @@
-﻿namespace CashRegisterLib
+﻿using CashRegisterLib.Enum;
+
+namespace CashRegisterLib
 {
     public class StandardChangeCalculator:IChangeCalculator
     {
         public ChangeCounter GetChangeOutput(decimal changeDue)
         {
             ChangeCounter counter = new ChangeCounter();
-            USDDenominations denominations = new USDDenominations();
+            CurrencySet denominations = CurrencyFactory.CreateCurrencySet(CurrencyType.Usd);
 
             foreach (var d in denominations)
             {
