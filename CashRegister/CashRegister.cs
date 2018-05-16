@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using CashRegisterLib;
 
@@ -20,6 +21,8 @@ namespace CashRegister
                 string inputFile = args[0];
                 string outputFile = args[1];
 
+                int.TryParse(ConfigurationManager.AppSettings["randomDivisor"], out var randomDivisor);
+
                 using (var fileIn = new StreamReader(inputFile))
                 using (var fileOut = new StreamWriter(outputFile))
                 {
@@ -33,7 +36,7 @@ namespace CashRegister
                         var transaction = new CashTransaction(cost, tender);
 
 
-                        if (Math.Round(cost * 100,0) % 3 == 0)
+                        if (randomDivisor != 0 && Math.Round(cost * 100,0) % randomDivisor == 0)
                         {
                             calc = new RandomChangeCalculator();
                         }
