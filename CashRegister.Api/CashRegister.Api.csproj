@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CashRegister.Common\CashRegister.Common.csproj" />
     <ProjectReference Include="..\CashRegister.Domain\CashRegister.Domain.csproj" />
   </ItemGroup>
 

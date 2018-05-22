@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CashRegister.Domain.SalesAggregate
+namespace CashRegister.Common.Dto
 {
     public class SalesReceipt
     {

@@ -1,4 +1,4 @@
-﻿namespace CashRegister.Domain.SalesAggregate
+﻿namespace CashRegister.Common.Dto
 {
     public class SaleItem
     {

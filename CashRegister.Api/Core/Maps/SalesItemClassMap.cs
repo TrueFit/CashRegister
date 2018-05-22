@@ -1,4 +1,4 @@
-﻿using CashRegister.Domain.SalesAggregate;
+﻿using CashRegister.Common.Dto;
 using CsvHelper.Configuration;
 
 namespace CashRegister.Api.Core.Maps

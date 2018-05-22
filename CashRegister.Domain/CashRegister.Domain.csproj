@@ -9,4 +9,8 @@
     <PackageReference Include="Mediatr" Version="4.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CashRegister.Common\CashRegister.Common.csproj" />
+  </ItemGroup>
+
 </Project>
