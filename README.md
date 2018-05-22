@@ -46,9 +46,11 @@ Here are a couple of thoughts about the domain that could influence your respons
 ## Implementation
 
 ### Pre-requisites
-Please ensure that you have .NET Core 2.0+ installed as well as Visual Studio 2017.
+Please ensure that you have .NET Core 2.0+ installed as well as Visual Studio 2017+.
 
 ### To run
+* Open the *CashRegister.sln* file using Visual Studio 2017+.
+* Select the *CashRegister.Api* project as the startup project and run the project.
 * On startup, you should be directed to the */swagger* URL. Otherwise, navigate there.
 * Expand the *POST /api/CashRegister* endpoint and click the **Try it Out** button within
 * Attach a file to the request by using the **Choose File** button. I've included *sample-input.csv* in this repository for your convenience.
