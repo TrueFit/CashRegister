@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister", "CashRegister\CashRegister.csproj", "{69EF77C6-13F6-4E53-A201-B1ED2D03EDEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{2A3FFE9E-F921-4FE8-A399-9A6DBC0A7307}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69EF77C6-13F6-4E53-A201-B1ED2D03EDEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69EF77C6-13F6-4E53-A201-B1ED2D03EDEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69EF77C6-13F6-4E53-A201-B1ED2D03EDEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69EF77C6-13F6-4E53-A201-B1ED2D03EDEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A3FFE9E-F921-4FE8-A399-9A6DBC0A7307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A3FFE9E-F921-4FE8-A399-9A6DBC0A7307}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A3FFE9E-F921-4FE8-A399-9A6DBC0A7307}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A3FFE9E-F921-4FE8-A399-9A6DBC0A7307}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3B9B2BE-736F-44D5-BEAC-082E8C5133D0}
+	EndGlobalSection
+EndGlobal

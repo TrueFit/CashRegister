@@ -1,0 +1,6 @@
+C:\Users\jpiel\source\repos\CashRegister\Calculator\bin\Debug\Calculator.dll
+C:\Users\jpiel\source\repos\CashRegister\Calculator\bin\Debug\Calculator.pdb
+C:\Users\jpiel\source\repos\CashRegister\Calculator\obj\Debug\Calculator.csprojAssemblyReference.cache
+C:\Users\jpiel\source\repos\CashRegister\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
+C:\Users\jpiel\source\repos\CashRegister\Calculator\obj\Debug\Calculator.dll
+C:\Users\jpiel\source\repos\CashRegister\Calculator\obj\Debug\Calculator.pdb

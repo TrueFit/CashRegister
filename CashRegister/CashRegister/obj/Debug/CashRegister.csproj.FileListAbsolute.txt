@@ -1,0 +1,10 @@
+C:\Users\jpiel\source\repos\CashRegister\CashRegister\bin\Debug\CashRegister.exe.config
+C:\Users\jpiel\source\repos\CashRegister\CashRegister\bin\Debug\CashRegister.exe
+C:\Users\jpiel\source\repos\CashRegister\CashRegister\bin\Debug\CashRegister.pdb
+C:\Users\jpiel\source\repos\CashRegister\CashRegister\obj\Debug\CashRegister.csprojAssemblyReference.cache
+C:\Users\jpiel\source\repos\CashRegister\CashRegister\obj\Debug\CashRegister.csproj.CoreCompileInputs.cache
+C:\Users\jpiel\source\repos\CashRegister\CashRegister\obj\Debug\CashRegister.exe
+C:\Users\jpiel\source\repos\CashRegister\CashRegister\obj\Debug\CashRegister.pdb
+C:\Users\jpiel\source\repos\CashRegister\CashRegister\bin\Debug\Calculator.dll
+C:\Users\jpiel\source\repos\CashRegister\CashRegister\bin\Debug\Calculator.pdb
+C:\Users\jpiel\source\repos\CashRegister\CashRegister\obj\Debug\CashRegister.csproj.CopyComplete
