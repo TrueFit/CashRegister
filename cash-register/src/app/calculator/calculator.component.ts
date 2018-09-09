@@ -19,8 +19,7 @@ export class CalculatorComponent implements OnInit {
     for (var index = 0; index < input.files.length; index++) {
         let reader = new FileReader();
         reader.onload = () => {
-            // this 'text' is the content of the file
-            var text = reader.result;
+            var text = reader.result;   // this 'text' is the content of the file
             let inputs = text.split("\n");
             console.log(inputs);
             for (var i = 0; i < inputs.length; i++) {
@@ -47,10 +46,10 @@ export class CalculatorComponent implements OnInit {
     ];
     var change = values[1] - values[0];
     console.log(change);
-    var result = denominations.reduce(function(acc, next) {
+    var result = denominations.reduce(function(acc, next) {   // iterates through the denomination object from top to bottom
       console.log(next.name)
       if (change >= next.value) {
-        var currentValue = 0.00;
+        var currentValue = 0.00;    // the amount of coins/bills for each denomination
         while (change >= next.value && change >= 0) {
           currentValue ++;
           change -= next.value;
