@@ -26,7 +26,7 @@ export class CalculatorComponent implements OnInit {
               if (inputs[i].length != 1) {    // checks that the string is NOT empty
                 var splitValues = inputs[i].split(",");
                 var calculatedChange = this.calculate(splitValues);
-                answerArray.push(calculatedChange)
+                answerArray.push(calculatedChange);
               }
             }
             console.log(answerArray);
@@ -37,15 +37,16 @@ export class CalculatorComponent implements OnInit {
   }
 
   calculate(values) {
+    // TODO make the denominations object a global variable or model
     var denominations = [
-      {name: "twenty", value: 20.00},
-      {name: "ten", value: 10.00},
-      {name: "five", value: 5.00},
-      {name: "one", value: 1.00},
-      {name: "quarter", value: 0.25},
-      {name: "dime", value: 0.10},
-      {name: "nickle", value: 0.05},
-      {name: "penny", value: 0.01}
+      {name: "twenty", plural: "twenties", value: 20.00},
+      {name: "ten", plural: "tens", value: 10.00},
+      {name: "five", plural: "fives", value: 5.00},
+      {name: "one", plural: "ones", value: 1.00},
+      {name: "quarter", plural: "quarters", value: 0.25},
+      {name: "dime", plural: "dimes", value: 0.10},
+      {name: "nickle", plural: "nickles", value: 0.05},
+      {name: "penny", plural: "pennies", value: 0.01}
     ];
     var change = values[1] - values[0];   // get the difference between what is paid and owed
     var result = denominations.reduce(function(accumulator, currentDenomination) {   // iterates through the denomination object from top to bottom
@@ -57,33 +58,45 @@ export class CalculatorComponent implements OnInit {
           change -= currentDenomination.value;
           change = Math.round(change * 100) / 100   // prevents nasty decimal issues in TypeScript
         }
-        accumulator.push([currentDenomination.name, currentValue]);
-        return accumulator
+        if (currentValue > 1) {   // checks to see if the plural denomination name should be used or not
+          accumulator.push([currentDenomination.plural, currentValue]);
+        } else {
+          accumulator.push([currentDenomination.name, currentValue]);
+        }
+        return accumulator;
       } else {
-        return accumulator
+        return accumulator;
       }
     }, []);
-    // console.log(result)
     return result
   }
 
   write(answerArray) {
+    let answerObject = []
+    let stringAnswers = []
+    let transactionCounter = 0
     let csvContent = "data:text/csv;charset=utf-8,";
-    // TODO: not the most graceful solution, use objects instead?
+    // TODO not the most graceful solution, use objects instead?
     for (var i = 0; i < answerArray.length; i++) {    // each iteration is one transaction
-      console.log(answerArray[i])
+      // console.log(answerArray[i])
+      transactionCounter ++
+      let transactionString = ""
       for (var x = 0; x < answerArray[i].length; x++) {   // each iteration is one denomination of a transaction
         var string = answerArray[i][x][1] + " " + answerArray[i][x][0]
-        var transactionString = transactionString + " " + string;
-        console.log(transactionString)
+        transactionString = transactionString + string + ",";
       }
+      stringAnswers.push({transaction: transactionCounter, string: transactionString})
+      console.log(stringAnswers)
     }
-    // rows.forEach(function(rowArray){
-    //   let row = rowArray.join(",");
-    //   csvContent += row + "\r\n";
-    // });
-    // var encodedUri = encodeURI(csvContent);
-    // window.open(encodedUri);
+    var jsonAnswers = JSON.stringify(stringAnswers);
+    console.log(jsonAnswers)
+    const rows = stringAnswers
+    rows.forEach(function(rowArray) {
+      let row = Array.prototype.join.call(rows, ",");
+      csvContent += row + "\r\n";
+    });
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
   }
 
 }
