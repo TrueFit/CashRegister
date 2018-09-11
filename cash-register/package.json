@@ -20,7 +20,9 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "angular5-csv": "^0.2.10",
     "core-js": "^2.5.4",
+    "json2csv": "^4.2.1",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },

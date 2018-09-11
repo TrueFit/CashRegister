@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 
 @Component({
   selector: 'app-calculator',
@@ -72,6 +73,9 @@ export class CalculatorComponent implements OnInit {
   }
 
   write(answerArray) {
+    var options = {
+      headers: ["Transaction Number", "Change Due"]
+    }
     let answerObject = []
     let stringAnswers = []
     let transactionCounter = 0
@@ -88,15 +92,16 @@ export class CalculatorComponent implements OnInit {
       stringAnswers.push({transaction: transactionCounter, string: transactionString})
       console.log(stringAnswers)
     }
-    var jsonAnswers = JSON.stringify(stringAnswers);
-    console.log(jsonAnswers)
-    const rows = stringAnswers
-    rows.forEach(function(rowArray) {
-      let row = Array.prototype.join.call(rows, ",");
-      csvContent += row + "\r\n";
-    });
-    var encodedUri = encodeURI(csvContent);
-    window.open(encodedUri);
+    new Angular5Csv(stringAnswers, 'Results', options);
+    // var jsonAnswers = JSON.stringify(stringAnswers);
+    // console.log(jsonAnswers)
+    // const rows = stringAnswers
+    // rows.forEach(function(rowArray) {
+    //   let row = Array.prototype.join.call(rows, ",");
+    //   csvContent += row + "\r\n";
+    // });
+    // var encodedUri = encodeURI(csvContent);
+    // window.open(encodedUri);
   }
 
 }
