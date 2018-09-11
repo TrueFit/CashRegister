@@ -49,12 +49,14 @@ export class CalculatorComponent implements OnInit {
       {name: "nickle", plural: "nickles", value: 0.05},
       {name: "penny", plural: "pennies", value: 0.01}
     ];
+    if ((values[0] * 100) % 3 === 0) {
+      this.calculateRandom(values);
+    }
     var change = values[1] - values[0];   // get the difference between what is paid and owed
     var result = denominations.reduce(function(accumulator, currentDenomination) {   // iterates through the denomination object from top to bottom
-      console.log(currentDenomination.name)
       if (change >= currentDenomination.value) {
         var currentValue = 0.00;    // the amount of coins/bills for each denomination
-        while (change >= currentDenomination.value && change >= 0) {
+        while (change >= currentDenomination.value && change >= 0) {    //TODO remove redundant check here
           currentValue ++;
           change -= currentDenomination.value;
           change = Math.round(change * 100) / 100   // prevents nasty decimal issues in TypeScript
@@ -70,6 +72,36 @@ export class CalculatorComponent implements OnInit {
       }
     }, []);
     return result
+  }
+
+  calculateRandom(values) {
+    let results = []
+    console.log("random");
+    var denominations = [
+      {name: "twenty", plural: "twenties", value: 20.00},
+      {name: "ten", plural: "tens", value: 10.00},
+      {name: "five", plural: "fives", value: 5.00},
+      {name: "one", plural: "ones", value: 1.00},
+      {name: "quarter", plural: "quarters", value: 0.25},
+      {name: "dime", plural: "dimes", value: 0.10},
+      {name: "nickle", plural: "nickles", value: 0.05},
+      {name: "penny", plural: "pennies", value: 0.01}
+    ];
+    var change = values[1] - values[0];
+    console.log(change)
+    var totalValue = 0
+    while (totalValue < change) {
+      var randomDenomination = denominations[Math.floor(Math.random() * denominations.length)];   // selects a random denomination
+      if (change >= randomDenomination.value) {
+        var denominationAmount = Math.floor(Math.random() * 10)
+        if (change >= (denominationAmount * randomDenomination.value) + totalValue && denominationAmount != 0) {
+          totalValue += denominationAmount * randomDenomination.value
+          totalValue = Math.round(totalValue * 100) / 100
+          results.push(randomDenomination.name, denominationAmount)
+        }
+      }
+    }
+
   }
 
   write(answerArray) {
@@ -92,16 +124,7 @@ export class CalculatorComponent implements OnInit {
       stringAnswers.push({transaction: transactionCounter, string: transactionString})
       console.log(stringAnswers)
     }
-    new Angular5Csv(stringAnswers, 'Results', options);
-    // var jsonAnswers = JSON.stringify(stringAnswers);
-    // console.log(jsonAnswers)
-    // const rows = stringAnswers
-    // rows.forEach(function(rowArray) {
-    //   let row = Array.prototype.join.call(rows, ",");
-    //   csvContent += row + "\r\n";
-    // });
-    // var encodedUri = encodeURI(csvContent);
-    // window.open(encodedUri);
+    // new Angular5Csv(stringAnswers, 'Results', options);   // third party package to generate the output CSV
   }
 
 }
