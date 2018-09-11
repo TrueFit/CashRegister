@@ -76,7 +76,6 @@ export class CalculatorComponent implements OnInit {
 
   calculateRandom(values) {
     let results = []
-    console.log("random");
     var denominations = [
       {name: "twenty", plural: "twenties", value: 20.00},
       {name: "ten", plural: "tens", value: 10.00},
@@ -88,16 +87,25 @@ export class CalculatorComponent implements OnInit {
       {name: "penny", plural: "pennies", value: 0.01}
     ];
     var change = values[1] - values[0];
-    console.log(change)
     var totalValue = 0
     while (totalValue < change) {
+      var sameDenomination = false;
       var randomDenomination = denominations[Math.floor(Math.random() * denominations.length)];   // selects a random denomination
       if (change >= randomDenomination.value) {
         var denominationAmount = Math.floor(Math.random() * 10)
         if (change >= (denominationAmount * randomDenomination.value) + totalValue && denominationAmount != 0) {
           totalValue += denominationAmount * randomDenomination.value
           totalValue = Math.round(totalValue * 100) / 100
-          results.push(randomDenomination.name, denominationAmount)
+          for (var i = 0; i < results.length; i++) {
+            if (results[i].name == randomDenomination.name) {
+              results[i].amount += denominationAmount;
+              var sameDenomination = true;
+            }
+          }
+          if (sameDenomination != true) {
+            results.push({name: randomDenomination.name, amount: denominationAmount})
+          }
+          console.log(results)
         }
       }
     }
