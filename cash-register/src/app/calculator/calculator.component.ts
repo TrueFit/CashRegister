@@ -25,12 +25,11 @@ export class CalculatorComponent {
           if (transactions[i].length != 1 && transactions[i] != "") {   // checks that the string is NOT empty (parsing can create empty strings)
             var splitTransactions = transactions[i].split(",");
             var change = splitTransactions[1] - splitTransactions[0];
+            change = Math.round(change * 100) / 100;    // avoids TypeScript decimal bugs
             if (Math.sign(change) == -1) {    // exception for insufficent funds
-              // alert("The transaction " + splitTransactions + " could not be calculated because the amount paid is insufficent.")
               resultArray.push([{name: "insufficent funds"}]);
               continue;
             } else if (change == 0){    // exception for no change due
-              // alert("No change is due for the transaction " + splitTransactions)
               resultArray.push([{name: "no change due"}]);
               continue;
             }
