@@ -10,41 +10,39 @@ export class CalculatorComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-
-  }
-
+  ngOnInit() { }
 
   read() {
-    let randomResults: any;
-    let answerArray = [];
-    let input = event.target;
-    for (var index = 0; index < input.files.length; index++) {
-        let reader = new FileReader();
-        reader.onload = () => {
-            var text = reader.result;   // this 'text' is the content of the file
-            let inputs = text.split("\n");
-            console.log(inputs);
-            for (var i = 0; i < inputs.length; i++) {
-              if (inputs[i].length != 1) {    // checks that the string is NOT empty
-                var splitValues = inputs[i].split(",");
-                if ((splitValues[0] * 100) % 3 === 0) {
-                  randomResults = this.calculateRandom(splitValues);
-                  answerArray.push(randomResults)
-                } else {
-                  var calculatedChange = this.calculate(splitValues);
-                  answerArray.push(calculatedChange);
-                }
-              }
+    /* this function is responsible for reading the data from the uploaded file
+    as well as parsing and passing the raw values to the appropriate calculation
+    function */
+    var resultArray = [];
+    var input = event.target;    // the file from the UI element
+    var reader = new FileReader();
+    reader.onload = () => {
+        var rawData = reader.result;
+        let transactions = rawData.split("\n");   // returns an array of the owed/paid sets
+        for (var i = 0; i < transactions.length; i++) {
+          if (transactions[i].length != 1) {    // checks that the string is NOT empty (parsing can create empty strings)
+            var splitTransactions = transactions[i].split(",");
+            var change = splitTransactions[1] - splitTransactions[0]   // TODO add checks for negative/0 stuff here
+            if ((splitTransactions[0] * 100) % 3 === 0) {   // checks if the amount owed is divisible by 3
+              var randomResults = this.calculateRandom(change);    // passes values to random calculator
+              resultArray.push(randomResults)
+            } else {
+              var standardResults = this.calculateStandard(change);    // passes values to standard calculator
+              resultArray.push(standardResults);
             }
-            console.log(answerArray);
-            this.write(answerArray);
+          }
         }
-        reader.readAsText(input.files[index]);
-    };
+        this.write(resultArray);    // pass the results of the calculation to be written to a CSV
+    }
+    reader.readAsText(input.files[0]);    // triggers the file reader
   }
 
-  calculate(values) {
+
+  calculateStandard(change) {
+    /* this function calculates the standard change for a transaction (most efficent denominations) */
     // TODO make the denominations object a global variable or model
     var denominations = [
       {name: "twenty", plural: "twenties", value: 20.00},
@@ -56,11 +54,10 @@ export class CalculatorComponent implements OnInit {
       {name: "nickle", plural: "nickles", value: 0.05},
       {name: "penny", plural: "pennies", value: 0.01}
     ];
-    var change = values[1] - values[0];   // get the difference between what is paid and owed
     var result = denominations.reduce(function(accumulator, currentDenomination) {   // iterates through the denomination object from top to bottom
       if (change >= currentDenomination.value) {
         var currentValue = 0.00;    // the amount of coins/bills for each denomination
-        while (change >= currentDenomination.value && change >= 0) {    //TODO remove redundant check here
+        while (change >= currentDenomination.value) {
           currentValue ++;
           change -= currentDenomination.value;
           change = Math.round(change * 100) / 100   // prevents nasty decimal issues in TypeScript
@@ -74,12 +71,15 @@ export class CalculatorComponent implements OnInit {
       } else {
         return accumulator;
       }
-    }, []);
+    }, []);   // the empty array is the initial accumulator
     return result
   }
 
-  calculateRandom(values) {
-    let results = []
+  calculateRandom(change) {
+    /* this function calculates the randomized denominations if the amount
+    due on a transaction is divisible by 3. It's not the most efficent randomization
+    system, but it works well */
+    let result = []
     var denominations = [
       {name: "twenty", plural: "twenties", value: 20.00},
       {name: "ten", plural: "tens", value: 10.00},
@@ -90,46 +90,48 @@ export class CalculatorComponent implements OnInit {
       {name: "nickle", plural: "nickles", value: 0.05},
       {name: "penny", plural: "pennies", value: 0.01}
     ];
-    var change = values[1] - values[0];
     var totalValue = 0
     while (totalValue < change) {
-      var sameDenomination = false;
+      var sameDenominationStatus = false;   // resets the same denomination catch for each iteration
       var randomDenomination = denominations[Math.floor(Math.random() * denominations.length)];   // selects a random denomination
-      if (change >= randomDenomination.value) {
-        var denominationAmount = Math.floor(Math.random() * 10)
-        if (change >= (denominationAmount * randomDenomination.value) + totalValue && denominationAmount != 0) {
+      if (change >= randomDenomination.value) {   // makes sure the denomination is valid
+        var denominationAmount = Math.floor((Math.random() * 10) + 1) // picks a random amount of the random denomination
+        if (change >= (denominationAmount * randomDenomination.value) + totalValue && denominationAmount != 0) {    // makes sure the values are still valid
           totalValue += denominationAmount * randomDenomination.value
-          totalValue = Math.round(totalValue * 100) / 100
-          for (var i = 0; i < results.length; i++) {
-            if (results[i].name == randomDenomination.name) {
-              results[i].amount += denominationAmount;
-              var sameDenomination = true;
+          totalValue = Math.round(totalValue * 100) / 100   // prevents nasty decimal issues
+          for (var i = 0; i < result.length; i++) {   // combines duplicate denominations
+            if (result[i].name == randomDenomination.name || result[i].name == randomDenomination.plural) {
+              result[i].amount += denominationAmount;
+              var sameDenominationStatus = true;
             }
           }
-          if (sameDenomination != true) {
-            results.push({name: randomDenomination.name, amount: denominationAmount})
+          if (sameDenominationStatus != true) {   // if the denomination is not a duplicate, we add it to the array
+            if (denominationAmount > 1) {   // checks to use singular or plural name
+              result.push({name: randomDenomination.plural, amount: denominationAmount})
+            } else {
+              result.push({name: randomDenomination.name, amount: denominationAmount})
+            }
           }
         }
       }
     }
-    return results
+    return result
   }
 
-  write(answerArray) {
-    var options = {
+  write(resultArray) {
+    /* this function is responsible for concatenating the results into
+    human readable format and then exporting the answers into a CSV */
+    var options = {   // options for CSV export package
       headers: ["Transaction Number", "Change Due"]
     }
-    let answerObject = []
-    let stringAnswers = []
-    let transactionCounter = 0
+    let stringAnswers = []    // init our array of final, human readable answers
+    let transactionCounter = 0    // matches each transaction with the appropriate answer line
     let csvContent = "data:text/csv;charset=utf-8,";
-    // TODO not the most graceful solution, use objects instead?
-    for (var i = 0; i < answerArray.length; i++) {    // each iteration is one transaction
-      // console.log(answerArray[i])
+    for (var i = 0; i < resultArray.length; i++) {    // each iteration is one transaction
       transactionCounter ++
       let transactionString = ""
-      for (var x = 0; x < answerArray[i].length; x++) {   // each iteration is one denomination of a transaction
-        var string = answerArray[i][x][1] + " " + answerArray[i][x][0]
+      for (var x = 0; x < resultArray[i].length; x++) {   // each iteration is one denomination of a transaction
+        var string = resultArray[i][x].amount + " " + resultArray[i][x].name
         transactionString = transactionString + string + ",";
       }
       stringAnswers.push({transaction: transactionCounter, string: transactionString})
