@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
+import { DenominationsService } from '../denominations.service';
+
 
 @Component({
   selector: 'app-calculator',
@@ -8,7 +10,7 @@ import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 })
 export class CalculatorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private denominationsService: DenominationsService) { }
 
   ngOnInit() { }
 
@@ -44,16 +46,8 @@ export class CalculatorComponent implements OnInit {
   calculateStandard(change) {
     /* this function calculates the standard change for a transaction (most efficent denominations) */
     // TODO make the denominations object a global variable or model
-    var denominations = [
-      {name: "twenty", plural: "twenties", value: 20.00},
-      {name: "ten", plural: "tens", value: 10.00},
-      {name: "five", plural: "fives", value: 5.00},
-      {name: "one", plural: "ones", value: 1.00},
-      {name: "quarter", plural: "quarters", value: 0.25},
-      {name: "dime", plural: "dimes", value: 0.10},
-      {name: "nickle", plural: "nickles", value: 0.05},
-      {name: "penny", plural: "pennies", value: 0.01}
-    ];
+    var denominations = this.denominationsService.getDenominations();
+    console.log(denominations)
     var result = denominations.reduce(function(accumulator, currentDenomination) {   // iterates through the denomination object from top to bottom
       if (change >= currentDenomination.value) {
         var currentValue = 0.00;    // the amount of coins/bills for each denomination
@@ -80,16 +74,7 @@ export class CalculatorComponent implements OnInit {
     due on a transaction is divisible by 3. It's not the most efficent randomization
     system, but it works well */
     let result = []
-    var denominations = [
-      {name: "twenty", plural: "twenties", value: 20.00},
-      {name: "ten", plural: "tens", value: 10.00},
-      {name: "five", plural: "fives", value: 5.00},
-      {name: "one", plural: "ones", value: 1.00},
-      {name: "quarter", plural: "quarters", value: 0.25},
-      {name: "dime", plural: "dimes", value: 0.10},
-      {name: "nickle", plural: "nickles", value: 0.05},
-      {name: "penny", plural: "pennies", value: 0.01}
-    ];
+    var denominations = this.denominationsService.getDenominations();
     var totalValue = 0
     while (totalValue < change) {
       var sameDenominationStatus = false;   // resets the same denomination catch for each iteration
