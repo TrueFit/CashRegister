@@ -81,19 +81,24 @@ export class CalculatorComponent {
           for (var i = 0; i < result.length; i++) {   // combines duplicate denominations
             if (result[i].name == randomDenomination.name || result[i].name == randomDenomination.plural) {
               result[i].amount += denominationAmount;
+              if (result[i].amount > 1) {
+                result[i].name = randomDenomination.plural
+              }
               var sameDenominationStatus = true;
             }
           }
           if (sameDenominationStatus != true) {   // if the denomination is not a duplicate, we add it to the array
             if (denominationAmount > 1) {   // checks to use singular or plural name
-              result.push({name: randomDenomination.plural, amount: denominationAmount})
+              result.push({name: randomDenomination.plural, amount: denominationAmount, value: randomDenomination.value})
             } else {
-              result.push({name: randomDenomination.name, amount: denominationAmount})
+              result.push({name: randomDenomination.name, amount: denominationAmount, value: randomDenomination.value})
             }
           }
         }
       }
     }
+    result = result.sort(function(a, b) {return b.value - a.value});
+    console.log(result)
     return result
   }
 
@@ -114,7 +119,7 @@ export class CalculatorComponent {
         var string = resultArray[i][x].amount + " " + resultArray[i][x].name
         transactionString = transactionString + string + ",";
       }
-      stringAnswers.push({transaction: transactionCounter, string: transactionString})
+      stringAnswers.push({transaction: transactionCounter, string: transactionString});
       console.log(stringAnswers)
     }
     // new Angular5Csv(stringAnswers, 'Results', options);   // third party package to generate the output CSV
