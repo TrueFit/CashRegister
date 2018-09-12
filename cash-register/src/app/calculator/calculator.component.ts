@@ -14,7 +14,9 @@ export class CalculatorComponent implements OnInit {
 
   }
 
+
   read() {
+    let randomResults: any;
     let answerArray = [];
     let input = event.target;
     for (var index = 0; index < input.files.length; index++) {
@@ -26,8 +28,13 @@ export class CalculatorComponent implements OnInit {
             for (var i = 0; i < inputs.length; i++) {
               if (inputs[i].length != 1) {    // checks that the string is NOT empty
                 var splitValues = inputs[i].split(",");
-                var calculatedChange = this.calculate(splitValues);
-                answerArray.push(calculatedChange);
+                if ((splitValues[0] * 100) % 3 === 0) {
+                  randomResults = this.calculateRandom(splitValues);
+                  answerArray.push(randomResults)
+                } else {
+                  var calculatedChange = this.calculate(splitValues);
+                  answerArray.push(calculatedChange);
+                }
               }
             }
             console.log(answerArray);
@@ -51,18 +58,17 @@ export class CalculatorComponent implements OnInit {
     ];
     var change = values[1] - values[0];   // get the difference between what is paid and owed
     var result = denominations.reduce(function(accumulator, currentDenomination) {   // iterates through the denomination object from top to bottom
-      console.log(currentDenomination.name)
       if (change >= currentDenomination.value) {
         var currentValue = 0.00;    // the amount of coins/bills for each denomination
-        while (change >= currentDenomination.value && change >= 0) {
+        while (change >= currentDenomination.value && change >= 0) {    //TODO remove redundant check here
           currentValue ++;
           change -= currentDenomination.value;
           change = Math.round(change * 100) / 100   // prevents nasty decimal issues in TypeScript
         }
         if (currentValue > 1) {   // checks to see if the plural denomination name should be used or not
-          accumulator.push([currentDenomination.plural, currentValue]);
+          accumulator.push({name: currentDenomination.plural, amount: currentValue});
         } else {
-          accumulator.push([currentDenomination.name, currentValue]);
+          accumulator.push({name: currentDenomination.name, amount: currentValue});
         }
         return accumulator;
       } else {
@@ -70,6 +76,43 @@ export class CalculatorComponent implements OnInit {
       }
     }, []);
     return result
+  }
+
+  calculateRandom(values) {
+    let results = []
+    var denominations = [
+      {name: "twenty", plural: "twenties", value: 20.00},
+      {name: "ten", plural: "tens", value: 10.00},
+      {name: "five", plural: "fives", value: 5.00},
+      {name: "one", plural: "ones", value: 1.00},
+      {name: "quarter", plural: "quarters", value: 0.25},
+      {name: "dime", plural: "dimes", value: 0.10},
+      {name: "nickle", plural: "nickles", value: 0.05},
+      {name: "penny", plural: "pennies", value: 0.01}
+    ];
+    var change = values[1] - values[0];
+    var totalValue = 0
+    while (totalValue < change) {
+      var sameDenomination = false;
+      var randomDenomination = denominations[Math.floor(Math.random() * denominations.length)];   // selects a random denomination
+      if (change >= randomDenomination.value) {
+        var denominationAmount = Math.floor(Math.random() * 10)
+        if (change >= (denominationAmount * randomDenomination.value) + totalValue && denominationAmount != 0) {
+          totalValue += denominationAmount * randomDenomination.value
+          totalValue = Math.round(totalValue * 100) / 100
+          for (var i = 0; i < results.length; i++) {
+            if (results[i].name == randomDenomination.name) {
+              results[i].amount += denominationAmount;
+              var sameDenomination = true;
+            }
+          }
+          if (sameDenomination != true) {
+            results.push({name: randomDenomination.name, amount: denominationAmount})
+          }
+        }
+      }
+    }
+    return results
   }
 
   write(answerArray) {
@@ -92,16 +135,7 @@ export class CalculatorComponent implements OnInit {
       stringAnswers.push({transaction: transactionCounter, string: transactionString})
       console.log(stringAnswers)
     }
-    new Angular5Csv(stringAnswers, 'Results', options);
-    // var jsonAnswers = JSON.stringify(stringAnswers);
-    // console.log(jsonAnswers)
-    // const rows = stringAnswers
-    // rows.forEach(function(rowArray) {
-    //   let row = Array.prototype.join.call(rows, ",");
-    //   csvContent += row + "\r\n";
-    // });
-    // var encodedUri = encodeURI(csvContent);
-    // window.open(encodedUri);
+    // new Angular5Csv(stringAnswers, 'Results', options);   // third party package to generate the output CSV
   }
 
 }
