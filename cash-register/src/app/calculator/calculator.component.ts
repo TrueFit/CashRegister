@@ -14,7 +14,9 @@ export class CalculatorComponent implements OnInit {
 
   }
 
+
   read() {
+    let randomResults: any;
     let answerArray = [];
     let input = event.target;
     for (var index = 0; index < input.files.length; index++) {
@@ -26,8 +28,13 @@ export class CalculatorComponent implements OnInit {
             for (var i = 0; i < inputs.length; i++) {
               if (inputs[i].length != 1) {    // checks that the string is NOT empty
                 var splitValues = inputs[i].split(",");
-                var calculatedChange = this.calculate(splitValues);
-                answerArray.push(calculatedChange);
+                if ((splitValues[0] * 100) % 3 === 0) {
+                  randomResults = this.calculateRandom(splitValues);
+                  answerArray.push(randomResults)
+                } else {
+                  var calculatedChange = this.calculate(splitValues);
+                  answerArray.push(calculatedChange);
+                }
               }
             }
             console.log(answerArray);
@@ -49,9 +56,6 @@ export class CalculatorComponent implements OnInit {
       {name: "nickle", plural: "nickles", value: 0.05},
       {name: "penny", plural: "pennies", value: 0.01}
     ];
-    if ((values[0] * 100) % 3 === 0) {
-      this.calculateRandom(values);
-    }
     var change = values[1] - values[0];   // get the difference between what is paid and owed
     var result = denominations.reduce(function(accumulator, currentDenomination) {   // iterates through the denomination object from top to bottom
       if (change >= currentDenomination.value) {
@@ -62,9 +66,9 @@ export class CalculatorComponent implements OnInit {
           change = Math.round(change * 100) / 100   // prevents nasty decimal issues in TypeScript
         }
         if (currentValue > 1) {   // checks to see if the plural denomination name should be used or not
-          accumulator.push([currentDenomination.plural, currentValue]);
+          accumulator.push({name: currentDenomination.plural, amount: currentValue});
         } else {
-          accumulator.push([currentDenomination.name, currentValue]);
+          accumulator.push({name: currentDenomination.name, amount: currentValue});
         }
         return accumulator;
       } else {
@@ -105,11 +109,10 @@ export class CalculatorComponent implements OnInit {
           if (sameDenomination != true) {
             results.push({name: randomDenomination.name, amount: denominationAmount})
           }
-          console.log(results)
         }
       }
     }
-
+    return results
   }
 
   write(answerArray) {
