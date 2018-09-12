@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CalculatorComponent } from './calculator/calculator.component';
+import { AppRoutingModule } from './app-routing.module';
+
+import { denominations } from './denominations';
 
 @NgModule({
   declarations: [
@@ -10,9 +13,12 @@ import { CalculatorComponent } from './calculator/calculator.component';
     CalculatorComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: 'Denominations', useValue: denominations }   // provides global constant
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

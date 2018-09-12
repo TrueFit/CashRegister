@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
-import { DenominationsService } from '../denominations.service';
 
 
 @Component({
@@ -8,11 +7,9 @@ import { DenominationsService } from '../denominations.service';
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.css']
 })
-export class CalculatorComponent implements OnInit {
+export class CalculatorComponent {
 
-  constructor(private denominationsService: DenominationsService) { }
-
-  ngOnInit() { }
+  constructor(@Inject('Denominations') public denominations: any[]) { }
 
   read() {
     /* this function is responsible for reading the data from the uploaded file
@@ -45,10 +42,7 @@ export class CalculatorComponent implements OnInit {
 
   calculateStandard(change) {
     /* this function calculates the standard change for a transaction (most efficent denominations) */
-    // TODO make the denominations object a global variable or model
-    var denominations = this.denominationsService.getDenominations();
-    console.log(denominations)
-    var result = denominations.reduce(function(accumulator, currentDenomination) {   // iterates through the denomination object from top to bottom
+    var result = this.denominations.reduce(function(accumulator, currentDenomination) {   // iterates through the denomination object from top to bottom
       if (change >= currentDenomination.value) {
         var currentValue = 0.00;    // the amount of coins/bills for each denomination
         while (change >= currentDenomination.value) {
@@ -69,16 +63,16 @@ export class CalculatorComponent implements OnInit {
     return result
   }
 
+
   calculateRandom(change) {
     /* this function calculates the randomized denominations if the amount
     due on a transaction is divisible by 3. It's not the most efficent randomization
     system, but it works well */
     let result = []
-    var denominations = this.denominationsService.getDenominations();
     var totalValue = 0
     while (totalValue < change) {
       var sameDenominationStatus = false;   // resets the same denomination catch for each iteration
-      var randomDenomination = denominations[Math.floor(Math.random() * denominations.length)];   // selects a random denomination
+      var randomDenomination = this.denominations[Math.floor(Math.random() * this.denominations.length)];   // selects a random denomination
       if (change >= randomDenomination.value) {   // makes sure the denomination is valid
         var denominationAmount = Math.floor((Math.random() * 10) + 1) // picks a random amount of the random denomination
         if (change >= (denominationAmount * randomDenomination.value) + totalValue && denominationAmount != 0) {    // makes sure the values are still valid
@@ -102,6 +96,7 @@ export class CalculatorComponent implements OnInit {
     }
     return result
   }
+
 
   write(resultArray) {
     /* this function is responsible for concatenating the results into
