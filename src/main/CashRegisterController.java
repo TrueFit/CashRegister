@@ -1,3 +1,12 @@
+package main;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
@@ -17,13 +26,91 @@ public class CashRegisterController {
 		denomMapBy100.put("10", 0);
 		denomMapBy100.put("5", 0);
 		denomMapBy100.put("1", 0);
+		
     }
 
 	public static void main(String[] args) {
 		
-		getChange(3.00, 2.12);
-		getChange(2.00, 1.97);
-		getChange(5.00, 3.33);
+		// Reading file containing owed and cash amounts
+		URL url = CashRegisterController.class.getResource("input.txt");
+		File file = new File(url.getPath().substring(0, url.getPath().indexOf("bin")) + "src/main/input.txt");
+
+		BufferedReader br;
+		String outputSt = "";
+		try {
+			br = new BufferedReader(new FileReader(file));
+			String st;
+			
+			while ((st = br.readLine()) != null) {
+				String[] inputRow = st.split(",");
+				Map<String, Integer> changeMap = getChange(Double.valueOf(inputRow[1]), Double.valueOf(inputRow[0]));
+				for (Map.Entry<String, Integer> entry: changeMap.entrySet()) {
+					if(entry.getValue() != 0) {
+						String subChange = entry.getValue() + " "; 
+						
+						switch(entry.getKey()) {
+						case "0.01":
+							subChange = subChange + (entry.getValue() == 1? "penny": "pennies"); 
+							break;
+						case "0.05":
+							subChange = subChange + (entry.getValue() == 1? "nickel": "nickels");
+							break;
+						case "0.1":
+							subChange = subChange + (entry.getValue() == 1? "dime": "dimes");
+							break;
+						case "0.25":
+							subChange = subChange + (entry.getValue() == 1? "quarter": "quarters");
+							break;
+						case "1.0":
+							subChange = subChange + (entry.getValue() == 1? "dollar": "dollars");
+							break;
+						case "5.0":
+							subChange = subChange + ("5_dollars");
+							break;
+						case "10.0":
+							subChange = subChange + ("10_dollars");
+							break;
+						case "20.0":
+							subChange = subChange + ("20_dollars");
+							break;
+						case "50.0":
+							subChange = subChange + ("50_dollars");
+							break;
+						case "100.0":
+							subChange = subChange + ("100_dollars");
+							break;
+						}
+						
+						outputSt = outputSt + subChange + ", ";
+					}
+				}
+				outputSt = outputSt.substring(0, outputSt.length() - 2) + "\n";
+			}
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("Input file does not exist");
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// Writing to file containg the break down of change
+		BufferedWriter writer = null;
+		try {
+			writer = new BufferedWriter(
+					new FileWriter(url.getPath().substring(0, url.getPath().indexOf("bin")) + "src/main/output.txt"));
+			writer.write(outputSt);
+
+		} catch (IOException e) {
+		} finally {
+			try {
+				if (writer != null)
+					writer.close();
+			} catch (IOException e) {
+				System.out.println("Output file did not close properly.");
+			}
+		}
+		
 	}
 	
 	/**
@@ -42,7 +129,7 @@ public class CashRegisterController {
 		
 		Random rand = new Random();
 		
-		// Divisible by 3
+		// Owed amount divisible by 3
 		if (roundTwo((int)Math.round(owed * 100) % 3.0) == 0D) {
 			Double error = 1D;
 			
@@ -86,6 +173,7 @@ public class CashRegisterController {
 		newBreakDown.forEach((k, v) -> {
 			System.out.println("Denom: " + k + " count: " + v);
 		});
+		System.out.println();
 		
 		return newBreakDown;
 	}
