@@ -1,43 +1,44 @@
-# Cash Register
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## The Problem
-Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
+## Available Scripts
 
-Please write a program which accomplishes the clients goals. The program should:
+In the project directory, you can run:
 
-1. Accept a flat file as input
-	1. Each line will contain the amount owed and the amount paid separated by a comma (for example: 2.13,3.00)
-	2. Expect that there will be multiple lines
-2. Output the change the cashier should return to the customer
-	1. The return string should look like: 1 dollar,2 quarters,1 nickel, etc ...
-	2. Each new line in the input file should be a new line in the output file
+### `npm start`
 
-## Sample Input
-2.12,3.00
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-1.97,2.00
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-3.33,5.00
+### `npm test`
 
-## Sample Output
-3 quarters,1 dime,3 pennies
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-3 pennies
+### `npm run build`
 
-1 dollar,1 quarter,6 nickels,12 pennies
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-*Remember the last one is random
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-## The Fine Print
-Please use whatever technology and techniques you feel are applicable to solve the problem. We suggest that you approach this exercise as if this code was part of a larger system. The end result should be representative of your abilities and style.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Please fork this repository. When you have completed your solution, please issue a pull request to notify us that you are ready.
+### `npm run eject`
 
-Have fun.
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-## Things To Consider
-Here are a couple of thoughts about the domain that could influence your response:
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-* What might happen if the client needs to change the random divisor?
-* What might happen if the client needs to add another special case (like the random twist)?
-* What might happen if sales closes a new client in France?
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

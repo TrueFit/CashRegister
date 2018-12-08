@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", "Helvetica", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+    margin: 0 auto;
+    display: block;
+    width: 1200px;
+}
+
+section {
+    padding: 15px;
+    display: block;
+    float: left;
+    width: 570px;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    font-size: 14px;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+li {
+    display: none;
+}
+
+li.visible {
+    display: inline-block;
+}
+
+ul > li.visible b:after {
+    content: " ";
+}
+
+ul > li.visible:before {
+    content: ", ";
+}
+
+ul > li.visible:first-child:before {
+    content: "" !important;
+}
+
+ul:before {
+    content: "• "
+}
+
+li.visible p {
+    display: inline-block;
+    text-transform: capitalize;
+    font-size: 18px;
+}
