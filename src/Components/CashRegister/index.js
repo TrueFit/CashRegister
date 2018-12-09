@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import DENOMINATIONS from "../../Utils/denominations";
 import {checkRandomTwist, parseCSV, roundedDecimal, getRandomArbitrary} from "../../Utils";
+import Uploader from "../Uploader";
 
 const TEST_FILE = "11.0, 20.0\n8.5, 10.0\n3.0, 6.0\n13.42, 16.00\n55.63, 106.0";
 
@@ -22,6 +23,7 @@ class CashRegister extends Component {
             transactions: TEST_FILE,
             randomDivisor: 3
         };
+        this.handleUploadFile = this.handleUploadFile.bind(this);
     }
 
     /* 1. Object manipulation */
@@ -56,6 +58,10 @@ class CashRegister extends Component {
         }
         // console.warn("Result: ", result);
         return result;
+    }
+
+    handleUploadFile(file) {
+        this.setState({transactions: file});
     }
 
     /* 2. Overrides */
@@ -147,6 +153,10 @@ class CashRegister extends Component {
                 <section>
                     <h1>Output</h1>
                     {this.renderAllTransactions(allTransactions)}
+                </section>
+                <section className="uploader">
+                    <h1>Uploader</h1>
+                    <Uploader handleUploadFile={this.handleUploadFile}/>
                 </section>
             </React.Fragment>
         );
