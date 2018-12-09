@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import DENOMINATIONS from "./denominations";
-import {checkRandomDivisible, parseCSV, roundedDecimal, getRandomArbitrary} from "../../Utils";
+import {checkRandomTwist, parseCSV, roundedDecimal, getRandomArbitrary} from "../../Utils";
 
 const TEST_FILE = "11.0, 20.0\n8.5, 10.0\n3.0, 6.0\n13.42, 16.00\n55.63, 106.0";
 
@@ -15,6 +15,7 @@ const CASH_REGISTER = {
 };
 
 class CashRegister extends Component {
+    /* 0. Component Lifecycle */
     constructor() {
         super();
         this.state = {
@@ -23,10 +24,47 @@ class CashRegister extends Component {
         };
     }
 
+    /* 1. Object manipulation */
+
+    // Returns the closest denomination
+    getDenomination(value, override) {
+        let thisValue = value; // Don't mutate params
+        let result = null;
+        // Check if there are user created overrides
+        thisValue = this.getOverrides(override, thisValue);
+        // Find best match for each value
+        DENOMINATIONS.forEach((denomination) => {
+            if (thisValue >= denomination.value && !result) {
+                result = DENOMINATIONS.find(res => res.value === denomination.value);
+            }
+        });
+        return result;
+    }
+
+    // builds array of physical change
+    getUserChange(transaction) {
+        const result = [];
+        let value = roundedDecimal(transaction.paid - transaction.owed); // determine what is owed
+        const override = this.setOverrides(value); // set any available override(s)
+
+        // get user's change for transaction
+        while (value > 0) {
+            const denomination = this.getDenomination(value, override); // returns object
+            const remainder = value - denomination.value; // Update Difference
+            value = roundedDecimal(remainder);
+            result.push(denomination.name); // Push user's change to array until we reach 0
+        }
+        // console.warn("Result: ", result);
+        return result;
+    }
+
+    /* 2. Overrides */
+
+    // returns new value when an override is activated
     getOverrides(override, value) {
         let newValue = value;
         override.forEach(thisOverride => {
-            if (thisOverride.active === true && "randomDivisible" === thisOverride.type) {
+            if (true === thisOverride.active && "randomDivisible" === thisOverride.type) {
                 let randomDifference = getRandomArbitrary(0.01, value);
                 newValue = roundedDecimal(randomDifference);
             }
@@ -35,49 +73,16 @@ class CashRegister extends Component {
     }
 
     // What might happen if the client needs to add another special case (like the random twist)?
-    checkOverrides = value => {
+    setOverrides = value => {
         return [
             {
-                active: checkRandomDivisible(value, this.state.randomDivisor),
+                active: checkRandomTwist(value, this.state.randomDivisor),
                 type: "randomDivisible"
             }
         ];
     }
 
-    // Returns the closest denomination from the value param
-    getDenomination(value, override) {
-        let thisValue = value; // Don't mutate params
-        let result = null;
-        // Check if there are any custom actions
-        thisValue = this.getOverrides(override, thisValue);
-
-        // Find best match for each value
-        DENOMINATIONS.forEach((denomination, i) => {
-            if (thisValue >= denomination.value && !result) {
-                result = DENOMINATIONS.find(res => res.value === denomination.value);
-            }
-        });
-        return result;
-    }
-
-    getUserChange(transaction) {
-        const result = [];
-        let value = roundedDecimal(transaction.paid - transaction.owed); // determine what is owed
-        const override = this.checkOverrides(value); // check overrides at the beginning of each transaction
-
-        // get user's change for transaction
-        while (value > 0) {
-            const denomination = this.getDenomination(value, override); // returns denomination object {name, value}
-            const remainder = value - denomination.value; // Update Difference
-            value = roundedDecimal(remainder);
-            result.push(denomination.name); // Push user's change to array until we reach 0
-        }
-
-        // console.warn("Result: ", result);
-        return result;
-    }
-
-    /* Render Methods */
+    /* 3. Render Methods */
     // What might happen if the client needs to change the random divisor?
     renderRandomDivisorInput = () => (
         <form>
@@ -89,36 +94,40 @@ class CashRegister extends Component {
         </form>
     );
 
-    renderTransaction(thisTransaction) {
-        const result = [];
-        // Map each transaction to currency
-        DENOMINATIONS.forEach((denomination, index) => {
-            const quantity = thisTransaction.filter(res => res === denomination.name).length;
-            if (!quantity) {
-                return;
-            }
+    renderListItem = (denomination, quantity, index) => (
+        <React.Fragment>
+            <b>{quantity}</b>
+            <p>
+                {
+                    quantity > 1
+                        ? CASH_REGISTER[denomination.name].plural
+                        : CASH_REGISTER[denomination.name].name
+                }
+            </p>
+        </React.Fragment>
+    )
 
-            result.push(
+    renderTransaction(thisTransaction) {
+        const newResult = [];
+        const transaction = this.getUserChange(thisTransaction);
+        // Assign each transaction's remainder to physical change
+        DENOMINATIONS.forEach((denomination, index) => {
+            const quantity = transaction.filter(res => res === denomination.name).length;
+            if (!quantity) return;
+            newResult.push(
                 <li
                     key={`transaction-${index}`}
                     className="visible">
-                    <b>{quantity}</b>
-                    <p>
-                        {
-                            quantity > 1
-                                ? CASH_REGISTER[denomination.name].plural
-                                : CASH_REGISTER[denomination.name].name}
-                    </p>
+                    {this.renderListItem(denomination, quantity)}
                 </li>
             );
         });
-        return result;
+        return newResult;
     }
 
     renderAllTransactions = (transactions) => (
         transactions.map((thisTransaction, index) => {
-            const result = this.getUserChange(thisTransaction);
-            return (<ul key={`transaction-container-${index}`}>{this.renderTransaction(result)}</ul>);
+            return (<ul key={`transaction-container-${index}`}>{this.renderTransaction(thisTransaction)}</ul>);
         })
     )
 
@@ -129,7 +138,10 @@ class CashRegister extends Component {
             <React.Fragment>
                 <section>
                     <h1>Transactions</h1>
-                    <textarea onChange={(e) => this.setState({transactions: e.target.value})} value={this.state.transactions}/>
+                    <textarea
+                        onChange={(e) => this.setState({transactions: e.target.value})}
+                        value={this.state.transactions}
+                    />
                     {this.renderRandomDivisorInput()}
                 </section>
                 <section>

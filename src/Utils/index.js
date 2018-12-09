@@ -1,4 +1,4 @@
-const checkRandomDivisible = (value, factor) => {
+const checkRandomTwist = (value, factor) => {
     return value % factor === 0;
 }
 
@@ -17,4 +17,4 @@ const roundedDecimal = value => Math.round(value * 100) / 100; // Round to 2 dec
 
 const getRandomArbitrary = (min, max) => Math.random() * (max - min) + min;
 
-export {checkRandomDivisible, parseCSV, roundedDecimal, getRandomArbitrary};
+export {checkRandomTwist, parseCSV, roundedDecimal, getRandomArbitrary};
