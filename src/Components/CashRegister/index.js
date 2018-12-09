@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import DENOMINATIONS from "./denominations";
+import DENOMINATIONS from "../../Utils/denominations";
 import {checkRandomTwist, parseCSV, roundedDecimal, getRandomArbitrary} from "../../Utils";
 
 const TEST_FILE = "11.0, 20.0\n8.5, 10.0\n3.0, 6.0\n13.42, 16.00\n55.63, 106.0";
