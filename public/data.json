@@ -1,0 +1,20 @@
+{
+	"register": [
+		{
+			"amountOwed": "2.12",
+			"amountPaid": "3.00" 
+		},
+		{
+			"amountOwed": "1.97",
+			"amountPaid": "2.00" 
+		},
+		{
+			"amountOwed": "4.35",
+			"amountPaid": "8.00" 
+		},
+		{
+			"amountOwed": "3.33",
+			"amountPaid": "105.25" 
+		}
+	]
+}
