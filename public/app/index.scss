@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Assistant:300,400,700');
+
+$grey: #e6e6e6;
+$dark-grey: #d3d3d3;
+
+body {
+    background-color: $grey;
+}
+
+main {
+    margin: 0 auto;
+    width: 800px;
+    display: flex;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid $dark-grey;
+
+}

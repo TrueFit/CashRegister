@@ -1,17 +1,17 @@
-const React = require('react');
+import React from 'react';
+import TransactionsForm from './TransactionsForm';
 
-class App extends React.Component {
+export default class App extends React.Component {
     constructor() {
         super();
     }
 
     render() {
         return (
-            <div>
+            <main>
                 <h1>Home1234</h1>
-            </div>
+                <TransactionsForm />
+            </main>
         )
     }
 }
-
-module.exports = App;
