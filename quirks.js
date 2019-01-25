@@ -4,7 +4,6 @@
 // All quirk conditions and callbacks are functions that take in the transaction data as a parameter.
 // The purpose of this set up is to have a structure that allows us to easily add and remove quirks and
 // even persist them to a database.
-// Note amounts are sent in terms of cents.
 
 module.exports = [
     {
@@ -15,7 +14,7 @@ module.exports = [
 
             const changeAsPennies = transaction.paid*100-transaction.owed*100;
             let remaining = changeAsPennies;
-            
+
             let result = {
                 quirkId: this.id,
                 change: changeAsPennies/100,

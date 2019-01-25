@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 
 export default class TransactionsForm extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             transactionsList: {}
@@ -21,20 +21,26 @@ export default class TransactionsForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        const data = new FormData()
-        data.append('file', this.state.transactionsList, this.state.transactionsList.name)
+        if(!this.state.transactionsList) {
+            this.props.onError('No files were uploaded.');
+        } else {
+            const data = new FormData()
+            data.append('file', this.state.transactionsList, this.state.transactionsList.name)
 
-        axios.post('/transactionsList', data)
-            .then(res => {
-                console.log({res})
-            })
+            axios.post('/transactionsList', data)
+                .then(res => {
+                    this.props.onSubmit(res.data.transactions);
+                }, res => {
+                    this.props.onError(res.response.data);
+                })
+        }
     }
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form className="transaction-form" onSubmit={this.handleSubmit}>
                 <label htmlFor="transactions">Select transaction file:</label>
-
+                <br />
                 <input type="file"
                     id="transactions"
                     name="transactions"

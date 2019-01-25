@@ -5,14 +5,57 @@ $dark-grey: #d3d3d3;
 
 body {
     background-color: $grey;
+    font-family: 'Assistant', sans-serif;
 }
 
 main {
-    margin: 0 auto;
+    margin: 50px auto 0 auto;
     width: 800px;
-    display: flex;
     background-color: #fff;
-    border-radius: 3px;
+    border-radius: 5px;
     border: 1px solid $dark-grey;
+    padding: 25px;
+
+    h1 {
+        width: 100%;
+        padding: 0 0 5px 0;
+        border-bottom: 1px solid $dark-grey;
+    }
+
+    p.error {
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #d6002e;
+        background-color: #ff829c;
+    }
+
+    .transaction-form {
+        input {
+            margin: 15px 0 0 0;
+        }
+    }
+
+    .change-table {
+        border-collapse: collapse;
+        border: 1px solid $grey;
+        margin: 15px 0 0 0;
+
+        thead > tr {
+            border-bottom: 1px solid $grey;
+        }
+
+        th, td {
+            padding: 5px;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        tr:nth-child(even){
+            background-color: $grey;
+        }
+    }
 
 }

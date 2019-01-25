@@ -1,5 +1,13 @@
 # Cash Register
 
+## Running this project
+
+Simply run `npm install` followed by `npm start`
+
+## Notes
+
+This project is set up as an express app containing a react client app. While the API and client are in the same app here for simplicity's sake, the point of putting the change making logic behind an API is to show how it could be broken out into an endpoint that can be hit from many clients.
+
 ## The Problem
 Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
 
