@@ -3,13 +3,15 @@
 // In our example we only have one quirk that returns random denominations if the the owed amount is divisible by 3.
 // All quirk conditions and callbacks are functions that take in the transaction data as a parameter.
 // The purpose of this set up is to have a structure that allows us to easily add and remove quirks and
-// even persist them to a database.
+// even persist them to a database
+
+randomByDivisorFactory = require('./RandomByDivisorFactory');
 
 module.exports = [
     {
         id: 1,
         name: "randomIfDivisibleByThree",
-        condition: (transaction) => { return transaction.owed*100%3 === 0; },
+        condition: randomByDivisorFactory(3),
         callback: function(transaction) {
 
             const changeAsPennies = transaction.paid*100-transaction.owed*100;
@@ -21,12 +23,14 @@ module.exports = [
                 denominations: {}
             }
 
+            // Because we're doing this randomly, we know the number of pennies will just be
+            // however many cents are left at the end of the loop below so we can leave them out
+            // here and calculate them at the end
             let denominations = {
                 dollars: 100,
                 quarters: 25,
                 dimes: 10,
-                nickles: 5,
-                pennies: 1
+                nickles: 5
             }
 
             Object.keys(denominations).map(key => {
@@ -40,6 +44,8 @@ module.exports = [
                 result.denominations[key] = count;
                 remaining -= denominations[key]*count;
             })
+
+            result.denominations.pennies = remaining;
 
             return result;
 
