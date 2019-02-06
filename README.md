@@ -26,7 +26,7 @@ Please write a program which accomplishes the clients goals. The program should:
 
 1 dollar,1 quarter,6 nickels,12 pennies
 
-*Remember the last one is random
+*Remember the last one is random*
 
 ## The Fine Print
 Please use whatever technology and techniques you feel are applicable to solve the problem. We suggest that you approach this exercise as if this code was part of a larger system. The end result should be representative of your abilities and style.
