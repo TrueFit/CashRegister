@@ -1,0 +1,40 @@
+<div class="jumbotron">
+  <h1 class="display-4"> {{ title }} </h1>
+</div>
+
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-sm-6">
+      <h2> Upload a file </h2>
+      <div class="form-group">
+        <label for="file">
+          The file should contain lines consisting of the amount owed and the
+          amount paid, separated by a comma.
+        </label>
+        <input type="file" id="file" class="form-control-file"
+          accept="text/plain" (change)="submitFile($event.target.files[0])"
+          aria-label="File upload">
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <ng-container *ngIf="resultsObservable != null">
+        <ng-container *ngIf="resultsObservable | async as results; else loading">
+          <div class="row">
+            <h2> Results </h2>
+          </div>
+          <div class="row">
+            TODO RESULTS
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          Loading, please wait&hellip;
+        </ng-template>
+      </ng-container>
+    </div>
+
+  </div>
+
+</div>
