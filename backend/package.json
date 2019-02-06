@@ -1,0 +1,33 @@
+{
+  "name": "cashregister-backend",
+  "version": "0.1.0",
+  "description": "API for the CashRegister app.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "lint": "tslint --project tsconfig.json --config tslint.json",
+    "serve": "npm run build && node dist/src/server.js",
+    "test": "npm run build && mocha dist/test/",
+    "watch": "tsc --watch --preserveWatchOutput"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chris-Slade/CashRegister.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chris-Slade/CashRegister/issues"
+  },
+  "homepage": "https://github.com/Chris-Slade/CashRegister#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "@types/mocha": "^5.2.5",
+    "mocha": "^5.2.0",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.1"
+  }
+}
