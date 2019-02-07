@@ -1,8 +1,11 @@
+import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import { Request, Response } from 'express';
-import * as bodyParser from 'body-parser';
+
+import { getChangeResponse } from './cashregister';
 
 const app = express();
+
 app.use(bodyParser.text({
   defaultCharset: 'utf-8',
   type: 'text/plain',
@@ -15,8 +18,17 @@ app.get('/status', (req: Request, res: Response) => {
 });
 
 app.post('/calculate-change', (req: Request, res: Response) => {
-  console.log(req.body);
-  res.send('OK');
+  if (req.body == null) {
+    res.sendStatus(500);
+    return;
+  }
+  try {
+    res.send(getChangeResponse(req.body));
+  }
+  catch (e) {
+    console.log('Error handling request:', e);
+    res.sendStatus(500);
+  }
 });
 
 export default app;
