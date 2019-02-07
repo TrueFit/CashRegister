@@ -20,19 +20,20 @@
     </div>
 
     <div class="col-sm-6">
-      <ng-container *ngIf="resultsObservable != null">
-        <ng-container *ngIf="resultsObservable | async as results; else loading">
-          <div class="row">
-            <h2> Results </h2>
-          </div>
-          <div class="row">
-            TODO RESULTS
-          </div>
-        </ng-container>
-        <ng-template #loading>
-          Loading, please wait&hellip;
-        </ng-template>
+
+      <ng-container *ngIf="loading">
+        Loading, please wait&hellip;
       </ng-container>
+
+      <ng-container *ngIf="!loading && results != null">
+        <div class="row">
+          <h2> Results </h2>
+        </div>
+        <div class="row">
+          TODO RESULTS
+        </div>
+      </ng-container>
+
     </div>
 
   </div>

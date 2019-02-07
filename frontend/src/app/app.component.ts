@@ -11,6 +11,8 @@ import { CashRegisterService } from './services/cash-register.service';
 export class AppComponent {
   title = 'CashRegister';
   resultsObservable: Observable<any>;
+  loading = false;
+  results: string = null;
 
   constructor(private cashRegisterService: CashRegisterService) {}
 
@@ -20,8 +22,10 @@ export class AppComponent {
    * amounts owed.
    */
   submitFile(file: File) {
-    console.log(file);
-    this.resultsObservable = zip(of("dummy"), timer(1000));
+    this.cashRegisterService.submitFile(file).subscribe(results => {
+      this.results = results;
+      console.log(results);
+    });
   }
 
 }
