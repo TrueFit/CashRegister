@@ -33,7 +33,7 @@ function calculateChange(payment: Payment, currency: Currency): string {
   if (overpay < 0) {
     return '0';
   }
-  let change = isDivisibleBy(payment.owed / 100, 3)
+  let change = isDivisibleBy(payment.owed, 3)
     ? calculateChangeRandomly(overpay, currency)
     : calculateChangeNormally(overpay, currency);
   return change.join(PAYMENT_SEPARATOR);

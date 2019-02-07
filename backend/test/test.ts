@@ -42,12 +42,12 @@ describe('CashRegister', () => {
 
     it('should handle multiple payments', () => {
       assert.deepStrictEqual(
-        getChangeResponse('2.12,3.00\n1.97,2.00\n3.33,5.00', CCY),
+        getChangeResponse('2.12,3.00\n1.97,2.00\n3.35,5.00', CCY),
         {
           response: [
             '3 quarters,1 dime,3 pennies',
             '3 pennies',
-            '1 dollar,2 quarters,1 dime,1 nickel,2 pennies',
+            '1 dollar,2 quarters,1 dime,1 nickel',
           ]
         }
       );
@@ -63,8 +63,8 @@ describe('CashRegister', () => {
     it('should return random denominations for owed amounts divisible by 3', () => {
       // There's a small chance that this test results in a false positive. If
       // it fails, try running it again.
-      const result1 = getChangeResponse('3.00,3.25');
-      const result2 = getChangeResponse('3.00,3.25');
+      const result1 = getChangeResponse('3.33,5.00');
+      const result2 = getChangeResponse('3.33,5.00');
       assert.notStrictEqual(result1, result2);
     });
 
