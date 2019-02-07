@@ -41,3 +41,36 @@ Here are a couple of thoughts about the domain that could influence your respons
 * What might happen if the client needs to change the random divisor?
 * What might happen if the client needs to add another special case (like the random twist)?
 * What might happen if sales closes a new client in France?
+
+# Solution
+
+The solution implemented here consists of a website which allows the user to upload a file as described above. The change-calculating logic is contained within a separate service on the back end.
+
+The front end is an Angular 7 application meant to be viewed in the browser. The back end is an Express server run with Node.js.
+
+## Building and Running
+
+### Prerequisites
+
+To build and run this application, you will need Node.js and `npm`.
+
+### Building
+
+Run `npm install` in both the `frontend/` and `backend/` directories. You can then build the front end or back end by running `npm run build` in its respective directory.
+
+If `npm` warns about any missing peer dependencies, you may have to install those manually.
+
+### Running
+
+To start up a server on `localhost` for the frontend or backend, run `npm run serve` in its respective directory. You will need both the front end and back end running.
+
+When the front-end server is running, you can view the UI at <http://localhost:4200>. From there you can upload a file in the format described in this README, such as the following:
+
+```
+2.12,3.00
+1.97,2.00
+3.33,5.00
+3.00,5.00
+```
+
+Results will be shown on the page.
