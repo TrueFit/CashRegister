@@ -60,6 +60,14 @@ describe('CashRegister', () => {
       );
     });
 
+    it('should return random denominations for owed amounts divisible by 3', () => {
+      // There's a small chance that this test results in a false positive. If
+      // it fails, try running it again.
+      const result1 = getChangeResponse('3.00,3.25');
+      const result2 = getChangeResponse('3.00,3.25');
+      assert.notStrictEqual(result1, result2);
+    });
+
   });
 });
 

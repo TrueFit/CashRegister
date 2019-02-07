@@ -4,3 +4,7 @@ export function isDivisibleBy(x: number, y: number): boolean {
   }
   return Number.isInteger(x / y);
 }
+
+export function getRandomElement(array: any[]): any {
+  return array[Math.floor(Math.random() * array.length)];
+}

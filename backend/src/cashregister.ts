@@ -1,7 +1,6 @@
-import { ChangeResponse, Currency, Payment } from './types';
+import { ChangeResponse, Currency, Denomination, Payment } from './types';
 import { DENOMINATIONS, PAYMENT_LINE_FORMAT, PAYMENT_SEPARATOR } from './constants';
-// @ts-ignore
-import { isDivisibleBy } from './util';
+import { getRandomElement, isDivisibleBy } from './util';
 
 /**
  * Calculate the change required for a number of payments.
@@ -31,27 +30,61 @@ export function getChangeResponse(
  */
 function calculateChange(payment: Payment, currency: Currency): string {
   const overpay = payment.paid - payment.owed;
-  const change: string[] = [];
   if (overpay < 0) {
     return '0';
   }
-  // else if (isDivisibleBy(payment.owed, 3)) {
-  //   // TODO: Get random change
-  // }
-  else {
-    let remaining = overpay;
-    for (const denom of DENOMINATIONS[currency]) {
-      let denomCount = 0;
-      while (remaining > 0 && denom.value <= remaining) {
-        denomCount++;
-        remaining -= denom.value;
-      }
-      if (denomCount !== 0) {
-        change.push(`${denomCount} ${denomCount === 1 ? denom.name : denom.pluralName }`);
-      }
+  let change = isDivisibleBy(payment.owed / 100, 3)
+    ? calculateChangeRandomly(overpay, currency)
+    : calculateChangeNormally(overpay, currency);
+  return change.join(PAYMENT_SEPARATOR);
+}
+
+/**
+ * Calculate the minimum amount of change needed.
+ */
+function calculateChangeNormally(overpay: number, currency: Currency): string[] {
+  const change: string[] = [];
+  for (const denom of DENOMINATIONS[currency]) {
+    let denomCount = 0;
+    while (overpay > 0 && denom.value <= overpay) {
+      denomCount++;
+      overpay -= denom.value;
+    }
+    if (denomCount !== 0) {
+      change.push(formatDenomination(denomCount, denom));
     }
   }
-  return change.join(PAYMENT_SEPARATOR);
+  return change;
+}
+
+/**
+ * Calculate change using random denominations.
+ */
+function calculateChangeRandomly(overpay: number, currency: Currency): string[] {
+  const change: string[] = [];
+  const denomCounts = {};
+  while (overpay > 0) {
+    const denom = getRandomElement(DENOMINATIONS[currency]);
+    if (denom.value <= overpay) {
+      overpay -= denom.value;
+      if (!(denom.name in denomCounts)) {
+        denomCounts[denom.name] = 0;
+      }
+      denomCounts[denom.name]++;
+    }
+  }
+  for (const denomName of Object.keys(denomCounts)) {
+    const denom = DENOMINATIONS[currency].find(e => e.name === denomName);
+    if (denom == null) {
+      throw new Error('An error that should never happen happened');
+    }
+    change.push(formatDenomination(denomCounts[denomName], denom));
+  }
+  return change;
+}
+
+function formatDenomination(count: number, denom: Denomination): string {
+  return `${count} ${count === 1 ? denom.name : denom.pluralName }`
 }
 
 /**
