@@ -27,7 +27,12 @@ app.post('/calculate-change', (req: Request, res: Response) => {
   }
   catch (e) {
     console.log('Error handling request:', e);
-    res.sendStatus(500);
+    if (e instanceof TypeError) {
+      res.status(400).send(e.message);
+    }
+    else {
+      res.sendStatus(500);
+    }
   }
 });
 

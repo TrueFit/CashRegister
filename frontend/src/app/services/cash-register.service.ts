@@ -1,8 +1,10 @@
-import { API_BASE_URL } from '../shared/tokens';
-import { HttpClient /*, HttpHeaders, HttpResponse, HttpResponseBase */ } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
-import { Observable, fromEvent } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable, fromEvent, of } from 'rxjs';
+import { first, map, switchMap, withLatestFrom } from 'rxjs/operators';
+
+import { API_BASE_URL } from '../shared/tokens';
+import { ChangeResponse } from '../shared/types';
 
 @Injectable({
   providedIn: 'root'
@@ -17,21 +19,30 @@ export class CashRegisterService {
     this.baseUrl = _baseUrl;
   }
 
-  // TODO: Return type should be Observable of response interface
-  submitFile(file: File): Observable<any> {
+  submitFile(file: File): Observable<ChangeResponse> {
     const reader = new FileReader();
     const reader$ = fromEvent(reader, 'load');
     reader.readAsText(file);
     return reader$.pipe(
       map((loadEvent: Event) => (loadEvent.target as FileReader).result),
       switchMap((fileText: string) =>
-        this.http.post(
+        this.http.post<ChangeResponse>(
           `${this.baseUrl}/calculate-change`,
           fileText,
-          { responseType: 'text' }, // TODO
+          { responseType: 'json' },
+        ).pipe(
+          map(response => ({
+            response: response.response,
+            payments: CashRegisterService.splitFile(fileText),
+          }))
         )
-      )
+      ),
+      first(),
     );
+  }
+
+  private static splitFile(input: string): string[] {
+    return input.trim().split('\n').map(line => line.trim());
   }
 
 }

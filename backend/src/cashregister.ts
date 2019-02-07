@@ -64,7 +64,7 @@ function parseInput(input: string): Payment[] {
   const payments = [];
   for (let i = 0; i < lines.length; i++) {
     if (!PAYMENT_LINE_FORMAT.test(lines[i])) {
-      throw new TypeError(`Error: line ${i + 1} in input is malformed`);
+      throw new TypeError(`Line ${i + 1} in input is malformed`);
     }
     // Floats are perilous when used for currency, but JavaScript is pretty
     // limited in alternatives. We store currencies as integers. We assume that

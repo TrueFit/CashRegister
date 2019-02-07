@@ -26,12 +26,30 @@
       </ng-container>
 
       <ng-container *ngIf="!loading && results != null">
+        <h2 class="row"> Results </h2>
         <div class="row">
-          <h2> Results </h2>
+          <ul class="list-group">
+            <li *ngFor="let result of results" class="list-group-item">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  Owed: &nbsp; {{ result.owed }}
+                </li>
+                <li class="list-group-item">
+                  Paid: &nbsp; {{ result.paid }}
+                </li>
+                <li class="list-group-item">
+                  Change: &nbsp; {{ result.change }}
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
-        <div class="row">
-          TODO RESULTS
-        </div>
+      </ng-container>
+
+      <ng-container *ngIf="error">
+        <h2 class="row"> Error </h2>
+        <p class="row"> An error occurred. <p>
+        <p class="row" *ngIf="errorMessage != null"> {{ errorMessage }} </p>
       </ng-container>
 
     </div>
