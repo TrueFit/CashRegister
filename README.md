@@ -62,7 +62,7 @@ If `npm` warns about any missing peer dependencies, you may have to install thos
 
 ### Running
 
-To start up a server on `localhost` for the frontend or backend, run `npm run serve` in its respective directory. You will need both the front end and back end running.
+To start up a server on `localhost` for the frontend or backend, run `npm run serve` in its respective directory. You will need to run the servers for both the front and back end.
 
 When the front-end server is running, you can view the UI at <http://localhost:4200>. From there you can upload a file in the format described in this README, such as the following:
 
