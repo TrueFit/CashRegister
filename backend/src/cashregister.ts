@@ -63,17 +63,21 @@ function calculateChangeNormally(overpay: number, currency: Currency): string[] 
 function calculateChangeRandomly(overpay: number, currency: Currency): string[] {
   const change: string[] = [];
   const denomCounts = {};
+  const denomValues = {};
   while (overpay > 0) {
     const denom = getRandomElement(DENOMINATIONS[currency]);
     if (denom.value <= overpay) {
       overpay -= denom.value;
+      denomValues[denom.name] = denom.value;
       if (!(denom.name in denomCounts)) {
         denomCounts[denom.name] = 0;
       }
       denomCounts[denom.name]++;
     }
   }
-  for (const denomName of Object.keys(denomCounts)) {
+  const denomNames = Object.keys(denomCounts)
+    .sort((a: string, b: string) => denomValues[b] - denomValues[a]);
+  for (const denomName of denomNames) {
     const denom = DENOMINATIONS[currency].find(e => e.name === denomName);
     if (denom == null) {
       throw new Error('An error that should never happen happened');
