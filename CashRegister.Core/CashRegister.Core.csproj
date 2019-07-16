@@ -8,4 +8,8 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CashRegister.Interfaces\CashRegister.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>
