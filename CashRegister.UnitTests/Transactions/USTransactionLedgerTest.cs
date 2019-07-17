@@ -56,8 +56,9 @@ namespace CashRegister.UnitTests.Transactions
         }
 
         [TestCase("\n", "")]
-        [TestCase("1.28,2.00", "2 quarter, 2 dime, 2 penny\n")]
-        [TestCase("7.34,10.00\n94.61,100.00", "2 dollar, 2 quarter, 1 dime, 1 nickel, 1 penny\n5 dollar, 1 quarter, 1 dime, 4 penny\n")]
+        [TestCase("5.00,5.00", "No change due\n")]
+        [TestCase("1.28,2.00", "2 quarters, 2 dimes, 2 pennies\n")]
+        [TestCase("7.34,10.00\n94.61,100.00", "2 dollars, 2 quarters, 1 dime, 1 nickel, 1 penny\n5 dollars, 1 quarter, 1 dime, 4 pennies\n")]
         public void Calculate(string ledgerString, string changeString)
         {
             var transactionLedger = transactionLedgerFactory.ExecuteCreation(Layouts.US);

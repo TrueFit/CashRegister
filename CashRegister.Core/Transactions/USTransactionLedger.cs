@@ -89,7 +89,15 @@ namespace CashRegister.Core.Transactions
             string result = "";
             foreach (ITransaction transaction in Transactions)
             {
-                result += transaction.ToString() + "\n";
+                var transactionStr = transaction.ToString();
+                if (transactionStr.Equals(""))
+                {
+                    result += "No change due\n";
+                }
+                else
+                {
+                    result += transactionStr + "\n";
+                }
             }
             return result;
         }

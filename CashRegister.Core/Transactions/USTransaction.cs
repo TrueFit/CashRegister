@@ -81,7 +81,27 @@ namespace CashRegister.Core.Transactions
                 {
                     // Append comma before every denomination except the first
                     if (!result.Equals("")) result += ", ";
-                    result += kvp.Value + " " + kvp.Key.Name;
+                    result += kvp.Value + " ";
+
+                    // Make name plural if more than one of the denomination
+                    if (count > 1)
+                    {
+                        // Situations such a penny need the 'y' replaced with 'ies'
+                        string denomName;
+                        if(kvp.Key.Name.EndsWith("y"))
+                        {
+                            denomName = kvp.Key.Name.Remove(kvp.Key.Name.Length - 1, 1) + "ies";
+                        }
+                        else
+                        {
+                            denomName = kvp.Key.Name + "s";
+                        }
+                        result += denomName;
+                    }
+                    else
+                    {
+                        result += kvp.Key.Name;
+                    }
                 }
             }
 
