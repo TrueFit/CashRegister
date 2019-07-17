@@ -3,6 +3,7 @@ using CashRegister.Core.Enums;
 using CashRegister.Interfaces.Banks;
 using CashRegister.Interfaces.Denominations;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CashRegister.Core.Banks
 {
@@ -26,6 +27,17 @@ namespace CashRegister.Core.Banks
                 { USValues.Nickel, new Nickel() },
                 { USValues.Penny, new Penny() }
             };
+        }
+
+        /// <summary>
+        /// Accessor property for stored Denominations
+        /// </summary>
+        public List<IDenomination> Denominations
+        {
+            get
+            {
+                return denoms.Values.ToList();
+            }
         }
 
         /// <summary>

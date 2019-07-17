@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashRegister.UnitTests", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashRegister.Interfaces", "CashRegister.Interfaces\CashRegister.Interfaces.csproj", "{FF112DE9-7013-48F2-A0CC-0373566A0852}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister.ConsoleApp", "CashRegister.ConsoleApp\CashRegister.ConsoleApp.csproj", "{D38436ED-D9D5-4F20-858C-8BBFFD4677C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashRegister.ConsoleApp", "CashRegister.ConsoleApp\CashRegister.ConsoleApp.csproj", "{D38436ED-D9D5-4F20-858C-8BBFFD4677C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister.UI", "CashRegister.UI\CashRegister.UI.csproj", "{ABB741E8-B004-4918-8688-8E2B30433B55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D38436ED-D9D5-4F20-858C-8BBFFD4677C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D38436ED-D9D5-4F20-858C-8BBFFD4677C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D38436ED-D9D5-4F20-858C-8BBFFD4677C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABB741E8-B004-4918-8688-8E2B30433B55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABB741E8-B004-4918-8688-8E2B30433B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABB741E8-B004-4918-8688-8E2B30433B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABB741E8-B004-4918-8688-8E2B30433B55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
