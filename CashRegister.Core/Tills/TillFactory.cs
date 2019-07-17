@@ -3,6 +3,9 @@ using CashRegister.Interfaces.Tills;
 
 namespace CashRegister.Core.Tills
 {
+    /// <summary>
+    /// Abstract TillFactory
+    /// </summary>
     public abstract class TillFactory
     {
         protected IBank bank;

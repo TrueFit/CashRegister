@@ -3,6 +3,9 @@ using CashRegister.Interfaces.Transactions;
 
 namespace CashRegister.Core.Transactions
 {
+    /// <summary>
+    /// Abstract TransactionFactory
+    /// </summary>
     public abstract class TransactionFactory
     {
         protected Till till;

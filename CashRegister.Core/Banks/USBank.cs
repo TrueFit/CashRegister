@@ -13,6 +13,9 @@ namespace CashRegister.Core.Banks
     {
         private readonly Dictionary<USValues, IDenomination> denoms;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         private USBank()
         {
             denoms = new Dictionary<USValues, IDenomination>
@@ -25,8 +28,17 @@ namespace CashRegister.Core.Banks
             };
         }
 
+        /// <summary>
+        /// Static constructor method
+        /// </summary>
+        /// <returns>A Bank</returns>
         public static IBank Initialize() => new USBank();
 
+        /// <summary>
+        /// Retrieve denomination
+        /// </summary>
+        /// <param name="val">Denomination type enum</param>
+        /// <returns>Denomination</returns>
         public IDenomination Retrieve(System.Enum val) => denoms[(USValues) val];
     }
 }

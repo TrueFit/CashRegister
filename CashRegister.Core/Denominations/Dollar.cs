@@ -5,6 +5,9 @@
     /// </summary>
     public class Dollar : Denomination
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Dollar() : base("dollar", 1.00) { }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CashRegister.Core.Banks;
-using CashRegister.Core.Enums;
 using CashRegister.Core.Tills;
 using CashRegister.Core.Transactions;
 using NUnit.Framework;

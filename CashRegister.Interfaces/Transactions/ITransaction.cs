@@ -2,6 +2,9 @@
 
 namespace CashRegister.Interfaces.Transactions
 {
+    /// <summary>
+    /// Transaction interface
+    /// </summary>
     public interface ITransaction
     {
         double Owed { get; }

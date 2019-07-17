@@ -13,6 +13,12 @@ namespace CashRegister.Core.Transactions
     /// </summary>
     public class USTransaction : ITransaction
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="amountOwed">The amount owed in the transaction</param>
+        /// <param name="amountReceived">The amount received in the transaction</param>
+        /// <param name="t">Till Factory Container</param>
         public USTransaction(double amountOwed, double amountReceived, Till t)
         {
             Owed = amountOwed;
