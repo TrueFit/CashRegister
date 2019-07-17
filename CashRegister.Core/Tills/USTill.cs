@@ -88,9 +88,9 @@ namespace CashRegister.Core.Tills
         /// <returns></returns>
         public bool IsEmpty()
         {
-            foreach(KeyValuePair<IDenomination, int> keyValuePair in Amounts)
+            foreach(var kvp in Amounts)
             {
-                if (keyValuePair.Value.CompareTo(0) > 0) return false;
+                if (kvp.Value.CompareTo(0) > 0) return false;
             }
             return true;
         }

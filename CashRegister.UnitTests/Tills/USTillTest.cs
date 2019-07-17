@@ -75,22 +75,22 @@ namespace CashRegister.UnitTests.Tills
         [Test]
         public void SetAmount_Negative()
         {
-            foreach (var keyValuePair in usTill.Amounts)
+            foreach (var kvp in usTill.Amounts)
             {
-                usTill.SetAmount(keyValuePair.Key, -1);
-                Assert.AreEqual(0, usTill.Amounts[keyValuePair.Key]);
+                usTill.SetAmount(kvp.Key, -1);
+                Assert.AreEqual(0, usTill.Amounts[kvp.Key]);
             }
 
-            foreach (var keyValuePair in usTillRandom1.Amounts)
+            foreach (var kvp in usTillRandom1.Amounts)
             {
-                usTillRandom1.SetAmount(keyValuePair.Key, -1);
-                Assert.AreEqual(0, usTillRandom1.Amounts[keyValuePair.Key]);
+                usTillRandom1.SetAmount(kvp.Key, -1);
+                Assert.AreEqual(0, usTillRandom1.Amounts[kvp.Key]);
             }
 
-            foreach (var keyValuePair in usTillRandom2.Amounts)
+            foreach (var kvp in usTillRandom2.Amounts)
             {
-                usTillRandom2.SetAmount(keyValuePair.Key, -1);
-                Assert.AreEqual(0, usTillRandom2.Amounts[keyValuePair.Key]);
+                usTillRandom2.SetAmount(kvp.Key, -1);
+                Assert.AreEqual(0, usTillRandom2.Amounts[kvp.Key]);
             }
         }
 
