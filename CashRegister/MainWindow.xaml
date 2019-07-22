@@ -5,7 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Cash Register">
+
     <Grid>
+
+        <Grid.Resources>
+            <Style x:Key="InputOutput" TargetType="TextBox">
+                <Setter Property="AcceptsReturn" Value="True"/>
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="FontFamily" Value="Courier New" />
+                <Setter Property="MaxHeight" Value="375" />
+                <Setter Property="MinHeight" Value="375" />
+            </Style>
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
@@ -18,5 +31,44 @@
                 <MenuItem Header="E_xit" Click="ExitMenuItem_OnClick"/>
             </MenuItem>
         </Menu>
+        
+        <Grid Grid.Row="1"
+              Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        Margin="0,0,4,0">
+                <TextBlock Text="Input:" />
+                <TextBox x:Name="Inputs" 
+                         Style="{StaticResource InputOutput}"/>
+            </StackPanel>
+
+            <Button Grid.Column="0" 
+                    VerticalAlignment="Bottom" 
+                    MaxWidth="100"
+                    Content="Browse..."
+                    Padding="4"
+                    Margin="4"/>
+
+            <StackPanel Grid.Column="1"
+                        Margin="4,0,0,0">
+                <TextBlock Text="Output:" />
+                <TextBox x:Name="Outputs" 
+                         Style="{StaticResource InputOutput}"
+                         IsEnabled="False"/>
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Button Content="Generate Change"
+                    MaxWidth="200"
+                    Padding="4"
+                    Margin="4"/>
+        </Grid>
+
     </Grid>
 </Window>
