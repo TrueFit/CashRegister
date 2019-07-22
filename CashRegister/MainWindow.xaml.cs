@@ -32,13 +32,13 @@ namespace CashRegister
 
         private void SettingsMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ShowWindow(new SettingsWindow(), WindowStartupLocation.CenterOwner);
         }
 
-        private void ShowWindowCentered(Window window)
+        private void ShowWindow(Window window, WindowStartupLocation startupLocation)
         {
             window.Owner = this;
-            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            window.WindowStartupLocation = startupLocation;
             window.Show();
         }
     }
