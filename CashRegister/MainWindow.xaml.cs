@@ -24,5 +24,22 @@ namespace CashRegister
         {
             InitializeComponent();
         }
+
+        private void ExitMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void SettingsMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ShowWindowCentered(Window window)
+        {
+            window.Owner = this;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            window.Show();
+        }
     }
 }
