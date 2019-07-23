@@ -46,7 +46,7 @@
                 <TextBlock Text="Input:" />
                 <TextBox x:Name="Inputs" 
                          Style="{StaticResource InputOutput}"
-                         Text="{Binding InputFileContentText}"/>
+                         Text="{Binding InputFileContentText, Mode=TwoWay}"/>
             </StackPanel>
 
             <Button Grid.Column="0" 
@@ -71,7 +71,8 @@
             <Button Content="Generate Change"
                     MaxWidth="200"
                     Padding="4"
-                    Margin="4"/>
+                    Margin="4"
+                    Command="{Binding GenerateChangeCommand}"/>
         </Grid>
 
     </Grid>

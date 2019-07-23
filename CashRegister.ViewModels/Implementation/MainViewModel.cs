@@ -24,6 +24,12 @@ namespace CashRegister.ViewModels.Implementation
             get => new RelayCommand(Browse);
         }
 
+        public ICommand GenerateChangeCommand
+        {
+            get => new RelayCommand(GenerateChange);
+        }
+
+
         private string _inputFilePath;
         public string InputFilePath
         {
@@ -55,6 +61,11 @@ namespace CashRegister.ViewModels.Implementation
         private void Browse()
         {
             InputFilePath = OnSelectingFile?.Invoke();
+        }
+
+        private void GenerateChange()
+        {
+
         }
 
         #endregion

@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CashRegister.Model\CashRegister.Model.csproj" />
     <ProjectReference Include="..\CashRegister.ViewModels\CashRegister.ViewModels.csproj" />
   </ItemGroup>
