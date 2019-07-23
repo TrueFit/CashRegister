@@ -1,12 +1,17 @@
-﻿using System.IO;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace CashRegister.ViewModels.Interfaces
 {
+    public delegate string OnSelectingFileDelegate();
+
     public interface IMainViewModel
     {
-        string InputFilePath { get; set; }
+        event OnSelectingFileDelegate OnSelectingFile;
+
         ICommand LoadFileCommand { get; }
+        ICommand BrowseCommand { get; }
+
+        string InputFilePath { get; set; }
         string InputFileContentText { get; }
     }
 }

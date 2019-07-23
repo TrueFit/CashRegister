@@ -8,23 +8,32 @@ namespace CashRegister.ViewModels.Implementation
 {
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
-        private IFileAccess _fileAccess;
+        private readonly IFileAccess _fileAccess;
 
         public MainViewModel(IFileAccess fileAccess)
         {
             _fileAccess = fileAccess;
         }
 
-        private string _inputPath;
+        #region IMainViewModel implementation
+
+        public event OnSelectingFileDelegate OnSelectingFile;
+
+        public ICommand BrowseCommand
+        {
+            get => new RelayCommand(Browse);
+        }
+
+        private string _inputFilePath;
         public string InputFilePath
         {
-            get => _inputPath;
-            set => Set(ref _inputPath, value);
+            get => _inputFilePath;
+            set => Set(ref _inputFilePath, value);
         }
 
         public ICommand LoadFileCommand
         {
-            get { return new RelayCommand(() => ReadFile(InputFilePath)); }
+            get => new RelayCommand(() => ReadFile(InputFilePath)); 
         }
 
         private string _inputFileContentText;
@@ -34,9 +43,20 @@ namespace CashRegister.ViewModels.Implementation
             set => Set(ref _inputFileContentText, value);
         }
 
+        #endregion
+
+        #region Private Methods
+
         private void ReadFile(string inputFilePath)
         {
             InputFileContentText = _fileAccess.ReadFileContents(inputFilePath);
         }
+
+        private void Browse()
+        {
+            InputFilePath = OnSelectingFile?.Invoke();
+        }
+
+        #endregion
     }
 }

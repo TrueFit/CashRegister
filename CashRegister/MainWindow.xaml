@@ -54,7 +54,8 @@
                     MaxWidth="100"
                     Content="Browse..."
                     Padding="4"
-                    Margin="4"/>
+                    Margin="4"
+                    Command="{Binding BrowseCommand}"/>
 
             <StackPanel Grid.Column="1"
                         Margin="4,0,0,0">
