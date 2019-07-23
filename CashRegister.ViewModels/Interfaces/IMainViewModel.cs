@@ -7,6 +7,6 @@ namespace CashRegister.ViewModels.Interfaces
     {
         string InputFilePath { get; set; }
         ICommand LoadFileCommand { get; }
-        string InputText { get; }
+        string InputFileContentText { get; }
     }
 }

@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister", "CashRegiste
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashRegister.ViewModels", "CashRegister.ViewModels\CashRegister.ViewModels.csproj", "{A88943B7-B0CF-439B-BB6C-C840388C179A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister.Model", "CashRegister.Model\CashRegister.Model.csproj", "{100FAA00-BCBA-45A0-8B20-81C52FD90D9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister.UnitTests", "CashRegister.UnitTests\CashRegister.UnitTests.csproj", "{CC742BAC-0ABE-46EE-925A-D63C861650D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{A88943B7-B0CF-439B-BB6C-C840388C179A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A88943B7-B0CF-439B-BB6C-C840388C179A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A88943B7-B0CF-439B-BB6C-C840388C179A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{100FAA00-BCBA-45A0-8B20-81C52FD90D9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{100FAA00-BCBA-45A0-8B20-81C52FD90D9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{100FAA00-BCBA-45A0-8B20-81C52FD90D9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{100FAA00-BCBA-45A0-8B20-81C52FD90D9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC742BAC-0ABE-46EE-925A-D63C861650D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC742BAC-0ABE-46EE-925A-D63C861650D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC742BAC-0ABE-46EE-925A-D63C861650D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC742BAC-0ABE-46EE-925A-D63C861650D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

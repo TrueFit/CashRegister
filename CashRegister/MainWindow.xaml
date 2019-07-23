@@ -45,7 +45,8 @@
                         Margin="0,0,4,0">
                 <TextBlock Text="Input:" />
                 <TextBox x:Name="Inputs" 
-                         Style="{StaticResource InputOutput}"/>
+                         Style="{StaticResource InputOutput}"
+                         Text="{Binding InputFileContentText}"/>
             </StackPanel>
 
             <Button Grid.Column="0" 

@@ -1,6 +1,5 @@
-﻿using System.IO;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using CashRegister.Model.Interfaces;
 using CashRegister.ViewModels.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -9,6 +8,13 @@ namespace CashRegister.ViewModels.Implementation
 {
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
+        private IFileAccess _fileAccess;
+
+        public MainViewModel(IFileAccess fileAccess)
+        {
+            _fileAccess = fileAccess;
+        }
+
         private string _inputPath;
         public string InputFilePath
         {
@@ -21,12 +27,16 @@ namespace CashRegister.ViewModels.Implementation
             get { return new RelayCommand(() => ReadFile(InputFilePath)); }
         }
 
-        private StringBuilder _inputTextBuilder = new StringBuilder();
-        public string InputText => _inputTextBuilder.ToString();
+        private string _inputFileContentText;
+        public string InputFileContentText
+        {
+            get => _inputFileContentText;
+            set => Set(ref _inputFileContentText, value);
+        }
 
         private void ReadFile(string inputFilePath)
         {
-            // TODO: implement and set the InputText via _inputTextBuilder       
+            InputFileContentText = _fileAccess.ReadFileContents(inputFilePath);
         }
     }
 }
