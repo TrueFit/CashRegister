@@ -8,7 +8,6 @@ namespace CashRegister.ViewModels.Interfaces
     {
         event OnSelectingFileDelegate OnSelectingFile;
 
-        ICommand LoadFileCommand { get; }
         ICommand BrowseCommand { get; }
         ICommand GenerateChangeCommand { get; }
 

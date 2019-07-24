@@ -37,11 +37,6 @@ namespace CashRegister.ViewModels.Implementation
             set => Set(ref _inputFilePath, value);
         }
 
-        public ICommand LoadFileCommand
-        {
-            get => new RelayCommand(() => ReadFile(InputFilePath)); 
-        }
-
         private string _inputFileContentText;
         public string InputFileContentText
         {
@@ -61,6 +56,7 @@ namespace CashRegister.ViewModels.Implementation
         private void Browse()
         {
             InputFilePath = OnSelectingFile?.Invoke();
+            ReadFile(InputFilePath);
         }
 
         private void GenerateChange()
