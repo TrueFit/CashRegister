@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CashRegister.Properties;
 using CashRegister.ViewModels.Interfaces;
 using Microsoft.Win32;
 
@@ -15,6 +16,7 @@ namespace CashRegister
 
             var viewModel = (IMainViewModel) DataContext;
             viewModel.OnSelectingFile += DisplayOpenFileDialog;
+            viewModel.SetUpdateDivisorOnStartupEvent(() => Settings.Default.DivisorForRandomChange);
         }
 
         private void ExitMenuItem_OnClick(object sender, RoutedEventArgs e)

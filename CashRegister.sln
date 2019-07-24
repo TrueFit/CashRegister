@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister", "CashRegiste
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashRegister.ViewModels", "CashRegister.ViewModels\CashRegister.ViewModels.csproj", "{A88943B7-B0CF-439B-BB6C-C840388C179A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister.Model", "CashRegister.Model\CashRegister.Model.csproj", "{100FAA00-BCBA-45A0-8B20-81C52FD90D9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashRegister.Model", "CashRegister.Model\CashRegister.Model.csproj", "{100FAA00-BCBA-45A0-8B20-81C52FD90D9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister.UnitTests", "CashRegister.UnitTests\CashRegister.UnitTests.csproj", "{CC742BAC-0ABE-46EE-925A-D63C861650D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CashRegister.UnitTests", "CashRegister.UnitTests\CashRegister.UnitTests.csproj", "{CC742BAC-0ABE-46EE-925A-D63C861650D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

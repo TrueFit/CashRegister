@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using CashRegister.Properties;
+using CashRegister.ViewModels.Implementation;
 
 namespace CashRegister
 {
@@ -12,11 +13,20 @@ namespace CashRegister
         public SettingsWindow()
         {
             InitializeComponent();
+            UpdateSettingsViewModelData();
         }
 
         private void SettingsWindow_OnClosing(object sender, CancelEventArgs e)
         {
             Settings.Default.Save();
+
+            UpdateSettingsViewModelData();
+        }
+
+        private void UpdateSettingsViewModelData()
+        {
+            ((SettingsViewModel)DataContext).DivisorForRandomChange
+                = Settings.Default.DivisorForRandomChange;
         }
     }
 }

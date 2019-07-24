@@ -6,8 +6,10 @@
         mc:Ignorable="d"
         Title="Cash Register"
         DataContext="{Binding Path=MainViewModel, 
-                              Source={StaticResource ViewModelLocator}}">
-    
+                              Source={StaticResource ViewModelLocator}}"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize">
+
     <Grid>
 
         <Grid.Resources>
@@ -37,8 +39,8 @@
         <Grid Grid.Row="1"
               Margin="12">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0"
@@ -46,18 +48,20 @@
                 <TextBlock Text="Input:" />
                 <TextBox x:Name="Inputs" 
                          Style="{StaticResource InputOutput}"
-                         Text="{Binding InputFileContentText, Mode=TwoWay}"
+                         Text="{Binding InputFileContentText, Mode=TwoWay, Delay=500, UpdateSourceTrigger=PropertyChanged}"
                          VerticalScrollBarVisibility="Auto"
                          HorizontalScrollBarVisibility="Auto"/>
+
+                <Button Grid.Column="0" 
+                        VerticalAlignment="Bottom" 
+                        MaxWidth="100"
+                        Content="Browse..."
+                        Padding="4"
+                        Margin="4"
+                        Command="{Binding BrowseCommand}"/>
             </StackPanel>
 
-            <Button Grid.Column="0" 
-                    VerticalAlignment="Bottom" 
-                    MaxWidth="100"
-                    Content="Browse..."
-                    Padding="4"
-                    Margin="4"
-                    Command="{Binding BrowseCommand}"/>
+            
 
             <StackPanel Grid.Column="1"
                         Margin="4,0,0,0">
@@ -66,7 +70,8 @@
                          Style="{StaticResource InputOutput}"
                          IsEnabled="False"
                          VerticalScrollBarVisibility="Auto"
-                         HorizontalScrollBarVisibility="Auto"/>
+                         HorizontalScrollBarVisibility="Auto"
+                         Text="{Binding OutputText, Mode=OneWay}"/>
             </StackPanel>
 
         </Grid>
@@ -76,7 +81,8 @@
                     MaxWidth="200"
                     Padding="4"
                     Margin="4"
-                    Command="{Binding GenerateChangeCommand}"/>
+                    Command="{Binding GenerateChangeCommand}"
+                    IsEnabled="{Binding CanGenerateChange}"/>
         </Grid>
 
     </Grid>

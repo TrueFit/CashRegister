@@ -19,14 +19,11 @@ namespace CashRegister.UnitTests.ViewModel
             mock.Setup(fileAccess => fileAccess.ReadFileContents(MOCK_FILE_PATH))
                 .Returns(MOCK_FILE_CONTENTS);
 
-            var viewModel = new MainViewModel(mock.Object)
-            {
-                // InputFilePath is set via binding from the View. Simulate this here.
-                InputFilePath = MOCK_FILE_PATH
-            };
+            var viewModel = new MainViewModel(mock.Object, null, null);
+            viewModel.OnSelectingFile += () => MOCK_FILE_PATH;
 
             // Execute
-            viewModel.LoadFileCommand.Execute(null);
+            viewModel.BrowseCommand.Execute(null);
 
             // Check
             Assert.AreEqual(MOCK_FILE_CONTENTS, viewModel.InputFileContentText);
@@ -35,8 +32,12 @@ namespace CashRegister.UnitTests.ViewModel
         [TestMethod]
         public void Should_Set_InputFilePath_After_Executing_BrowseCommand()
         {
+            var mock = new Mock<IFileAccess>();
+            mock.Setup(fileAccess => fileAccess.ReadFileContents(MOCK_FILE_PATH))
+                .Returns(MOCK_FILE_CONTENTS);
+
             // Setup
-            var viewModel = new MainViewModel(fileAccess: null);
+            var viewModel = new MainViewModel(mock.Object, null, null);
             viewModel.OnSelectingFile += () => MOCK_FILE_PATH;
 
             // Execute

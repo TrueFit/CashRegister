@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 
 namespace CashRegister.ViewModels.Interfaces
 {
@@ -13,5 +14,10 @@ namespace CashRegister.ViewModels.Interfaces
 
         string InputFilePath { get; set; }
         string InputFileContentText { get; }
+
+        string OutputText { get; set; }
+        bool CanGenerateChange { get; set; }
+
+        void SetUpdateDivisorOnStartupEvent(UpdateDivisorOnStartupDelegate del);
     }
 }

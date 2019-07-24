@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using CashRegister.Model;
 using CashRegister.Model.Implementation;
 using CashRegister.Model.Interfaces;
 using CashRegister.ViewModels.Implementation;
@@ -24,14 +25,20 @@ namespace CashRegister.ViewModels
 
             Container.Register(Component.For<IFileAccess>()
                                         .ImplementedBy<FileAccess>());
+
+            Container.Register(Component.For<ISettings>()
+                                        .Instance(ModelLocator.Settings));
+
+            Container.Register(Component.For<IChangeGenerationService>()
+                                        .Instance(ModelLocator.ChangeGenerationService));
         }
 
-        public ISettingsViewModel SettingsViewModel
+        public static ISettingsViewModel SettingsViewModel
         {
             get => Container.Resolve<ISettingsViewModel>();
         }
 
-        public IMainViewModel MainViewModel
+        public static IMainViewModel MainViewModel
         {
             get => Container.Resolve<IMainViewModel>();
         }
