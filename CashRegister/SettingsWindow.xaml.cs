@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
+using CashRegister.Properties;
 
 namespace CashRegister
 {
@@ -10,6 +12,11 @@ namespace CashRegister
         public SettingsWindow()
         {
             InitializeComponent();
+        }
+
+        private void SettingsWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            Settings.Default.Save();
         }
     }
 }

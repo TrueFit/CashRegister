@@ -46,7 +46,9 @@
                 <TextBlock Text="Input:" />
                 <TextBox x:Name="Inputs" 
                          Style="{StaticResource InputOutput}"
-                         Text="{Binding InputFileContentText, Mode=TwoWay}"/>
+                         Text="{Binding InputFileContentText, Mode=TwoWay}"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto"/>
             </StackPanel>
 
             <Button Grid.Column="0" 
@@ -62,7 +64,9 @@
                 <TextBlock Text="Output:" />
                 <TextBox x:Name="Outputs" 
                          Style="{StaticResource InputOutput}"
-                         IsEnabled="False"/>
+                         IsEnabled="False"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto"/>
             </StackPanel>
 
         </Grid>

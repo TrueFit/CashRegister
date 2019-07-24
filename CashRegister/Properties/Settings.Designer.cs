@@ -22,5 +22,40 @@ namespace CashRegister.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int DivisorForRandomChange {
+            get {
+                return ((int)(this["DivisorForRandomChange"]));
+            }
+            set {
+                this["DivisorForRandomChange"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>English</string>\r\n</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection SupportedLanguages {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["SupportedLanguages"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("English")]
+        public string CurrentlySelectedLanguage {
+            get {
+                return ((string)(this["CurrentlySelectedLanguage"]));
+            }
+            set {
+                this["CurrentlySelectedLanguage"] = value;
+            }
+        }
     }
 }
