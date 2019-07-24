@@ -26,14 +26,15 @@ namespace CashRegister.Model.Implementation
             _currencyValueNameMapping
                 = new Dictionary<double, string>(currencyValueNameMapping);
 
-            GreatestToLeastUnitValues = _amountOfEachUnitOfCurrency.Keys.OrderByDescending(d => d);
+            GreatestToLeastUnitValues = _amountOfEachUnitOfCurrency.Keys.OrderByDescending(d => d)
+                                                                        .ToList();
         }
 
         #endregion
 
         #region Protected Properties
 
-        protected IEnumerable<double> GreatestToLeastUnitValues { get; }
+        protected IList<double> GreatestToLeastUnitValues { get; }
 
         #endregion
 
@@ -59,7 +60,7 @@ namespace CashRegister.Model.Implementation
             _amountOfEachUnitOfCurrency[key] += value;
         }
 
-        protected string CreateOutPutString()
+        protected string CreateOutputString()
         {
             var builder = new StringBuilder();
 

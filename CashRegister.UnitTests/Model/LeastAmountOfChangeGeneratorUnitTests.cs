@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using CashRegister.Model;
-using CashRegister.Model.Implementation;
+﻿using CashRegister.Model;
 using CashRegister.Model.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

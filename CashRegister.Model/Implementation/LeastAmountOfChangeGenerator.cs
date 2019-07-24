@@ -26,7 +26,7 @@ namespace CashRegister.Model.Implementation
                 }
             }
 
-            return CreateOutPutString();
+            return CreateOutputString();
         }
     }
 }

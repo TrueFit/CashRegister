@@ -49,7 +49,7 @@ namespace CashRegister.UnitTests.Model
 
             public override string Generate(double amountOwed, double amountPaid)
             {
-                return CreateOutPutString();
+                return CreateOutputString();
             }
         }
     }
