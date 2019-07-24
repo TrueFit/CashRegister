@@ -54,12 +54,27 @@ namespace CashRegister.Model
                                         .ImplementedBy<RandomChangeGenerator>()
                                         .Named(nameof(RandomChangeGenerator))
                                         .LifestyleTransient());
+
+            Container.Register(Component.For<IChangeGeneratorFactory>()
+                                        .ImplementedBy<ChangeGeneratorFactory>());
+
+            Container.Register(Component.For<ISettings>()
+                                        .ImplementedBy<SettingsForFactory>()
+                                        .LifestyleTransient());
+
+            Container.Register(Component.For<IChangeGenerationService>()
+                                        .ImplementedBy<ChangeGenerationService>());
         }
 
-        public static IChangeGenerator LeastAmountOfChangeGenerator =>
+        internal static IChangeGenerator LeastAmountOfChangeGenerator =>
             Container.Resolve<IChangeGenerator>(nameof(LeastAmountOfChangeGenerator));
 
-        public static IChangeGenerator RandomChangeGenerator =>
+        internal static IChangeGenerator RandomChangeGenerator =>
             Container.Resolve<IChangeGenerator>(nameof(RandomChangeGenerator));
+        
+        public static ISettings Settings => Container.Resolve<ISettings>();
+
+        public static IChangeGenerationService ChangeGenerationService 
+            => Container.Resolve<IChangeGenerationService>();
     }
 }
