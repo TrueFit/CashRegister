@@ -12,7 +12,7 @@ namespace CashRegister.UnitTests.Model
         public void Should_Return_RandomChangeGenerator()
         {
             // Setup
-            const double OWED = 3.0;
+            const double OWED = 3.36;
             const double PAID = 4.15;
 
             var settingsMock = new Mock<ISettings>();

@@ -15,10 +15,12 @@ namespace CashRegister.Model.Implementation
 
         private bool IsRandomChangeGeneratorNeeded(double amountOwed, int divisor)
         {
-            int truncatedAmountOwed = Convert.ToInt32(amountOwed);
-            bool isAmountOwedWholeNumber = amountOwed.Equals(Convert.ToDouble(truncatedAmountOwed));
-            
-            return isAmountOwedWholeNumber && divisor > 0 && truncatedAmountOwed % divisor == 0;
+            if (divisor == 0) return false;
+
+            // since we are rounding to two decimal places, this product will always be an integer
+            int productAsInteger = Convert.ToInt32(Math.Round(amountOwed, 2) * 100);
+
+            return productAsInteger % divisor == 0;
         }
     }
 }
