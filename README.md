@@ -15,7 +15,7 @@ Unit tests exist for the main functionality, while some functionality such as th
 
 Currently there is no logging implemented in the application.
 
-For installation, the setup file will be within the appropriate folder in the installer project folder. 
+For installation, the setup file will be within the appropriate folder in the installer project folder, although the setup project may need built from within Visual Studio. As of right now, I don't feel comfortable pushing an .exe file for you to run, for my own safety as well as yours.
 
 If opening through Visual Studio 207 or later, note that you must download and install the tool/extension for VS Installer Projects. Also, this project makes use of .Net Standard 2.0. This modification to support .Net Standard projects, if not already installed may need to be installed from the Visual Studio Installer or from the .Net Standard download website.
 
