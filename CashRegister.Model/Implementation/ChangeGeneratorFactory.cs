@@ -8,9 +8,9 @@ namespace CashRegister.Model.Implementation
         public IChangeGenerator Create(ISettings settings)
         {
             if (IsRandomChangeGeneratorNeeded(settings.AmountOwed, settings.DivisorForRandomChange))
-                return ModelLocator.RandomChangeGenerator;
+                return ModelContainer.RandomChangeGenerator;
 
-            return ModelLocator.LeastAmountOfChangeGenerator;
+            return ModelContainer.LeastAmountOfChangeGenerator;
         }
 
         private bool IsRandomChangeGeneratorNeeded(double amountOwed, int divisor)

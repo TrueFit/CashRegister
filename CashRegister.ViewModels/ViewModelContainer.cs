@@ -27,10 +27,10 @@ namespace CashRegister.ViewModels
                                         .ImplementedBy<FileAccess>());
 
             Container.Register(Component.For<ISettings>()
-                                        .Instance(ModelLocator.Settings));
+                                        .Instance(ModelContainer.Settings));
 
             Container.Register(Component.For<IChangeGenerationService>()
-                                        .Instance(ModelLocator.ChangeGenerationService));
+                                        .Instance(ModelContainer.ChangeGenerationService));
         }
 
         public static ISettingsViewModel SettingsViewModel

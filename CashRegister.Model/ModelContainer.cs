@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using CashRegister.Model.Implementation;
 using CashRegister.Model.Interfaces;
 using Castle.MicroKernel.Registration;
@@ -8,11 +6,11 @@ using Castle.Windsor;
 
 namespace CashRegister.Model
 {
-    public class ModelLocator
+    public class ModelContainer
     {
         private static readonly WindsorContainer Container;
 
-        static ModelLocator()
+        static ModelContainer()
         {
             const double DOLLAR = 1.0;
             const double QUARTER = 0.25;

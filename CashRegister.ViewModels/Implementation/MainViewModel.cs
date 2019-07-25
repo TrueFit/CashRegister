@@ -110,7 +110,7 @@ namespace CashRegister.ViewModels.Implementation
 
             foreach ((double amountOwed, double amountPaid) in parsedInputs)
             {
-                ISettings settings = ModelLocator.Settings;
+                ISettings settings = ModelContainer.Settings;
 
                 settings.DivisorForRandomChange = _settingsViewModel.DivisorForRandomChange;
                 settings.AmountOwed = amountOwed;

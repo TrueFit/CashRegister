@@ -11,7 +11,7 @@ namespace CashRegister.UnitTests.Model
         public void Should_Generate_LeastAmount_Of_Change()
         {
             // Setup
-            IChangeGenerator generator = ModelLocator.LeastAmountOfChangeGenerator;
+            IChangeGenerator generator = ModelContainer.LeastAmountOfChangeGenerator;
 
             // Execute
             string output1 = generator.Generate(2.12, 3.00);
