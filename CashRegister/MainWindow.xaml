@@ -70,7 +70,7 @@
                 <TextBlock Text="Output:" />
                 <TextBox x:Name="Outputs" 
                          Style="{StaticResource InputOutput}"
-                         IsEnabled="False"
+                         IsReadOnly="False"
                          VerticalScrollBarVisibility="Auto"
                          HorizontalScrollBarVisibility="Auto"
                          Text="{Binding OutputText, Mode=OneWay}"/>

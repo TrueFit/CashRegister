@@ -1,4 +1,5 @@
 ﻿using CashRegister.Model.Interfaces;
+using System;
 using System.IO;
 using System.Text;
 
@@ -13,9 +14,17 @@ namespace CashRegister.Model.Implementation
 
             StringBuilder builder = new StringBuilder();
 
-            using (var reader = new StreamReader(filePath))
+            try
             {
-                builder.Append(reader.ReadToEnd());
+                using (var reader = new StreamReader(filePath))
+                {
+                    builder.Append(reader.ReadToEnd());
+                }
+            }
+            catch (Exception e)
+            {
+                // error handling can definitely be better here, but this will give a good idea for now.
+                builder.Append(e.Message);
             }
 
             return builder.ToString();
