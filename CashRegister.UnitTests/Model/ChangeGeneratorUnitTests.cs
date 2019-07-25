@@ -30,7 +30,14 @@ namespace CashRegister.UnitTests.Model
                 {QUARTER, "Quarter" }
             };
 
-            var mockedGenerator = new MockGenerator(amountOfEachUnitOfCurrency, currencyValueNameMapping);
+            var pluralMapping = new Dictionary<string, string>
+            {
+                {"Penny", "Pennies" },
+                {"Dollar", "Dollars" },
+                {"Quarter", "Quarters" }
+            };
+
+            var mockedGenerator = new MockGenerator(amountOfEachUnitOfCurrency, currencyValueNameMapping, pluralMapping);
 
             // Execute
             string output = mockedGenerator.Generate(0.0, 0.0);
@@ -41,9 +48,7 @@ namespace CashRegister.UnitTests.Model
 
         private class MockGenerator : ChangeGenerator
         {
-            public MockGenerator(IDictionary<double, int> amountOfEachUnitOfCurrency,
-                IDictionary<double, string> currencyValueNameMapping) : base(amountOfEachUnitOfCurrency,
-                currencyValueNameMapping)
+            public MockGenerator(IDictionary<double, int> amountOfEachUnitOfCurrency, IDictionary<double, string> currencyValueNameMapping, IDictionary<string, string> pluralCurrencyUnitNames) : base(amountOfEachUnitOfCurrency, currencyValueNameMapping, pluralCurrencyUnitNames)
             {
             }
 

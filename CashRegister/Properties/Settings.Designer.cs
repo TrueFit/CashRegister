@@ -57,5 +57,17 @@ namespace CashRegister.Properties {
                 this["CurrentlySelectedLanguage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsLiveEditingEnabled {
+            get {
+                return ((bool)(this["IsLiveEditingEnabled"]));
+            }
+            set {
+                this["IsLiveEditingEnabled"] = value;
+            }
+        }
     }
 }

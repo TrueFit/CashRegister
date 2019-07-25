@@ -38,7 +38,16 @@ namespace CashRegister.UnitTests.Model
                 {PENNY, "penny"}
             };
 
-            var generator = new RandomChangeGenerator(amount, names);
+            var plurals = new Dictionary<string, string>
+            {
+                {"dollar", "dollars"},
+                {"quarter", "quarters"},
+                {"dime", "dimes"},
+                {"nickel", "nickels"},
+                { "penny", "pennies"}
+            };
+
+            var generator = new RandomChangeGenerator(amount, names, plurals);
             var results = new Dictionary<string, int>();
 
             // Execute

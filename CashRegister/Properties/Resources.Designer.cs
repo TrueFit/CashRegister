@@ -70,6 +70,15 @@ namespace CashRegister.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable Live Edit.
+        /// </summary>
+        public static string Settings_EnableLiveEditLabel {
+            get {
+                return ResourceManager.GetString("Settings_EnableLiveEditLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Divisor for Random Change feature:.
         /// </summary>
         public static string Settings_RandomDivisorLabel {

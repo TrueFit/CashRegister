@@ -120,6 +120,9 @@
   <data name="Settings_CurrentLanguageLabel" xml:space="preserve">
     <value>Application Language</value>
   </data>
+  <data name="Settings_EnableLiveEditLabel" xml:space="preserve">
+    <value>Enable Live Edit</value>
+  </data>
   <data name="Settings_RandomDivisorLabel" xml:space="preserve">
     <value>Divisor for Random Change feature:</value>
   </data>
