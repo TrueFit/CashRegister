@@ -6,14 +6,15 @@ namespace CashRegister.Model.Implementation
     public class RandomChangeGenerator : ChangeGenerator
     {
         public RandomChangeGenerator(IDictionary<double, int> amountOfEachUnitOfCurrency,
-            IDictionary<double, string> currencyValueNameMapping) : base(amountOfEachUnitOfCurrency,
-            currencyValueNameMapping)
+            IDictionary<double, string> currencyValueNameMapping,
+            IDictionary<string, string> pluralCurrencyUnitNames)
+            : base(amountOfEachUnitOfCurrency, currencyValueNameMapping, pluralCurrencyUnitNames)
         {
         }
 
         public override string Generate(double amountOwed, double amountPaid)
         {
-            ResetState();
+            ResetCountOfUnitsUsed();
 
             double expectedChange = Math.Round(amountPaid - amountOwed, 2);
 

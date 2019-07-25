@@ -10,21 +10,25 @@ namespace CashRegister.Model.Implementation
         #region Fields
 
         private const char SEPARATOR_CHARACTER = ',';
+
         private readonly IDictionary<double, string> _currencyValueNameMapping;
         private readonly IDictionary<double, int> _amountOfEachUnitOfCurrency;
+        private readonly IDictionary<string, string> _pluralCurrencyUnitNames;
 
         #endregion
 
         #region Constructor
 
         protected ChangeGenerator(IDictionary<double, int> amountOfEachUnitOfCurrency,
-            IDictionary<double, string> currencyValueNameMapping)
+            IDictionary<double, string> currencyValueNameMapping,
+            IDictionary<string, string> pluralCurrencyUnitNames)
         {
+            // create a new dictionary here to ensure we aren't updating the source
             _amountOfEachUnitOfCurrency
                 = new Dictionary<double, int>(amountOfEachUnitOfCurrency);
 
-            _currencyValueNameMapping
-                = new Dictionary<double, string>(currencyValueNameMapping);
+            _currencyValueNameMapping = currencyValueNameMapping;
+            _pluralCurrencyUnitNames = pluralCurrencyUnitNames;
 
             GreatestToLeastUnitValues = _amountOfEachUnitOfCurrency.Keys.OrderByDescending(d => d)
                                                                         .ToList();
@@ -46,7 +50,7 @@ namespace CashRegister.Model.Implementation
 
         #region Protected Methods
 
-        protected void ResetState()
+        protected void ResetCountOfUnitsUsed()
         {
             var keys = new List<double>(_amountOfEachUnitOfCurrency.Keys);
             foreach (double key in keys)
@@ -81,9 +85,7 @@ namespace CashRegister.Model.Implementation
 
         protected virtual string Pluralize(string unitName)
         {
-            // TODO: move the string literals to a shared location
-            // default case is for english
-            return unitName.ToUpper().Equals("PENNY") ? "pennies" : $"{unitName}s";
+            return _pluralCurrencyUnitNames[unitName];
         }
 
         protected virtual string CleanTrailingSeparatorCharacter(string outputString)

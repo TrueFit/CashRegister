@@ -5,6 +5,7 @@ namespace CashRegister.Model.Implementation
     public class ChangeGenerationService : IChangeGenerationService
     {
         private readonly IChangeGeneratorFactory _factory;
+
         public ChangeGenerationService(IChangeGeneratorFactory factory)
         {
             _factory = factory;

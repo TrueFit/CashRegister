@@ -5,15 +5,16 @@ namespace CashRegister.Model.Implementation
 {
     public sealed class LeastAmountOfChangeGenerator : ChangeGenerator
     {
-        public LeastAmountOfChangeGenerator(IDictionary<double, int> amountOfEachUnitOfCurrency,
-            IDictionary<double, string> currencyValueNameMapping)
-            : base(amountOfEachUnitOfCurrency, currencyValueNameMapping)
+        public LeastAmountOfChangeGenerator(IDictionary<double, int> amountOfEachUnitOfCurrency, 
+            IDictionary<double, string> currencyValueNameMapping, 
+            IDictionary<string, string> pluralCurrencyUnitNames) 
+            : base(amountOfEachUnitOfCurrency, currencyValueNameMapping, pluralCurrencyUnitNames)
         {
         }
 
         public override string Generate(double amountOwed, double amountPaid)
         {
-            ResetState();
+            ResetCountOfUnitsUsed();
 
             double expectedChange = Math.Round(amountPaid - amountOwed, 2);
 

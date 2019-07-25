@@ -20,6 +20,12 @@ namespace CashRegister.Model
             const double NICKEL = 0.05;
             const double PENNY = 0.01;
 
+            const string DOLLAR_NAME = "dollar";
+            const string QUARTER_NAME = "quarter";
+            const string DIME_NAME = "dime";
+            const string NICKEL_NAME = "nickel";
+            const string PENNY_NAME = "penny";
+
             Container = new WindsorContainer();
 
             Container.Register(Component.For<IDictionary<double, int>>()
@@ -36,14 +42,24 @@ namespace CashRegister.Model
             Container.Register(Component.For<IDictionary<double, string>>()
                                         .Instance(new Dictionary<double, string>
                                          {
-                                             {DOLLAR, "dollar"},
-                                             {QUARTER, "quarter"},
-                                             {DIME, "dime"},
-                                             {NICKEL, "nickel"},
-                                             {PENNY, "penny"}
+                                             {DOLLAR, DOLLAR_NAME},
+                                             {QUARTER, QUARTER_NAME},
+                                             {DIME, DIME_NAME},
+                                             {NICKEL, NICKEL_NAME},
+                                             {PENNY, PENNY_NAME}
                                          })
                                         .Named("EnglishUnitNames"));
-            // TODO: create dictionary of plurals to pass to ChangeGenerator
+
+            Container.Register(Component.For<IDictionary<string, string>>()
+                                        .Instance(new Dictionary<string, string>
+                                        {
+                                            {DOLLAR_NAME, "dollars" },
+                                            {QUARTER_NAME, "quarters" },
+                                            {DIME_NAME, "dimes" },
+                                            {NICKEL_NAME, "nickels" },
+                                            {PENNY_NAME, "pennies" }
+                                        })
+                                        .Named("EnglishUnitNamePlurals"));
 
             Container.Register(Component.For<IChangeGenerator>()
                                         .ImplementedBy<LeastAmountOfChangeGenerator>()

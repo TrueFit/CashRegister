@@ -25,6 +25,8 @@ namespace CashRegister.ViewModels.Implementation
 
                 if (UpdateDivisorOnStartup is null) return _divisorForRandomChange;
 
+                // call the UpdateDivisorOnStartup event so the backing field has
+                // the correct value (assuming any bindings to this property haven't been set yet)
                 _divisorForRandomChange = UpdateDivisorOnStartup.Invoke();
                 return _divisorForRandomChange;
             }

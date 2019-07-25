@@ -66,7 +66,6 @@ namespace CashRegister.ViewModels.Implementation
         }
 
         private string _outputText;
-
         public string OutputText
         {
             get => _outputText;
@@ -74,7 +73,6 @@ namespace CashRegister.ViewModels.Implementation
         }
 
         private bool _canGenerateChange;
-
         public bool CanGenerateChange
         {
             get => _canGenerateChange;
