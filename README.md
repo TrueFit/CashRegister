@@ -1,3 +1,6 @@
+Please change the file path on line 72 of CashRegisterClass.cs to the file path of your flat file locally.
+
+
 # Cash Register
 
 ## The Problem

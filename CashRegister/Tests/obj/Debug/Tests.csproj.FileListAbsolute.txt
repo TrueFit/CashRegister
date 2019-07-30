@@ -1,0 +1,17 @@
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\obj\Debug\Tests.csprojAssemblyReference.cache
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\Tests.dll
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\Tests.pdb
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\CashRegister.exe
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\CashRegister.pdb
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\CashRegister.exe.config
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\obj\Debug\Tests.csproj.CopyComplete
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\obj\Debug\Tests.dll
+C:\Users\jeffw\Documents\CashRegister\CashRegister\Tests\obj\Debug\Tests.pdb
