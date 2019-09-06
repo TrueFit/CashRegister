@@ -1,0 +1,49 @@
+{
+  "currency": "FJD",
+  "currencyValues": [
+    {
+      "name": "one hundred-dollar bill",
+      "unitValue": 10000
+    },
+    {
+      "name": "fifty-dollar bill",
+      "unitValue": 5000
+    },
+    {
+      "name": "twenty-dollar bill",
+      "unitValue": 2000
+    },
+    {
+      "name": "ten-dollar bill",
+      "unitValue": 1000
+    },
+    {
+      "name": "five-dollar bill",
+      "unitValue": 500
+    },
+    {
+      "name": "2 dollar coin",
+      "unitValue": 200
+    },
+    {
+      "name": "1 dollar coin",
+      "unitValue": 100
+    },
+    {
+      "name": "50 cent coin",
+      "unitValue": 50
+    },
+    {
+      "name": "20 cent coin",
+      "unitValue": 20
+    },
+    {
+      "name": "10 cent coin",
+      "unitValue": 10
+    },
+    {
+      "name": "5 cent coin",
+      "unitValue": 5
+    }
+  ]
+}

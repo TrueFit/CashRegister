@@ -1,0 +1,6 @@
+rootProject.name = 'cash_register'
+include 'core_lib'
+include 'repl_demo_app'
+include 'tango_demo_app'
+include 'tango_lib'
+

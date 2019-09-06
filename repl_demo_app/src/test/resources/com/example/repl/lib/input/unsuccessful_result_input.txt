@@ -1,0 +1,7 @@
+EUR
+de-DE
+de-DE
+10,00
+5,00
+
+/exit

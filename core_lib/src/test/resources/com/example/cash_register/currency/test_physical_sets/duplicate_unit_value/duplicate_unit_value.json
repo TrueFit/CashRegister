@@ -1,0 +1,13 @@
+{
+  "currency": "USD",
+  "currencyValues": [
+    {
+      "name": "Quarter-1",
+      "unitValue": 25
+    },
+    {
+      "name": "Quarter-2",
+      "unitValue": 25
+    }
+  ]
+}

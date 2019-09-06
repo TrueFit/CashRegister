@@ -1,0 +1,18 @@
+{
+  "currency": "JPY",
+  "inputLocale": "ja-JP",
+  "owedAndTenderedList": [
+    {
+      "owed": "300",
+      "tendered": "550"
+    },
+    {
+      "owed": "250",
+      "tendered": "100"
+    },
+    {
+      "owed": "350",
+      "tendered": "500"
+    }
+  ]
+}

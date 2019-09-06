@@ -1,0 +1,9 @@
+{
+  "currency": "USD",
+  "currencyValues": [
+    {
+      "name": "penny",
+      "unitValue": 1
+    }
+  ]
+}

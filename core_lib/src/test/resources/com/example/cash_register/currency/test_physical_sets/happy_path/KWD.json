@@ -1,0 +1,49 @@
+{
+  "currency": "KWD",
+  "currencyValues": [
+    {
+      "name": "20 dinars note",
+      "unitValue": 20000
+    },
+    {
+      "name": "10 dinars note",
+      "unitValue": 10000
+    },
+    {
+      "name": "5 dinars note",
+      "unitValue": 5000
+    },
+    {
+      "name": "1 dinar note",
+      "unitValue": 1000
+    },
+    {
+      "name": "1/2 dinar note",
+      "unitValue": 500
+    },
+    {
+      "name": "1/4 dinar note",
+      "unitValue": 250
+    },
+    {
+      "name": "100 fils coin",
+      "unitValue": 100
+    },
+    {
+      "name": "50 fils coin",
+      "unitValue": 50
+    },
+    {
+      "name": "10 fils coin",
+      "unitValue": 10
+    },
+    {
+      "name": "5 fils coin",
+      "unitValue": 5
+    },
+    {
+      "name": "1 fils coin",
+      "unitValue": 1
+    }
+  ]
+}

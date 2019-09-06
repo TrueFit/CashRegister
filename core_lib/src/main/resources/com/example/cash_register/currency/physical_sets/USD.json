@@ -1,0 +1,45 @@
+{
+  "currency": "USD",
+  "currencyValues": [
+    {
+      "name": "one hundred-dollar bill",
+      "unitValue": 10000
+    },
+    {
+      "name": "fifty-dollar bill",
+      "unitValue": 5000
+    },
+    {
+      "name": "twenty-dollar bill",
+      "unitValue": 2000
+    },
+    {
+      "name": "ten-dollar bill",
+      "unitValue": 1000
+    },
+    {
+      "name": "five-dollar bill",
+      "unitValue": 500
+    },
+    {
+      "name": "dollar bill",
+      "unitValue": 100
+    },
+    {
+      "name": "quarter",
+      "unitValue": 25
+    },
+    {
+      "name": "dime",
+      "unitValue": 10
+    },
+    {
+      "name": "nickel",
+      "unitValue": 5
+    },
+    {
+      "name": "penny",
+      "unitValue": 1
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "currency": "KWD",
+  "inputLocale": "kw-KW",
+  "owedAndTenderedList": [
+    {
+      "owed": "3.001",
+      "tendered": "5.500"
+    },
+    {
+      "owed": "2.5",
+      "tendered": "1"
+    },
+    {
+      "owed": "3.5",
+      "tendered": "5.00"
+    }
+  ]
+}

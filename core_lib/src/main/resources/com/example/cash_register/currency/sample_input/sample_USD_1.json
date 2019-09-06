@@ -1,0 +1,18 @@
+{
+  "currency": "USD",
+  "inputLocale": "en-US",
+  "owedAndTenderedList": [
+    {
+      "owed": "3.00",
+      "tendered": "5.50"
+    },
+    {
+      "owed": "3.50",
+      "tendered": "1.00"
+    },
+    {
+      "owed": "2.50",
+      "tendered": "5.00"
+    }
+  ]
+}

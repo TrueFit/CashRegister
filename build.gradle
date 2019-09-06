@@ -1,0 +1,78 @@
+buildscript {
+    apply from: 'versions.gradle'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: "${versions.springBoot}"
+        classpath group: 'io.spring.gradle', name: 'dependency-management-plugin', version: "${versions.springGradleDependencyManagement}"
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'jacoco'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 1.12
+    targetCompatibility = 1.12
+
+    dependencyManagement {
+        dependencies {
+            dependency group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "${versions.jackson}"
+            dependency group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${versions.jackson}"
+            dependency group: 'com.google.guava', name: 'guava', version: "${versions.guava}"
+            dependency group: 'commons-io', name: 'commons-io', version: "${versions.apacheCommonsIO}"
+            dependency group: 'javax.annotation', name: 'javax.annotation-api', version: "${versions.javaxAnnotationApi}"
+            dependency group: 'junit', name: 'junit', version: "${versions.junit}"
+            dependency group: 'org.apache.commons', name: 'commons-collections4', version: "${versions.apacheCommonsCollections}"
+            dependency group: 'org.apache.commons', name: 'commons-lang3', version: "${versions.apacheCommonsLang}"
+            dependency group: 'org.apache.commons', name: 'commons-text', version: "${versions.apacheCommonsText}"
+            dependency group: 'org.hamcrest', name: 'hamcrest', version: "${versions.hamcrest}"
+            dependency group: 'org.mockito', name: 'mockito-core', version: "${versions.mockito}"
+            dependency group: 'org.modelmapper', name: 'modelmapper', version: "${versions.modelmapper}"
+            dependency group: 'org.projectlombok', name: 'lombok', version: "${versions.lombok}"
+            dependency group: 'org.springframework', name: 'spring-test', version: "${versions.springFramework}"
+            dependency group: 'org.springframework.boot', name: 'spring-boot-starter', version: "${versions.springBoot}"
+            dependency group: 'org.springframework.boot', name: 'spring-boot-test', version: "${versions.springBoot}"
+            dependency group: 'org.springframework.shell', name: 'spring-shell-starter', version: "${versions.springShell}"
+        }
+    }
+}
+
+subprojects {
+    dependencies {
+        annotationProcessor group: 'org.projectlombok', name: 'lombok'
+
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'javax.annotation', name: 'javax.annotation-api'
+        implementation group: 'org.apache.commons', name: 'commons-collections4'
+        implementation group: 'org.apache.commons', name: 'commons-text'
+        implementation group: 'org.hamcrest', name: 'hamcrest'
+        implementation group: 'org.modelmapper', name: 'modelmapper'
+        implementation group: 'org.projectlombok', name: 'lombok'
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter'
+
+        testImplementation group: 'junit', name: 'junit'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+        testImplementation group: 'org.springframework.boot', name: 'spring-boot-test'
+    }
+
+    jacoco {
+        toolVersion = "${versions.jacoco}"
+    }
+
+    test {
+        dependsOn cleanTest
+        finalizedBy jacocoTestReport
+    }
+}
