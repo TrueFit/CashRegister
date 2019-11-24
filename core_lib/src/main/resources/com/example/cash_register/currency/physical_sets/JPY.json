@@ -1,0 +1,41 @@
+{
+  "currency": "JPY",
+  "currencyValues": [
+    {
+      "name": "10000 yen note",
+      "unitValue": 10000
+    },
+    {
+      "name": "5000 yen note",
+      "unitValue": 5000
+    },
+    {
+      "name": "1000 yen note",
+      "unitValue": 1000
+    },
+    {
+      "name": "500 yen coin",
+      "unitValue": 500
+    },
+    {
+      "name": "100 yen coin",
+      "unitValue": 100
+    },
+    {
+      "name": "50 yen coin",
+      "unitValue": 50
+    },
+    {
+      "name": "10 yen coin",
+      "unitValue": 10
+    },
+    {
+      "name": "5 yen coin",
+      "unitValue": 5
+    },
+    {
+      "name": "1 yen coin",
+      "unitValue": 1
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "currency": "FJD",
+  "inputLocale": "en-FJ",
+  "owedAndTenderedList": [
+    {
+      "owed": "3.00",
+      "tendered": "5.50"
+    },
+    {
+      "owed": "2.51",
+      "tendered": "3.55"
+    },
+    {
+      "owed": "3.5",
+      "tendered": "5.00"
+    },
+    {
+      "owed": "3.50",
+      "tendered": "1.00"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+EUR
+de-DE
+de-DE
+
+5,00
+
+10,00
+MOST
+/exit

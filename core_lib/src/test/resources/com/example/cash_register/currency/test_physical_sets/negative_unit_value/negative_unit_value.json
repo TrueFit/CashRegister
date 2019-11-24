@@ -1,0 +1,13 @@
+{
+  "currency": "USD",
+  "currencyValues": [
+    {
+      "name": "nickel",
+      "unitValue": -5
+    },
+    {
+      "name": "penny",
+      "unitValue": 1
+    }
+  ]
+}

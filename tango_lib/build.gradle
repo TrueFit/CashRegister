@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(':core_lib')
+    implementation group: 'com.google.guava', name: 'guava'
+    implementation group: 'commons-io', name: 'commons-io'
+    implementation group: 'org.apache.commons', name: 'commons-lang3'
+
+    testImplementation group: 'org.springframework', name: 'spring-test'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-test'
+}

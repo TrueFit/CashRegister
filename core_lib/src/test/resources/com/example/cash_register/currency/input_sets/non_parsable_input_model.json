@@ -1,0 +1,10 @@
+{
+  "currency": "USD",
+  "inputLocale": "en-US",
+  "owedAndTenderedList": [
+    {
+      "owed": "3.501",
+      "tendered": "1.001"
+    }
+  ]
+}

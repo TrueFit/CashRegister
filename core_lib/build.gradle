@@ -1,0 +1,5 @@
+dependencies {
+    implementation group: 'com.google.guava', name: 'guava'
+    implementation group: 'commons-io', name: 'commons-io'
+    implementation group: 'org.apache.commons', name: 'commons-lang3'
+}

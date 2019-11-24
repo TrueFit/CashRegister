@@ -1,0 +1,57 @@
+{
+  "currency": "EUR",
+  "currencyValues": [
+    {
+      "name": "one hundred euro note",
+      "unitValue": 10000
+    },
+    {
+      "name": "fifty euro note",
+      "unitValue": 5000
+    },
+    {
+      "name": "twenty euro note",
+      "unitValue": 2000
+    },
+    {
+      "name": "ten euro note",
+      "unitValue": 1000
+    },
+    {
+      "name": "five euro note",
+      "unitValue": 500
+    },
+    {
+      "name": "two euro coin",
+      "unitValue": 200
+    },
+    {
+      "name": "one euro coin",
+      "unitValue": 100
+    },
+    {
+      "name": "50 euro cent coin",
+      "unitValue": 50
+    },
+    {
+      "name": "20 euro cent coin",
+      "unitValue": 20
+    },
+    {
+      "name": "10 euro cent coin",
+      "unitValue": 10
+    },
+    {
+      "name": "5 euro cent coin",
+      "unitValue": 5
+    },
+    {
+      "name": "2 euro cent coin",
+      "unitValue": 2
+    },
+    {
+      "name": "1 euro cent coin",
+      "unitValue": 1
+    }
+  ]
+}

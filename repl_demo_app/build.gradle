@@ -1,0 +1,19 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    implementation project(':core_lib')
+    implementation project(':tango_lib')
+    implementation group: 'com.google.guava', name: 'guava'
+    implementation group: 'commons-io', name: 'commons-io'
+    implementation group: 'org.apache.commons', name: 'commons-lang3'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    implementation group: 'org.springframework.shell', name: 'spring-shell-starter'
+
+    testImplementation group: 'org.springframework', name: 'spring-test'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-test'
+}
+
+bootRun {
+    systemProperties.putAll(System.properties)
+    standardInput = System.in
+}
