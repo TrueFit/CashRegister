@@ -5,11 +5,13 @@ from collections import OrderedDict
 # OPTIMIZE - Is this constant method of flat files solving anything? Is this reducing bad config?
 INPUT_TYPES = {
     'FLAT_FILE': 'flat_file',
-    'MANUAL': 'manual_entry'
+    'MANUAL': 'manual_entry',
+    'JSON': 'json'
 }
 EXPORT_TYPES = {
     'FLAT_FILE': 'flat_file',
-    'SCREEN': 'screen'
+    'SCREEN': 'screen',
+    'JSON': 'json'
 }
 # OPTIMIZE -  Use Ordered dict here OR Sort dict when looping to make sure we are using largest denominations first
 DENOMINATIONS = {}

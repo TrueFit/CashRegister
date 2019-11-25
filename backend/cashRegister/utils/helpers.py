@@ -2,8 +2,16 @@ import decimal
 import random
 
 
+def formatChange(count, currency):
+    if count < 2:
+        return "{} {}".format(str(count), currency)
+    currency_string = currency + \
+        's' if not currency[-1:] == 'y' else currency[:-1]+'ies'
+    return "{} {}".format(str(count), currency_string)
+
+
 def randomize(avail_currancy):
-    """ 
+    """
         Used to shuffle order of currency for special cases
     """
     keys = list(avail_currancy.keys())
@@ -12,7 +20,7 @@ def randomize(avail_currancy):
 
 
 def convertToInt(dec_value):
-    """ 
+    """
         All currancy is converted to whole number integer to reduce floating point errors
     """
     try:
