@@ -15,10 +15,17 @@ import java.util.Locale;
 @Builder
 @Getter(AccessLevel.PACKAGE)
 public class PhysicalCurrency implements Comparable<PhysicalCurrency> {
+    /**
+     * The {@link CurrencyValue} of this physical currency.
+     */
     @lombok.NonNull
-    final CurrencyValue currencyValue;
+    private final CurrencyValue currencyValue;
+
+    /**
+     * The (arbitrary) name of this physical currency.
+     */
     @lombok.NonNull
-    final private String name;
+    private final String name;
 
     /**
      * Compares this physical currency to another. Note, for the purpose of this library, the natural order of physical
@@ -58,7 +65,7 @@ public class PhysicalCurrency implements Comparable<PhysicalCurrency> {
      * @return A string of this value formatted to the provided locale, using the currency symbol of {@code
      * this.getCurrencyValue().getCurrency()}.
      */
-    public String toString(Locale locale) {
+    public String toString(final Locale locale) {
         final String returnValue = String.format(
                 "%s [%s]",
                 this.getName(),
