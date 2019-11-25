@@ -1,4 +1,12 @@
 import random
+import os
+"""
+from cash_register.CashRegister.constants import DENOMINATIONS, INPUT_TYPES, EXPORT_TYPES
+from cash_register.CashRegister.config import config
+from cash_register.CashRegister.helpers import randomize, formatChange
+from cash_register.CashRegister.cashRegisterIO import transactionsImporter, changeDueExporter
+from cash_register.CashRegister.exceptions import invalidInput
+"""
 from .constants import DENOMINATIONS, INPUT_TYPES, EXPORT_TYPES
 from .config import config
 from .helpers import randomize, formatChange
@@ -65,13 +73,12 @@ class CashRegister(object):
             json_transactions=self.json_transactions
         )
 
+    def createChange(self):
+        # Transactions is a list of tuples/list - (amt_owed, amt_tendered)
+        # Create change due for each transaction in list
         if not self.transactions or len(self.transactions) < 1:
             print("No Transactions Present")
-        else:
-            self.itterateTransactions()
-
-    def itterateTransactions(self):
-        # Transactions is a list of tuples/list - (amt_owed, amt_tendered)
+            return None
         for transaction in self.transactions:
 
             change_due = []
@@ -124,6 +131,7 @@ class CashRegister(object):
                                     payload=self.change_due_log)
 
 
-if __name__ == '__main__':
-    # CashRegister(export_method="flat_file")
-    CashRegister().exportChange()
+def main(args=None):
+    cr = CashRegister()
+    cr.createChange()
+    cr.exportChange()

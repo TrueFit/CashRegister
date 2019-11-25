@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import permission_classes
-from .utils.CashRegister import CashRegister
+from cash_register.CashRegister.application import CashRegister
 
 # Create your views here.
 
@@ -24,6 +24,6 @@ class cashRegisterAPI(APIView):
             payment_cc='US',
             change_cc='US'
         )
-        #change_due = json.dumps(cashRegister.transactions)
+        cashRegister.createChange()
         change_due = cashRegister.exportChange()
         return Response({'received data': request.data, 'change_due': change_due})

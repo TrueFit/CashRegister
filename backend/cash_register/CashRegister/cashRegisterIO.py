@@ -1,4 +1,5 @@
 import sys
+import os
 import json
 import csv
 import uuid
@@ -46,6 +47,7 @@ class transactionsImporter(object):
         # TODO Test file exist first ?
         # if os.path.exists(flat_file):
         try:
+            flat_file = os.path.join(Path().absolute(), flat_file)
             with open(flat_file) as transactions_file:
                 csv_reader = csv.reader(transactions_file, delimiter=',')
                 for row in csv_reader:
