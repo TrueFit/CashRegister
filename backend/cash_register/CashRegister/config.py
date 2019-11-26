@@ -2,8 +2,8 @@ from .constants import INPUT_TYPES, EXPORT_TYPES
 
 config = {
     'DIVISOR': 3,
-    'PAYMENT_COUNTRY_CODE': "US",
-    'CHANGE_COUNTRY_CODE': "US",
+    'PAYMENT_COUNTRY_CODE': "USD",
+    'CHANGE_COUNTRY_CODE': "EUR",
     'ALTERCATIONS': {
         (3, 'randomDivisThree'),
     },

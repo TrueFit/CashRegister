@@ -9,7 +9,7 @@ from cash_register.CashRegister.exceptions import invalidInput
 """
 from .constants import DENOMINATIONS, INPUT_TYPES, EXPORT_TYPES
 from .config import config
-from .helpers import randomize, formatChange
+from .helpers import randomize, formatChange, currencyExchange
 from .cashRegisterIO import transactionsImporter, changeDueExporter
 from .exceptions import invalidInput
 
@@ -21,7 +21,7 @@ Created on: 2019-11-23
 
 This script accepts a flat file location (defined in Config.py) or manual entry
 Input values provided are comas seperated Amount Due & Amount Tendered
-The system will itterate US currancy and return denominations for change due from transaction using the most efficient amount of currancy
+The system will itterate US currency and return denominations for change due from transaction using the most efficient amount of currency
 If the ammount due is divisible by 3 - Currency is chosen at random to return change due
 Data is returned a single line per input
 
@@ -35,9 +35,7 @@ Output:
 
 
 # TODO - move all sys.exits to custom exceptions file
-# FIXME - Should there be an entry in the output file if no change is due??
 # TODO - Make special cases pluggable
-# TODO - Force final change_due export to contain id for sorting on front end
 # TODO - Create LOG file --> exceptions
 
 
@@ -60,11 +58,11 @@ class CashRegister(object):
         self.import_file = import_file if import_file else config['import_file']
         self.json_transactions = json_transactions if json_transactions else None
         self.export_method = export_method if export_method else config['export_method']
-        self.CHANGE_COUNTRY_CODE = payment_cc if payment_cc else config['CHANGE_COUNTRY_CODE']
-        self.PAYMENT_COUNTRY_CODE = change_cc if change_cc else config['PAYMENT_COUNTRY_CODE']
+        self.change_cc = change_cc if change_cc else config['CHANGE_COUNTRY_CODE']
+        self.payment_cc = payment_cc if payment_cc else config['PAYMENT_COUNTRY_CODE']
 
-        # Get available currancy denominations for the country the change will be provided in
-        self.country_currancy = DENOMINATIONS[self.CHANGE_COUNTRY_CODE]
+        # Get available currency denominations for the country the change will be provided in
+        self.country_currency = DENOMINATIONS[self.change_cc]
 
         # Import & Validate Transactions List From Source
         self.transactions = self.importer.importTransactions(
@@ -79,11 +77,21 @@ class CashRegister(object):
         if not self.transactions or len(self.transactions) < 1:
             print("No Transactions Present")
             return None
+
+        exchange_needed = True if self.payment_cc != self.change_cc else False
         for transaction in self.transactions:
 
             change_due = []
             amt_owed = transaction[0]
             amt_tendered = transaction[1]
+
+            if exchange_needed:
+                print("EXCHANGE NEEDED")
+                print("current tender "+str(amt_tendered))
+                # Convert payment tendered ammount to the same currency that will be returned
+                amt_tendered = currencyExchange(
+                    self.payment_cc, self.change_cc, amt_tendered)
+                print("post tender "+str(amt_tendered))
 
             try:
                 change = amt_tendered - amt_owed
@@ -91,13 +99,14 @@ class CashRegister(object):
                 # Check for change response that does not require itteration
                 if change == 0:
                     # No change is due - Skip current itteration
-                    self.change_due_log.append(["No Change Owed"])
+                    self.change_due_log.append(
+                        {'amt_owed': amt_owed, 'amt_tendered': amt_tendered, 'change_due': ["No Change Owed"]})
                     continue
                 elif change < 0:
                     # Payment not sufficient - No change to be given
-                    self.change_due_log.append(
-                        ["Insufficient Funds - Please pay {}".format(
-                            abs(change/100))]
+                    self.change_due_log.append({'amt_owed': amt_owed, 'amt_tendered': amt_tendered, 'change_due': ["Insufficient Funds - Please pay {}".format(
+                        abs(change/100))]}
+
                     )
                     continue
 
@@ -110,21 +119,22 @@ class CashRegister(object):
 
             # Test special case - Random
             if amt_owed % 3 == 0:
-                self.country_currancy = randomize(self.country_currancy)
+                self.country_currency = randomize(self.country_currency)
 
             tmp_change = change  # temp var to track progress
             while tmp_change > 0:
-                for currancy in self.country_currancy:
-                    curr_currancy_count = tmp_change // currancy  # Floor division to find who number
-                    if curr_currancy_count > 0:
+                for currency in self.country_currency:
+                    curr_currency_count = tmp_change // currency  # Floor division to find who number
+                    if curr_currency_count > 0:
                         change_due.append(
                             formatChange(
-                                curr_currancy_count, self.country_currancy[currancy])
+                                curr_currency_count, self.country_currency[currency])
                         )  # OPTIMIZE
                         tmp_change = (
-                            tmp_change - (curr_currancy_count * currancy))
+                            tmp_change - (curr_currency_count * currency))
 
-            self.change_due_log.append(change_due)
+            self.change_due_log.append(
+                {'amt_owed': amt_owed, 'amt_tendered': amt_tendered, 'change_due': change_due})
 
     def exportChange(self):
         return self.exporter.export(export_type=self.export_method,

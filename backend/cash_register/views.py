@@ -16,14 +16,16 @@ class cashRegisterAPI(APIView):
     parser_classes = [JSONParser]
 
     def post(self, request, format=None):
+        print(request.data)
         transactions = request.data['transactions']
+        currency = request.data['currency']
         cashRegister = CashRegister(
             import_method="json",
             export_method="json",
             json_transactions=transactions,
-            payment_cc='US',
-            change_cc='US'
+            payment_cc=currency['payment_country'],
+            change_cc=currency['change_country']
         )
         cashRegister.createChange()
         change_due = cashRegister.exportChange()
-        return Response({'received data': request.data, 'change_due': change_due})
+        return Response(change_due)

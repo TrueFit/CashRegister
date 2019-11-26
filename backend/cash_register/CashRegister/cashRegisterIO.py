@@ -31,15 +31,15 @@ class transactionsImporter(object):
         return self.transactions
 
     def transactionFileReader(self, flat_file):
-        """ 
+        """
             Loops through transaction flat files
             Converts decimal/string values to integers
 
-            Input : 
+            Input :
                 CSV Flat File
                 One Transaction per line
                 Amount Tendered, Amount Owed
-            Output : 
+            Output :
                 A list of tuples containing transaction details
         """
 
@@ -65,7 +65,7 @@ class transactionsImporter(object):
         return self.transactions
 
     def transactionManualReader(self):
-        """ 
+        """
             Manual transaction reader
             Accepts input from bash
         """
@@ -87,8 +87,9 @@ class transactionsImporter(object):
         return self.transactions
 
     def transactionJSONReader(self, json_transactions):
-        #self.transactions = json.loads(json_transactions)
+        # self.transactions = json.loads(json_transactions)
         transactions_list = []
+
         for transaction in json_transactions:
             amt_owed = transaction[0]
             amt_tendered = transaction[1]
@@ -117,8 +118,8 @@ class changeDueExporter(object):
             print(', '.join(change_due))
 
     def changeDueLogWritter(self, change_due_list):
-        """ 
-            Write change due to CSV file 
+        """
+            Write change due to CSV file
             Ouput path configured in Config.py
         """
         if len(change_due_list) == 0:

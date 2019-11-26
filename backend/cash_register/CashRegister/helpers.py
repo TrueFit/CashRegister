@@ -1,5 +1,8 @@
 import decimal
+import json
 import random
+import requests
+from .constants import CURRENCY_API_KEY
 
 
 def formatChange(count, currency):
@@ -17,6 +20,22 @@ def randomize(avail_currancy):
     keys = list(avail_currancy.keys())
     random.shuffle(keys)
     return dict([(key, avail_currancy[key]) for key in keys])
+
+
+def currencyExchange(from_cc, to_cc, ammount):
+    currency_key = from_cc+"_"+to_cc
+    params = {
+        "q": currency_key,
+        "compact": "ultra",
+        "apiKey": CURRENCY_API_KEY
+    }
+    response = requests.get(
+        "https://free.currconv.com/api/v7/convert", params=params)
+    response_dict = json.loads(response.text)
+    conversion_rate = response_dict[currency_key]
+    conversion_ammount = (ammount / 100)
+    response_value = (conversion_rate * conversion_ammount)
+    return convertToInt(response_value)
 
 
 def convertToInt(dec_value):
