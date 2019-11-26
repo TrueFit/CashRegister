@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -16,6 +16,9 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  head: {
+    fontWeight: '700',
+  },
 });
 
 // Create USD currency formatter.
@@ -29,41 +32,32 @@ var eurFormatter = new Intl.NumberFormat('en-US', {
 });
 
 function currencyFormatter(country, ammount) {
-  console.log('Currency formtatter ' + country + ' ' + ammount);
   if (country === 'EUR') {
-    return eurFormatter.format(ammount);
+    return eurFormatter.format(ammount / 100);
   } else if (country === 'USD') {
-    return usdFormatter.format(ammount);
+    return usdFormatter.format(ammount / 100);
   }
 }
-// For row in transaction:
 
-export default function ChangeDue(props) {
+export default function ChangeDue() {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
-  const selectedCurrency = useContext(CurrencyContext);
+  let { state } = React.useContext(CurrencyContext);
 
   function createData(tid, owed, tendered, change_due) {
     let change_string = change_due.join();
-    let amt_owed = currencyFormatter(selectedCurrency.change_cc, owed);
-    let amt_tendered = currencyFormatter(selectedCurrency.payment_cc, tendered);
+    let amt_owed = currencyFormatter(state.changeCC, owed);
+    let amt_tendered = currencyFormatter(state.paymentCC, tendered);
     return { tid, amt_owed, amt_tendered, change_string };
   }
 
   useEffect(() => {
-    console.log('ROWS', rows);
-  }, [rows]);
-
-  useEffect(() => {
-    if (props.changeDue !== undefined && props.changeDue.length < 1) {
+    if (state.changeDue !== undefined && state.changeDue.length < 1) {
       return;
     }
     let updatedRows = [];
     let transactionId = 0;
-    props.changeDue.forEach(trans => {
-      //updatedRows.push(createData(element[0], element[1], element[2]));
-      //console.log(transaction);
-
+    state.changeDue.forEach(trans => {
       updatedRows.push(
         createData(
           transactionId,
@@ -75,16 +69,21 @@ export default function ChangeDue(props) {
       transactionId++;
     });
     setRows(updatedRows);
-  }, [props.changeDue]);
+  }, [state.changeDue]);
 
+  if (state.changeDue.length < 1) {
+    return null;
+  }
   return (
     <Paper className={classes.root}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Amount Owed</TableCell>
-            <TableCell>Amount Tendered</TableCell>
-            <TableCell align="right">Change Due</TableCell>
+            <TableCell className={classes.head}>Amount Owed</TableCell>
+            <TableCell className={classes.head}>Amount Tendered</TableCell>
+            <TableCell className={classes.head} align="right">
+              Change Due
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

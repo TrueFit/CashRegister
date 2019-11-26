@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import IconButton from '@material-ui/core/IconButton';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import EuroIcon from '@material-ui/icons/Euro';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CurrencyContext } from '../context/CurrencyContext';
@@ -19,7 +13,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CurrancySwitcher(props) {
+export default function CurrancySwitcher() {
   const classes = useStyles();
   let { state, dispatch } = React.useContext(CurrencyContext);
 
@@ -38,8 +32,8 @@ export default function CurrancySwitcher(props) {
         <Grid item>
           <Button
             onClick={setPaymentCurrency('USD')}
-            variant={state.paymentCC == 'USD' ? 'contained' : 'outline'}
-            color={state.paymentCC == 'USD' ? 'primary' : 'default'}
+            variant={state.paymentCC === 'USD' ? 'contained' : 'outlined'}
+            color={state.paymentCC === 'USD' ? 'primary' : 'default'}
           >
             <AttachMoneyIcon /> USD
           </Button>
@@ -47,25 +41,25 @@ export default function CurrancySwitcher(props) {
         <Grid item>
           <Button
             onClick={setPaymentCurrency('EUR')}
-            color={state.paymentCC == 'EUR' ? 'primary' : 'default'}
-            variant={state.paymentCC == 'EUR' ? 'contained' : 'outline'}
+            color={state.paymentCC === 'EUR' ? 'primary' : 'default'}
+            variant={state.paymentCC === 'EUR' ? 'contained' : 'outlined'}
           >
             <EuroIcon />
             Euro
           </Button>
         </Grid>
       </Grid>
-      <Grid container spacing={2} justify="center">
+      <Grid container spacing={1} justify="center">
         <Grid item>
           <Typography variant="h6" gutterBottom>
-            Change Currency
+            Due Currency
           </Typography>
         </Grid>
         <Grid item>
           <Button
             onClick={setChangeCurrency('USD')}
-            variant={state.changeCC == 'USD' ? 'contained' : 'outline'}
-            color={state.changeCC == 'USD' ? 'primary' : 'default'}
+            variant={state.changeCC === 'USD' ? 'contained' : 'outlined'}
+            color={state.changeCC === 'USD' ? 'primary' : 'default'}
           >
             <AttachMoneyIcon /> USD
           </Button>
@@ -73,8 +67,8 @@ export default function CurrancySwitcher(props) {
         <Grid item>
           <Button
             onClick={setChangeCurrency('EUR')}
-            variant={state.changeCC == 'EUR' ? 'contained' : 'outline'}
-            color={state.changeCC == 'EUR' ? 'primary' : 'default'}
+            variant={state.changeCC === 'EUR' ? 'contained' : 'outlined'}
+            color={state.changeCC === 'EUR' ? 'primary' : 'default'}
           >
             <EuroIcon />
             Euro

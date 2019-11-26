@@ -1,28 +1,44 @@
 import React from 'react';
-const initialState = { paymentCC: 'USD', changeCC: 'USD' };
+const initialState = {
+  changeDue: [],
+  paymentCC: 'USD',
+  changeCC: 'USD',
+  specialFnc: {
+    divisibleBy3: true,
+    excludeFives: false,
+  },
+};
 let reducer = (state, action) => {
   switch (action.type) {
+    case 'reset':
+      return initialState;
+    case 'update_change_due':
+      return { ...state, changeDue: action.payload };
     case 'update_payment_cc':
       return { ...state, paymentCC: action.payload };
     case 'update_change_cc':
       return { ...state, changeCC: action.payload };
+    case 'divisibleBy3':
+      return {
+        ...state,
+        specialFnc: { ...state.specialFnc, divisibleBy3: action.payload },
+      };
+    case 'excludeFives':
+      return {
+        ...state,
+        specialFnc: { ...state.specialFnc, excludeFives: action.payload },
+      };
     default:
       return { state };
   }
 };
 
 const CurrencyContext = React.createContext({});
-/*
-export const CurrencyProvider = CurrencyContext.Provider;
-export const CurrencyConsumer = CurrencyContext.Consumer;
-export default CurrencyContext;
-*/
+
 function CurrencyContextProvider(props) {
-  // [A]
   let [state, dispatch] = React.useReducer(reducer, initialState);
   let value = { state, dispatch };
 
-  // [B]
   return (
     <CurrencyContext.Provider value={value}>
       {props.children}
@@ -32,5 +48,4 @@ function CurrencyContextProvider(props) {
 
 let CurrencyContextConsumer = CurrencyContext.Consumer;
 
-// [C]
 export { CurrencyContext, CurrencyContextProvider, CurrencyContextConsumer };

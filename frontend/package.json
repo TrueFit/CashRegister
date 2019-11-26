@@ -9,6 +9,7 @@
     "csv": "^5.3.0",
     "material-ui-dropzone": "^2.4.7",
     "react": "^16.12.0",
+    "react-csv": "^1.1.2",
     "react-dom": "^16.12.0",
     "react-scripts": "3.2.0"
   },
