@@ -22,6 +22,13 @@ def randomize(avail_currancy):
     return dict([(key, avail_currancy[key]) for key in keys])
 
 
+def randomCurrency(currency, amt_owed, divisor):
+    updated_currency = currency
+    if amt_owed % divisor == 0:
+        updated_currency = randomize(currency)
+    return updated_currency
+
+
 def currencyExchange(from_cc, to_cc, ammount):
     currency_key = from_cc+"_"+to_cc
     params = {

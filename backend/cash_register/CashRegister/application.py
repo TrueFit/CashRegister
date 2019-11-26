@@ -9,7 +9,7 @@ from cash_register.CashRegister.exceptions import invalidInput
 """
 from .constants import DENOMINATIONS, INPUT_TYPES, EXPORT_TYPES
 from .config import config
-from .helpers import randomize, formatChange, currencyExchange
+from .helpers import formatChange, currencyExchange, randomCurrency
 from .cashRegisterIO import transactionsImporter, changeDueExporter
 from .exceptions import invalidInput
 
@@ -50,7 +50,8 @@ class CashRegister(object):
                  import_method=None,
                  export_method=None,
                  payment_cc=None,
-                 change_cc=None):
+                 change_cc=None,
+                 specialFnc=[]):
         self.change_due_log = []
         self.transactions = []
         # Allow configuration to be provided to object instance OR default to config file
@@ -60,6 +61,7 @@ class CashRegister(object):
         self.export_method = export_method if export_method else config['export_method']
         self.change_cc = change_cc if change_cc else config['CHANGE_COUNTRY_CODE']
         self.payment_cc = payment_cc if payment_cc else config['PAYMENT_COUNTRY_CODE']
+        self.specialFnc = specialFnc
 
         # Get available currency denominations for the country the change will be provided in
         self.country_currency = DENOMINATIONS[self.change_cc]
@@ -78,6 +80,11 @@ class CashRegister(object):
             print("No Transactions Present")
             return None
 
+        if 'excludeFives' in self.specialFnc and self.specialFnc['excludeFives'] == True:
+            new_currency = dict(self.country_currency)
+            del new_currency[500]
+            self.country_currency = new_currency
+
         exchange_needed = True if self.payment_cc != self.change_cc else False
         for transaction in self.transactions:
 
@@ -86,12 +93,9 @@ class CashRegister(object):
             amt_tendered = transaction[1]
 
             if exchange_needed:
-                print("EXCHANGE NEEDED")
-                print("current tender "+str(amt_tendered))
                 # Convert payment tendered ammount to the same currency that will be returned
                 amt_tendered = currencyExchange(
                     self.payment_cc, self.change_cc, amt_tendered)
-                print("post tender "+str(amt_tendered))
 
             try:
                 change = amt_tendered - amt_owed
@@ -118,8 +122,9 @@ class CashRegister(object):
                 continue
 
             # Test special case - Random
-            if amt_owed % 3 == 0:
-                self.country_currency = randomize(self.country_currency)
+            if 'divisibleBy3' in self.specialFnc and self.specialFnc['divisibleBy3']:
+                self.country_currency = randomCurrency(
+                    self.country_currency, amt_owed, 3)
 
             tmp_change = change  # temp var to track progress
             while tmp_change > 0:
