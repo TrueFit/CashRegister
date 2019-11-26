@@ -1,43 +1,109 @@
-# Cash Register
+## Cash Register
 
-## The Problem
+The Cash Register application is a web interface which interacts with a REST API endpoint to provide the change due to the customer. The system imports a CSV flat file. The flat file must contain two ammounts (ammount owed and ammount tendered) per row. After uploading a document the API recieves the data and returns a list of currency to return to the customer in the most efficient method. The Cash Register app will allow end users to select if the payment is in USD or EUR as welll as if the change will be provided to the customer in USD or EUR.
+
+- [x] CSV File Uploader
+- [x] Currency Exchange Settings
+- [x] Output most efficient change due from transaction
+- [x] Configurable special case - If amount due is divisible by 3 - random change
+- [x] Write output to screen & allow export
+- [x] System able to be used as part of larger code base
+  - API Calls
+  - Call Python Classes directly
+- [x] Example adding new special requests (**exclude fives**)
+- [ ] Error checking on file import
+- [ ] Authentication
+- [ ] Database logging
+- [ ] Determine pronunciation for "2 Five Dollar Bills" --> "2 Five Euro Dills" ?
+
+## Motivation
+
 Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
 
-Please write a program which accomplishes the clients goals. The program should:
+## Screenshots
 
-1. Accept a flat file as input
-	1. Each line will contain the amount owed and the amount paid separated by a comma (for example: 2.13,3.00)
-	2. Expect that there will be multiple lines
-2. Output the change the cashier should return to the customer
-	1. The return string should look like: 1 dollar,2 quarters,1 nickel, etc ...
-	2. Each new line in the input file should be a new line in the output file
+![picture alt](https://dgpdev.com/images/projects/cashRegister/cashregister.gif)
 
-## Sample Input
-2.12,3.00
+## Tech/framework used
 
-1.97,2.00
+The Cash Register application was built using a React front end & a Django backend. I utilized Django Rest Framework to provide an API endpoint. The decision to use Django + Django Rest Framework was made to allow extensibility in the future.
 
-3.33,5.00
+**Built with**
 
-## Sample Output
-3 quarters,1 dime,3 pennies
+- [React](https://reactjs.org/)
+- [Django](https://www.djangoproject.com/)
+- [Django Rest Framework](https://www.django-rest-framework.org/)
+- [Python](https://www.python.org/)
+- [Material-UI](https://material-ui.com/)
 
-3 pennies
+## Features
 
-1 dollar,1 quarter,6 nickels,12 pennies
+- CSV File Importer / Exporter
+- Rest API for exstensibility
+- USD & EUR curency options with exchange between the two
+- Selecatble 'special case' functions
 
-*Remember the last one is random
+## Installation
 
-## The Fine Print
-Please use whatever technology and techniques you feel are applicable to solve the problem. We suggest that you approach this exercise as if this code was part of a larger system. The end result should be representative of your abilities and style.
+TODO - Review & Test
+Provide step by step series of examples and explanations about how to get a development envrunning.
 
-Please fork this repository. When you have completed your solution, please issue a pull request to notify us that you are ready.
+**Pre-Reqs**
 
-Have fun.
+- Python3
+- PIP
+- NPM
 
-## Things To Consider
-Here are a couple of thoughts about the domain that could influence your response:
+1. Clone Project
+2. Create & activate virtual environment for python
+3. Install backend
+   pip install ./backend/requirements.txt
+   cd ./backend
+   python manage.py migrate
+   python manage.py runserver
+4. Install Front end **See backend folder readme**
+   cd ./frontend
+   npm install
+   npm start
 
-* What might happen if the client needs to change the random divisor?
-* What might happen if the client needs to add another special case (like the random twist)?
-* What might happen if sales closes a new client in France?
+## API Reference
+
+This project contains a single API endpoint which allows the POST method and returns the change due for each transaction provided.
+
+**API Endpoint**
+
+         http://localhost:8000/cashregister/API/
+
+**JSON Post Variables**
+
+    - JSON Object
+    payment_cc - String - "USD" or "EUR"
+    change_cc - String - "USD" or "EUR"
+    transactions - Array - [[ ammount owed, ammount due], ]
+
+**JSON Response**
+
+    [{
+        "amt_owed": int,
+        "amt_tendered": int,
+        "change_due": [string]
+    }]
+
+## Tests
+
+- TODO
+
+## How to use?
+
+1. Select Payment Country
+2. Select Change Country
+3. Drag CSV file to drop zone on website
+4. View Change Due on website
+5. Export CSV File of change due
+
+## Credits
+
+- [Free Currency Converter API](https://free.currencyconverterapi.com/)
+- [Dropzone](https://github.com/Yuvaleros/material-ui-dropzone/)
+
+MIT © [David Phenicie](https://dgpdev.com)
