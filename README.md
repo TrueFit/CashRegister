@@ -1,6 +1,6 @@
 ## Cash Register
 
-The Cash Register application is a web interface which interacts with a REST API endpoint to provide the change due to the customer. The system imports a CSV flat file. The flat file must contain two ammounts (ammount owed and ammount tendered) per row. After uploading a document the API recieves the data and returns a list of currency to return to the customer in the most efficient method. The Cash Register app will allow end users to select if the payment is in USD or EUR as welll as if the change will be provided to the customer in USD or EUR.
+The Cash Register application is a web interface which interacts with a REST API endpoint to provide the change due to the customer. The system imports a CSV flat file. The flat file must contain two ammounts (ammount owed and ammount tendered) per row. After uploading a document, the API recieves the data and returns a list of currency to return to the customer in the most efficient method. The Cash Register app will allow end users to select if the payment is in USD or EUR as welll as if the change will be provided to the customer in USD or EUR.
 
 - [x] CSV File Uploader
 - [x] Currency Exchange Settings
@@ -11,10 +11,6 @@ The Cash Register application is a web interface which interacts with a REST API
   - API Calls
   - Call Python Classes directly
 - [x] Example adding new special requests (**exclude fives**)
-- [ ] Error checking on file import
-- [ ] Authentication
-- [ ] Database logging
-- [ ] Determine pronunciation for "2 Five Dollar Bills" --> "2 Five Euro Dills" ?
 
 ## Motivation
 
@@ -39,9 +35,9 @@ The Cash Register application was built using a React front end & a Django backe
 ## Features
 
 - CSV File Importer / Exporter
-- Rest API for exstensibility
-- USD & EUR curency options with exchange between the two
-- Selecatble 'special case' functions
+- Rest API for extensibility
+- USD & EUR currency options with exchange between the two
+- Selectable 'special case' functions
 
 ## Installation
 
@@ -100,6 +96,14 @@ This project contains a single API endpoint which allows the POST method and ret
 3. Drag CSV file to drop zone on website
 4. View Change Due on website
 5. Export CSV File of change due
+
+## Future Enhancements
+
+- [ ] Add jest unit testing
+- [ ] Extend python unit tests
+- [ ] Error checking on file import
+- [ ] Database logging
+- [ ] Determine pronunciation for "2 Five Dollar Bills" --> "2 Five Euro Bills"
 
 ## Credits
 
