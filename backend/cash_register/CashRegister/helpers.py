@@ -6,6 +6,9 @@ from .constants import CURRENCY_API_KEY
 
 
 def formatChange(count, currency):
+    """
+        Make currancy name multiple - handles penny->ies
+    """
     if count < 2:
         return "{} {}".format(str(count), currency)
     currency_string = currency + \
@@ -16,6 +19,7 @@ def formatChange(count, currency):
 def randomize(avail_currancy):
     """
         Used to shuffle order of currency for special cases
+        Will return change in random order - NOT most efficient
     """
     keys = list(avail_currancy.keys())
     random.shuffle(keys)
@@ -23,6 +27,12 @@ def randomize(avail_currancy):
 
 
 def randomCurrency(currency, amt_owed, divisor):
+    """
+        Determine if random should be invoked
+        Accepts a variable divisor to check agains
+        Will be used in future if client would like to change / add new divisors
+
+    """
     updated_currency = currency
     if amt_owed % divisor == 0:
         updated_currency = randomize(currency)
@@ -30,6 +40,11 @@ def randomCurrency(currency, amt_owed, divisor):
 
 
 def currencyExchange(from_cc, to_cc, ammount):
+    """
+        Convert currency using live API
+        From country, to country, ammount
+
+    """
     currency_key = from_cc+"_"+to_cc
     params = {
         "q": currency_key,

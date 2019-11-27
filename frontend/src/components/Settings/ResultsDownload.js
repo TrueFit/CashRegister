@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CSVLink } from 'react-csv';
 import Fab from '@material-ui/core/Fab';
 import DescriptionIcon from '@material-ui/icons/Description';
-import { CurrencyContext } from '../context/CurrencyContext';
+import { CurrencyContext } from '../../context/CurrencyContext';
 
 const useStyles = makeStyles(theme => ({
   downloadBtn: {
@@ -18,7 +18,6 @@ const useStyles = makeStyles(theme => ({
 
 function formatChangeExport(data) {
   let csv_response = [];
-
   data.forEach(trans => {
     csv_response.push([trans['change_due'].join(' ,')]);
   });
@@ -26,13 +25,12 @@ function formatChangeExport(data) {
 }
 
 export default function ResultsDownload() {
-  let { state } = React.useContext(CurrencyContext);
   const classes = useStyles();
-  if (state.changeDue.length > 1) {
+  let { state } = React.useContext(CurrencyContext);
+  if (state.changeDue.length > 0) {
     let change = formatChangeExport(state.changeDue);
     return (
       <CSVLink data={change}>
-        {' '}
         <Fab
           variant="extended"
           color="primary"

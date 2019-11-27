@@ -3,15 +3,18 @@ import csv from 'csv';
 import Container from '@material-ui/core/Container';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { CurrencyContext } from '../context/CurrencyContext';
-const dropzoneText = 'Drag Transactions CSV File Here';
 
+/*
+  Dropzone component allows csv files to be dropped on to screen
+  Files are looped and csv data is parsed and returned to the CurrencyContext
+*/
 export default function Dropzone(props) {
   let { state } = React.useContext(CurrencyContext);
   let { setTransactions } = props;
+  const dropzoneText = 'Drag Transactions CSV File Here';
+  // Handle files dropped
   const onDrop = acceptedFiles => {
-    //let trans = [];
     acceptedFiles.forEach(file => {
-      //let transactionId = 0;
       const reader = new FileReader();
       reader.onabort = () => console.log('file reading was aborted');
       reader.onerror = () => alert('file reading has failed');
@@ -31,7 +34,6 @@ export default function Dropzone(props) {
     <div className="container">
       <Container>
         <DropzoneArea
-          disabled={true}
           filesLimit={1}
           dropzoneText={dropzoneText}
           onChange={onDrop}

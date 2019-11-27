@@ -37,10 +37,10 @@ export default function Hero() {
         <Typography variant="h5" align="center" color="textSecondary" paragraph>
           Drag N' Drop a CSV file into the area below to detemine the change to
           be given to the customer.
-          <strong>
-            Data must contain a single transaction per row formated as : amount
-            owed and ammount due seperated by a comma
-          </strong>
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          Data must contain a single transaction per row formated as : amount
+          owed and ammount due seperated by a comma
         </Typography>
       </Container>
     </div>

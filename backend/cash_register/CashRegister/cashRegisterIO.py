@@ -89,7 +89,7 @@ class transactionsImporter(object):
     def transactionJSONReader(self, json_transactions):
         # self.transactions = json.loads(json_transactions)
         transactions_list = []
-
+        # TODO - Replace with map() <-- supply function to structure
         for transaction in json_transactions:
             amt_owed = transaction[0]
             amt_tendered = transaction[1]
@@ -110,10 +110,11 @@ class changeDueExporter(object):
             return self.changeDueJSONWritter(payload)
 
     def changeDueJSONWritter(self, change_due_list):
-        # return json.dumps(change_due_list)
+        # JSON is handled at API layer
         return change_due_list
 
     def changeDueScreenWritter(self, change_due_list):
+        # TODO - Replace map
         for change_due in change_due_list:
             print(', '.join(change_due))
 

@@ -1,12 +1,5 @@
 import random
 import os
-"""
-from cash_register.CashRegister.constants import DENOMINATIONS, INPUT_TYPES, EXPORT_TYPES
-from cash_register.CashRegister.config import config
-from cash_register.CashRegister.helpers import randomize, formatChange
-from cash_register.CashRegister.cashRegisterIO import transactionsImporter, changeDueExporter
-from cash_register.CashRegister.exceptions import invalidInput
-"""
 from .constants import DENOMINATIONS, INPUT_TYPES, EXPORT_TYPES
 from .config import config
 from .helpers import formatChange, currencyExchange, randomCurrency
@@ -15,9 +8,6 @@ from .exceptions import invalidInput
 
 """
 CashRegister.py
-version 1 - MVP
-Created by: David Phenicie phenicie.david@gmail.
-Created on: 2019-11-23
 
 This script accepts a flat file location (defined in Config.py) or manual entry
 Input values provided are comas seperated Amount Due & Amount Tendered
@@ -35,14 +25,19 @@ Output:
 
 
 # TODO - move all sys.exits to custom exceptions file
-# TODO - Make special cases pluggable
 # TODO - Create LOG file --> exceptions
+# TODO - createFunction for adding error row - repeated twice
+
+"""
+    Import & Exporter Classes
+    Transaction data passed to classes to parse data
+    Handle variable IO scenarios based on passed configuration
+"""
+importer = transactionsImporter()
+exporter = changeDueExporter()
 
 
 class CashRegister(object):
-
-    importer = transactionsImporter()
-    exporter = changeDueExporter()
 
     def __init__(self,
                  import_file=None,
@@ -52,22 +47,25 @@ class CashRegister(object):
                  payment_cc=None,
                  change_cc=None,
                  specialFnc=[]):
+        # Instance Variable to send to exporter class
         self.change_due_log = []
+        # Instance Variable to store transactions returned from Importer
         self.transactions = []
-        # Allow configuration to be provided to object instance OR default to config file
+        # Allow configuration to be provided to object during instantiation OR default to config file
         self.import_method = import_method if import_method else config['import_method']
         self.import_file = import_file if import_file else config['import_file']
         self.json_transactions = json_transactions if json_transactions else None
         self.export_method = export_method if export_method else config['export_method']
         self.change_cc = change_cc if change_cc else config['CHANGE_COUNTRY_CODE']
         self.payment_cc = payment_cc if payment_cc else config['PAYMENT_COUNTRY_CODE']
+        # Dictionary containing prefined special cases - divisibleBy & excludeFives
         self.specialFnc = specialFnc
 
-        # Get available currency denominations for the country the change will be provided in
+        # Get currency denominations for country the change will be returned
         self.country_currency = DENOMINATIONS[self.change_cc]
 
         # Import & Validate Transactions List From Source
-        self.transactions = self.importer.importTransactions(
+        self.transactions = importer.importTransactions(
             input_type=self.import_method,
             input_file=self.import_file,
             json_transactions=self.json_transactions
@@ -80,45 +78,59 @@ class CashRegister(object):
             print("No Transactions Present")
             return None
 
+        # Predefined Special Case - Exclude Five Dollar Bills/Euros from change due
         if 'excludeFives' in self.specialFnc and self.specialFnc['excludeFives'] == True:
             new_currency = dict(self.country_currency)
             del new_currency[500]
             self.country_currency = new_currency
 
+        # Determine if payment was provided in a different currency than the change (transaction)
+        # This will trigger the amt_tendered to be converted to the return currency
+        # Currency options are set for the entire transaction list (not individually)
         exchange_needed = True if self.payment_cc != self.change_cc else False
-        for transaction in self.transactions:
 
+        for transaction in self.transactions:
             change_due = []
-            amt_owed = transaction[0]
-            amt_tendered = transaction[1]
+            # Extract transaction details for row
+            try:
+                amt_owed = transaction[0]
+                amt_tendered = transaction[1]
+            except:
+                # Data was not formated properly, skip this transaction
+                self.change_due_log.append(
+                    {'amt_owed': "", 'amt_tendered': "", 'change_due': ["Error Parsing - Data not formatted correctly"]})
+                continue
 
             if exchange_needed:
                 # Convert payment tendered ammount to the same currency that will be returned
+                # Params From Country, To Country, Ammount
                 amt_tendered = currencyExchange(
                     self.payment_cc, self.change_cc, amt_tendered)
 
             try:
                 change = amt_tendered - amt_owed
-
-                # Check for change response that does not require itteration
-                if change == 0:
-                    # No change is due - Skip current itteration
-                    self.change_due_log.append(
-                        {'amt_owed': amt_owed, 'amt_tendered': amt_tendered, 'change_due': ["No Change Owed"]})
-                    continue
-                elif change < 0:
-                    # Payment not sufficient - No change to be given
-                    self.change_due_log.append({'amt_owed': amt_owed, 'amt_tendered': amt_tendered, 'change_due': ["Insufficient Funds - Please pay {}".format(
-                        abs(change/100))]}
-
-                    )
-                    continue
-
             except TypeError:
                 """
                     ERROR - determining change  -  Skip current itteration
                     Continue script to check for other valid transactions
                 """
+                self.change_due_log.append(
+                    {'amt_owed': "", 'amt_tendered': "", 'change_due': ["Error Parsing - Data not formatted correctly"]})
+                continue
+
+                # OPTIMIZE   replace below with change==0 : addNoChange ? change < 0 ? addInsufficient : True
+            # Check for change response that does not require itteration
+            if change == 0:
+                # No change is due - Skip current itteration
+                self.change_due_log.append(
+                    {'amt_owed': amt_owed, 'amt_tendered': amt_tendered, 'change_due': ["No Change Owed"]})
+                continue
+            elif change < 0:
+                # Payment not sufficient - No change to be given
+                self.change_due_log.append({'amt_owed': amt_owed, 'amt_tendered': amt_tendered, 'change_due': ["Insufficient Funds - Please pay {}".format(
+                    abs(change/100))]}
+
+                )
                 continue
 
             # Test special case - Random
@@ -126,8 +138,10 @@ class CashRegister(object):
                 self.country_currency = randomCurrency(
                     self.country_currency, amt_owed, 3)
 
-            tmp_change = change  # temp var to track progress
+            # temp variable to track progress of providing change
+            tmp_change = change
             while tmp_change > 0:
+                # TODO -- Use self.country_currency.map( ) provide function that handles the currency decisions
                 for currency in self.country_currency:
                     curr_currency_count = tmp_change // currency  # Floor division to find who number
                     if curr_currency_count > 0:
@@ -142,8 +156,8 @@ class CashRegister(object):
                 {'amt_owed': amt_owed, 'amt_tendered': amt_tendered, 'change_due': change_due})
 
     def exportChange(self):
-        return self.exporter.export(export_type=self.export_method,
-                                    payload=self.change_due_log)
+        return exporter.export(export_type=self.export_method,
+                               payload=self.change_due_log)
 
 
 def main(args=None):

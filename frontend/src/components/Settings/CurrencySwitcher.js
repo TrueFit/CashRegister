@@ -2,19 +2,11 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import EuroIcon from '@material-ui/icons/Euro';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { CurrencyContext } from '../context/CurrencyContext';
-
-const useStyles = makeStyles({
-  card: {
-    maxWidth: 345,
-  },
-});
+import { CurrencyContext } from '../../context/CurrencyContext';
 
 export default function CurrancySwitcher() {
-  const classes = useStyles();
   let { state, dispatch } = React.useContext(CurrencyContext);
 
   let setPaymentCurrency = cc => () =>
@@ -22,7 +14,7 @@ export default function CurrancySwitcher() {
   let setChangeCurrency = cc => () =>
     dispatch({ type: 'update_change_cc', payload: cc });
   return (
-    <div className={classes.heroButtons}>
+    <div>
       <Grid container spacing={2} justify="center">
         <Grid item>
           <Typography variant="h6" gutterBottom>
@@ -34,6 +26,7 @@ export default function CurrancySwitcher() {
             onClick={setPaymentCurrency('USD')}
             variant={state.paymentCC === 'USD' ? 'contained' : 'outlined'}
             color={state.paymentCC === 'USD' ? 'primary' : 'default'}
+            disabled={state.changeDue.length > 0 ? true : false}
           >
             <AttachMoneyIcon /> USD
           </Button>
@@ -43,6 +36,7 @@ export default function CurrancySwitcher() {
             onClick={setPaymentCurrency('EUR')}
             color={state.paymentCC === 'EUR' ? 'primary' : 'default'}
             variant={state.paymentCC === 'EUR' ? 'contained' : 'outlined'}
+            disabled={state.changeDue.length > 0 ? true : false}
           >
             <EuroIcon />
             Euro
@@ -60,6 +54,7 @@ export default function CurrancySwitcher() {
             onClick={setChangeCurrency('USD')}
             variant={state.changeCC === 'USD' ? 'contained' : 'outlined'}
             color={state.changeCC === 'USD' ? 'primary' : 'default'}
+            disabled={state.changeDue.length > 0 ? true : false}
           >
             <AttachMoneyIcon /> USD
           </Button>
@@ -69,6 +64,7 @@ export default function CurrancySwitcher() {
             onClick={setChangeCurrency('EUR')}
             variant={state.changeCC === 'EUR' ? 'contained' : 'outlined'}
             color={state.changeCC === 'EUR' ? 'primary' : 'default'}
+            disabled={state.changeDue.length > 0 ? true : false}
           >
             <EuroIcon />
             Euro

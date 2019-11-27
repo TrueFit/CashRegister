@@ -4,12 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import CurrencySwitcher from './CurrencySwitcher';
 import SpecialCases from './SpecialCases';
-import ResetButton from './ResetButton';
+import ActionButtons from './ActionButtons';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
   paper: {
     padding: theme.spacing(1),
     marginTop: theme.spacing(5),
@@ -18,21 +15,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Settings(props) {
+// TODO Organize reset and export buttons next to each other
+// TODO - always show reset, make disabled orginally
+
+export default function Settings() {
   const classes = useStyles();
-  if (props.display === false) {
-    return <ResetButton />;
-  }
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <Paper className={classes.paper}>
           <SpecialCases />
         </Paper>
+      </Grid>
+      <Grid item xs={6}>
         <Paper className={classes.paper}>
           <CurrencySwitcher />
         </Paper>
+      </Grid>
+      <Grid item xs={12}>
+        <ActionButtons />
       </Grid>
     </Grid>
   );

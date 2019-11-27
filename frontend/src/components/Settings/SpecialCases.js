@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { CurrencyContext } from '../context/CurrencyContext';
+import { CurrencyContext } from '../../context/CurrencyContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,6 +31,7 @@ export default function SpecialCases() {
         <FormControlLabel
           control={
             <Checkbox
+              disabled={state.changeDue.length > 0 ? true : false}
               checked={state.specialFnc.divisibleBy3}
               onChange={handleChange('divisibleBy3')}
               value="randomDivisible3"
@@ -41,6 +42,7 @@ export default function SpecialCases() {
         <FormControlLabel
           control={
             <Checkbox
+              disabled={state.changeDue.length > 0 ? true : false}
               checked={state.specialFnc.excludeFives}
               onChange={handleChange('excludeFives')}
               value="excludeFives"

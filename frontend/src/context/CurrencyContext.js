@@ -1,6 +1,7 @@
 import React from 'react';
 const initialState = {
   changeDue: [],
+  loading: false,
   paymentCC: 'USD',
   changeCC: 'USD',
   specialFnc: {
@@ -14,6 +15,8 @@ let reducer = (state, action) => {
       return initialState;
     case 'update_change_due':
       return { ...state, changeDue: action.payload };
+    case 'update_loading':
+      return { ...state, loading: !state.loading };
     case 'update_payment_cc':
       return { ...state, paymentCC: action.payload };
     case 'update_change_cc':
