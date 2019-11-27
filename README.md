@@ -87,7 +87,8 @@ This project contains a single API endpoint which allows the POST method and ret
 
 ## Tests
 
-- TODO
+    cd ./backend/
+    python manage.py test
 
 ## How to use?
 
