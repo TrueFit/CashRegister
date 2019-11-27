@@ -44,8 +44,6 @@ class transactionsImporter(object):
         """
 
         total_transactions = 0
-        # TODO Test file exist first ?
-        # if os.path.exists(flat_file):
         try:
             flat_file = os.path.join(Path().absolute(), flat_file)
             with open(flat_file) as transactions_file:
@@ -59,7 +57,6 @@ class transactionsImporter(object):
         except IOError as e:
             print('I/O error({0}): {1}'.format(e.errno, e.strerror))
         except Exception as e:
-            # FIXME - Send to log file
             print("unexpected exception during flat file read -- " + str(e))
 
         return self.transactions
@@ -89,7 +86,7 @@ class transactionsImporter(object):
     def transactionJSONReader(self, json_transactions):
         # self.transactions = json.loads(json_transactions)
         transactions_list = []
-        # TODO - Replace with map() <-- supply function to structure
+        # Optimize - with map
         for transaction in json_transactions:
             amt_owed = transaction[0]
             amt_tendered = transaction[1]
@@ -114,7 +111,7 @@ class changeDueExporter(object):
         return change_due_list
 
     def changeDueScreenWritter(self, change_due_list):
-        # TODO - Replace map
+        # Optimize - Replace map
         for change_due in change_due_list:
             print(', '.join(change_due))
 

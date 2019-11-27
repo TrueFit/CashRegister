@@ -23,11 +23,6 @@ Output:
 
 """
 
-
-# TODO - move all sys.exits to custom exceptions file
-# TODO - Create LOG file --> exceptions
-# TODO - createFunction for adding error row - repeated twice
-
 """
     Import & Exporter Classes
     Transaction data passed to classes to parse data
@@ -141,7 +136,6 @@ class CashRegister(object):
             # temp variable to track progress of providing change
             tmp_change = change
             while tmp_change > 0:
-                # TODO -- Use self.country_currency.map( ) provide function that handles the currency decisions
                 for currency in self.country_currency:
                     curr_currency_count = tmp_change // currency  # Floor division to find who number
                     if curr_currency_count > 0:

@@ -49,18 +49,20 @@ Provide step by step series of examples and explanations about how to get a deve
 - Python3
 - PIP
 - NPM
+- node
 
 1. Clone Project
-2. Create & activate virtual environment for python
-3. Install backend
-   pip install ./backend/requirements.txt
-   cd ./backend
-   python manage.py migrate
-   python manage.py runserver
-4. Install Front end **See backend folder readme**
-   cd ./frontend
-   npm install
-   npm start
+2. cd CashRegister
+3.  python3 -m venv virtual_env
+4. source virtual_env/bin/activate
+5. pip install -r ./backend/requirements.txt
+6. python ./backend/manage.py migrate
+7. python ./backend/manage.py runserver
+8. Open second shell
+9. cd ./frontend
+10. npm install
+11. npm start
+
 
 ## API Reference
 

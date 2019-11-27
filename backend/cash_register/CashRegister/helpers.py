@@ -71,4 +71,4 @@ def convertToInt(dec_value):
     except decimal.InvalidOperation as e:  # decimal.InvalidOperation
         print("Unable to convert " + str(dec_value) +
               " to decimal - Please correct input")
-        return None  # FIXME - Create customized exceptions file
+        return None
