@@ -1,0 +1,9 @@
+C:\Users\Snowfire\source\repos\ConsoleApp2\domainModels\bin\Debug\DomainModels.dll
+C:\Users\Snowfire\source\repos\ConsoleApp2\domainModels\bin\Debug\DomainModels.pdb
+C:\Users\Snowfire\source\repos\ConsoleApp2\domainModels\bin\Debug\Interfaces.dll
+C:\Users\Snowfire\source\repos\ConsoleApp2\domainModels\bin\Debug\CsvHelper.dll
+C:\Users\Snowfire\source\repos\ConsoleApp2\domainModels\bin\Debug\Interfaces.pdb
+C:\Users\Snowfire\source\repos\ConsoleApp2\domainModels\obj\Debug\domainModels.csprojAssemblyReference.cache
+C:\Users\Snowfire\source\repos\ConsoleApp2\domainModels\obj\Debug\domainModels.csproj.CopyComplete
+C:\Users\Snowfire\source\repos\ConsoleApp2\domainModels\obj\Debug\DomainModels.dll
+C:\Users\Snowfire\source\repos\ConsoleApp2\domainModels\obj\Debug\DomainModels.pdb

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CashRegisterConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\Snowfire\\Documents\\sample file.txt\""
+    }
+  }
+}

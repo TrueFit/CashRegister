@@ -1,0 +1,7 @@
+C:\Users\Snowfire\source\repos\ConsoleApp2\Interfaces\bin\Debug\Interfaces.dll
+C:\Users\Snowfire\source\repos\ConsoleApp2\Interfaces\bin\Debug\Interfaces.pdb
+C:\Users\Snowfire\source\repos\ConsoleApp2\Interfaces\bin\Debug\CsvHelper.dll
+C:\Users\Snowfire\source\repos\ConsoleApp2\Interfaces\obj\Debug\Interfaces.csproj.CopyComplete
+C:\Users\Snowfire\source\repos\ConsoleApp2\Interfaces\obj\Debug\Interfaces.dll
+C:\Users\Snowfire\source\repos\ConsoleApp2\Interfaces\obj\Debug\Interfaces.pdb
+C:\Users\Snowfire\source\repos\ConsoleApp2\Interfaces\obj\Debug\Interfaces.csprojAssemblyReference.cache
