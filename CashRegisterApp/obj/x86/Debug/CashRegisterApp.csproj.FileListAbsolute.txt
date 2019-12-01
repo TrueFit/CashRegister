@@ -1,0 +1,15 @@
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\bin\x86\Debug\CashRegisterApp.exe.config
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\bin\x86\Debug\CashRegisterApp.exe
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\bin\x86\Debug\CashRegisterApp.pdb
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\CashRegisterApp.csprojAssemblyReference.cache
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\CashRegisterView.g.cs
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\App.g.cs
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\CashRegisterApp_MarkupCompile.cache
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\CashRegisterApp_MarkupCompile.lref
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\CashRegisterView.baml
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\CashRegisterApp.g.resources
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\CashRegisterApp.Properties.Resources.resources
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\CashRegisterApp.csproj.GenerateResource.cache
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\CashRegisterApp.exe
+C:\Users\Zak\Source\Repos\CashRegister\CashRegisterApp\obj\x86\Debug\CashRegisterApp.pdb
