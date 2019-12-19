@@ -41,3 +41,14 @@ Here are a couple of thoughts about the domain that could influence your respons
 * What might happen if the client needs to change the random divisor?
 * What might happen if the client needs to add another special case (like the random twist)?
 * What might happen if sales closes a new client in France?
+
+## Instructions for Use
+Please use this command line tool with node version `12.9.0`.
+
+To install and prepare for use, run `npm install && npm link`.  This will link the `cashregister` command in your terminal.
+
+Usage: `cashregister --input <path> --output <path>`
+
+To run, use the `cashregister` command with the required input file path.  Optionally, include an output file path.  If no output file path is specified, `cashregister` will write the results to the console.
+
+Sample input has been provided in `input.txt`.

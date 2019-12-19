@@ -1,0 +1,26 @@
+{
+  "name": "cashregister",
+  "version": "1.0.0",
+  "engines": {
+    "node": "12.9.0"
+  },
+  "description": "## The Problem Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the \"owed\" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))",
+  "main": "index.js",
+  "bin": {
+    "cashregister": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gtelljohann/CashRegister.git"
+  },
+  "author": "g.telljohann@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gtelljohann/CashRegister/issues"
+  },
+  "homepage": "https://github.com/gtelljohann/CashRegister#readme",
+  "dependencies": {
+    "commander": "^4.0.1",
+    "lodash": "^4.17.15"
+  }
+}
