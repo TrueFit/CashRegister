@@ -4,7 +4,8 @@ const fs = require('fs');
 const { denominations, pluralize } = require('./currency');
 
 function convertToCents(str) {
-  return Number(str) * 100;
+  const [ dollars, cents ] = str.split('.');
+  return Number(dollars) * 100 + Number(cents);
 }
 
 function countForDenominationRandom(val, denom) {
@@ -32,7 +33,13 @@ function generateChangeObj (val, countFunction) {
 }
 
 function formatChange(changeObj) {
-  const denomValues = _(denominations).keys().map(Number).orderBy().reverse().value();
+  const denomValues = _(denominations)
+    .keys()
+    .map(Number)
+    .orderBy()
+    .reverse()
+    .value();
+
   return denomValues
     .map(denom => {
       const num = changeObj[denom];
@@ -41,7 +48,7 @@ function formatChange(changeObj) {
       return `${num} ${label}`;
     })
     .filter(part => !!part)
-    .join(',')
+    .join(',');
 }
 
 
@@ -50,6 +57,10 @@ function cashRegister(owedStr, paidStr) {
   const owedCents = convertToCents(owedStr);
   const paidCents = convertToCents(paidStr);
   const changeValue = paidCents - owedCents;
+
+  if (changeValue === 0) return 'No change needed';
+  if (changeValue < 0) return 'Insufficient payment';
+
   const selectRandomly = owedCents % 3 === 0;
   const countFunction = selectRandomly
     ? countForDenominationRandom
