@@ -1,13 +1,10 @@
 {
-    "name": "seegrid",
+    "name": "cash-register",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
     "module": "main.js",
     "scripts": {
-        "test": "jest src",
-        "test:watch": "jest --watch src",
-        "coverage": "jest --collect-coverage src",
         "build": "babel src --out-dir dist",
         "start": "npm run build && node dist/main.js",
         "dev": "nodemon --exec babel-node src/main.js"
@@ -28,20 +25,17 @@
         "@babel/plugin-proposal-optional-chaining": "^7.7.5",
         "@babel/preset-env": "^7.7.6",
         "babel-eslint": "^10.0.3",
-        "babel-jest": "^24.9.0",
         "babel-plugin-module-resolver": "^4.0.0",
         "eslint": "^6.1.0",
-        "eslint-config-airbnb": "^18.0.1",
         "eslint-config-airbnb-base": "^14.0.0",
         "eslint-config-prettier": "^6.7.0",
         "eslint-plugin-import": "^2.19.1",
         "eslint-plugin-prettier": "^3.1.1",
-        "eslint-plugin-react": "^7.17.0",
         "husky": "^3.1.0",
-        "jest": "^24.9.0",
         "nodemon": "^2.0.2",
         "prettier": "^1.19.1",
         "pretty-quick": "^2.0.1",
-        "winston": "^3.2.1"
+        "winston": "^3.2.1",
+        "yargs": "^15.0.2"
     }
 }

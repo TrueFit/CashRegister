@@ -1,0 +1,3 @@
+212 pennies
+7 quarters, 2 dimes, 2 pennies
+13 quarters, 1 nickel, 3 pennies
