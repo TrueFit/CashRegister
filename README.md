@@ -19,13 +19,13 @@ Solving the challenge as detailed in https://github.com/truefit/cashregister.
 
 ### Commands
 
-Run in dev mode (with input file specified):
+#### Run in dev mode
 
 ```
 $ npm run dev -- --inputFile=src/in.txt
 ```
 
-Run for production:
+#### Run for production
 
 (babel-node/on the fly transpilation is not recommended for non-dev environments; this command will precompile into `dist/`)
 
@@ -33,16 +33,16 @@ Run for production:
 $ npm run start -- --inputFile=src/in.txt
 ```
 
-### CLI Options
+#### CLI Options
 
 CLI options should be preceded with a `--` and can be passed in after `npm run start --`.
 
-| -- | -- | -- |
-| Option | Description | Required? |
-| inputFile | File of entries to consume | Yes |
-| currency | The currency ID from `src/constants/currency.js` to use | No, defaults to 'usd' |
-| divisor | Random twist divisor | No, defaults to 3 |
-| outputFile | File where contents will be written | No, defaults to src/out.txt |
+| Option     | Description                                             | Required?                   |
+| ---------- | ------------------------------------------------------- | --------------------------- |
+| inputFile  | File of entries to consume                              | Yes                         |
+| currency   | The currency ID from `src/constants/currency.js` to use | No, defaults to 'usd'       |
+| divisor    | Random twist divisor                                    | No, defaults to 3           |
+| outputFile | File where contents will be written                     | No, defaults to src/out.txt |
 
 Examples:
 
