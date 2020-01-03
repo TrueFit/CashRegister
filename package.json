@@ -6,8 +6,8 @@
     "module": "main.js",
     "scripts": {
         "build": "babel src --out-dir dist",
-        "start": "npm run build && node dist/main.js",
-        "dev": "nodemon --exec babel-node src/main.js"
+        "start": "NODE_ENV=production npm run build && node dist/main.js",
+        "dev": "NODE_ENV=development nodemon --exec babel-node src/main.js"
     },
     "husky": {
         "hooks": {

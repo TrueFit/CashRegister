@@ -19,10 +19,10 @@ Solving the challenge as detailed in https://github.com/truefit/cashregister.
 
 ### Commands
 
-Run in dev mode:
+Run in dev mode (with input file specified):
 
 ```
-$ npm nodemon --exec babel-node src/main.js
+$ npm run dev -- --inputFile=src/in.txt
 ```
 
 Run for production:
