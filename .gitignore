@@ -1,3 +1,5 @@
 dist
 .DS_Store
 node_modules
+src/in.txt
+src/out.txt

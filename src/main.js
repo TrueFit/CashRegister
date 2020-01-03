@@ -1,18 +1,3 @@
-/*
-Creative Cash Draw Solutions is a client who wants to
-provide something different for the cashiers who use their
-system. The function of the application is to tell the cashier
- how much change is owed, and what denominations should be used.
- In most cases the app should return the minimum amount of physical change,
- but the client would like to add a twist. If the "owed" amount is divisible by 3,
- the app should randomly generate the change denominations
- (but the math still needs to be right :))
-
-- What might happen if the client needs to change the random divisor?
-- What might happen if the client needs to add another special case (like the random twist)?
-- What might happen if sales closes a new client in France?
-*/
-
 import { promises as fs } from 'fs'
 import { argv } from 'yargs'
 import path from 'path'
@@ -103,7 +88,7 @@ const getRandomDenoms = ({ owed, currency }) => {
     let amount = currency.normalizeAmount(owed)
 
     // `sort` to randomly arrange the denominations
-    const denominations = currency.denominations.sort(sortArrayRandom)
+    const denominations = sortArrayRandom(currency.denominations)
 
     // `result` will be an object mapping the `value` of the denomination to { count, denomination }
     let result = {}
@@ -180,6 +165,12 @@ const main = async ({ currencyId, divisor, inputFile, outputFile }) => {
     let output = []
 
     for (const entry of entries) {
+        // If no comma is present, assume a newline and push to output
+        if (!entry.includes(',')) {
+            output.push('')
+            continue
+        }
+
         const [owed, paid] = entry.split(',')
 
         let results

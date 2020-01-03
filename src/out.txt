@@ -1,3 +1,0 @@
-1 penny,1 nickel,1 dime,3 quarters
-2 pennies,2 dimes
-1 penny,1 dime,2 quarters

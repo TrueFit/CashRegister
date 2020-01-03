@@ -1,43 +1,51 @@
 # Cash Register
 
-## The Problem
-Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
+## Overview
 
-Please write a program which accomplishes the clients goals. The program should:
+Solving the challenge as detailed in https://github.com/truefit/cashregister.
 
-1. Accept a flat file as input
-	1. Each line will contain the amount owed and the amount paid separated by a comma (for example: 2.13,3.00)
-	2. Expect that there will be multiple lines
-2. Output the change the cashier should return to the customer
-	1. The return string should look like: 1 dollar,2 quarters,1 nickel, etc ...
-	2. Each new line in the input file should be a new line in the output file
+## Technologies
 
-## Sample Input
-2.12,3.00
+### Language
 
-1.97,2.00
+-   JavaScript (node v12.2.0)
+-   es.next features transpiled for the current node version with [Babel](https://babeljs.io/)
 
-3.33,5.00
+### Code Quality
 
-## Sample Output
-3 quarters,1 dime,3 pennies
+-   [Prettier](https://prettier.io/)
+-   [ESLint](https://eslint.org/)
+-   [Husky](https://github.com/typicode/husky) pre-commit hook to check staged files against linting standards prior to commit
 
-3 pennies
+### Commands
 
-1 dollar,1 quarter,6 nickels,12 pennies
+Run in dev mode:
 
-*Remember the last one is random
+```
+$ npm nodemon --exec babel-node src/main.js
+```
 
-## The Fine Print
-Please use whatever technology and techniques you feel are applicable to solve the problem. We suggest that you approach this exercise as if this code was part of a larger system. The end result should be representative of your abilities and style.
+Run for production:
 
-Please fork this repository. When you have completed your solution, please issue a pull request to notify us that you are ready.
+(babel-node/on the fly transpilation is not recommended for non-dev environments; this command will precompile into `dist/`)
 
-Have fun.
+```
+$ npm run start -- --inputFile=src/in.txt
+```
 
-## Things To Consider
-Here are a couple of thoughts about the domain that could influence your response:
+### CLI Options
 
-* What might happen if the client needs to change the random divisor?
-* What might happen if the client needs to add another special case (like the random twist)?
-* What might happen if sales closes a new client in France?
+CLI options should be preceded with a `--` and can be passed in after `npm run start --`.
+
+| -- | -- | -- |
+| Option | Description | Required? |
+| inputFile | File of entries to consume | Yes |
+| currency | The currency ID from `src/constants/currency.js` to use | No, defaults to 'usd' |
+| divisor | Random twist divisor | No, defaults to 3 |
+| outputFile | File where contents will be written | No, defaults to src/out.txt |
+
+Examples:
+
+```
+$ npm run start -- --inputFile=src/in.txt --divisor=2
+```
