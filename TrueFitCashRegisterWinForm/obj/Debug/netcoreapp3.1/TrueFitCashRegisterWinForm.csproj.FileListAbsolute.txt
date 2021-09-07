@@ -1,0 +1,15 @@
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\bin\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.exe
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\bin\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.deps.json
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\bin\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.runtimeconfig.json
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\bin\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.runtimeconfig.dev.json
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\bin\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.dll
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\bin\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.pdb
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\obj\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.csprojAssemblyReference.cache
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\obj\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.Form1.resources
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\obj\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.csproj.GenerateResource.cache
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\obj\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.AssemblyInfoInputs.cache
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\obj\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.AssemblyInfo.cs
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\obj\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.csproj.CoreCompileInputs.cache
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\obj\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.dll
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\obj\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.pdb
+C:\Users\natha\source\repos\TrueFitCashRegisterWinForm\TrueFitCashRegisterWinForm\obj\Debug\netcoreapp3.1\TrueFitCashRegisterWinForm.genruntimeconfig.cache
