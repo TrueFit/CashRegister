@@ -1,0 +1,221 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+
+/* submitted by Michele Dumm for Truefit code challenge  */
+
+namespace MoneyApplication
+{
+
+    class MoneyCalculator
+    {
+        public const int randomDivisor = 3;    // may want this to be a parameter instead or possible get from data
+        
+        static void Main()
+        {
+            string testInput = @"d:\Moneytest\Moneytest.txt";  /* file used for input for test unless this line is changed */
+
+
+            /* output for this test will go to d:\Moneytest\MoneytestOutPut.txt unless the following line is changed */
+            GenerateChangeInstructions(testInput, @"d:\Moneytest\MoneytestOutPut.txt");
+        }
+
+        public static void GenerateChangeInstructions(string fileName, string outputFile)
+        {
+            bool AppendOutput=false;
+            
+            if (File.Exists(fileName))
+            {
+                // Read input text file 
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(fileName))
+                {
+
+                    String line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        //convert string to decimal
+                        // possibly when add French account will want to have a currency indicator in the input file then check the input file for $, usd, cents, or french symbol, euro, franc, etc, to determine currency
+
+                        decimal ReceivedAmt = 0;
+                        decimal OwedAmt = 0;
+                        StringBuilder correctChange = new StringBuilder();
+                        String[] amounts = line.Split(',');                     // input file format may need to be changed for French account
+
+                        if ((Decimal.TryParse(amounts[0].Trim(), out OwedAmt)) && (Decimal.TryParse(amounts[1].Trim(), out ReceivedAmt)))
+                        {
+                            if (ReceivedAmt < OwedAmt)
+                                correctChange.Append("Request full amount");
+                            else
+                            {
+                                decimal ReturnAmt = ReceivedAmt - OwedAmt;
+                                if (ReturnAmt == 0)
+                                    correctChange.Append("Exact amount received.  No change nessary.");
+                                else
+                                {
+                                    correctChange.Append(GetChange(ReturnAmt, ((OwedAmt * 100) % randomDivisor) == 0));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            correctChange.Append("An error occured. Please check input file.");
+                        }
+
+                        /* First write will clear out anything that was already in this file (anything from when this was previously executed) */
+                        WriteLineToFile(outputFile, AppendOutput, correctChange.ToString().TrimStart(',').TrimStart(' '));
+                        AppendOutput = true;
+                    }
+                }
+            }
+            else {
+            	/* in real life follow the system's normal error handling process */
+            	WriteLineToFile(outputFile, AppendOutput, "Error.  Input file missing.");
+            }
+        }
+
+
+        public static string GetChange(decimal returnAmt, bool RandomIndicator)
+        {
+            int country = 0;   // default to USA.  For adding other currencies, add a function to get the country from IP address, or pass an indicator in the input file or as a parameter
+            
+            StringBuilder GiveChange = new StringBuilder();
+            List<ChangeResults> saveResults = new List<ChangeResults>();
+
+            if (RandomIndicator)
+            {
+                CalcChange(returnAmt, country, ref saveResults);  //Random
+            }
+            else
+                CalcChange(returnAmt, StandardDenomination[country].allDenominations.Count(), country, ref saveResults);
+
+            for (int r = 0; r < saveResults.Count(); r++)
+            {
+                GiveChange.Append(", " + saveResults[r].dNumberOf.ToString() + " "
+                    + (saveResults[r].dNumberOf > 1 ? StandardDenomination[country].allDenominations[saveResults[r].dIndex].denominationMultLabel : StandardDenomination[country].allDenominations[saveResults[r].dIndex].denominationType));
+            }
+            return GiveChange.ToString();
+        }
+        
+        
+        /* using recursion.  In real life, might use regular iteration instead for better speed.  */
+        
+        public static List<ChangeResults> CalcChange(decimal returnAmt, int denominationIndex, int country, ref List<ChangeResults> saveResults)
+        {
+         denominationIndex--;
+
+            if ((returnAmt <= 0) || (denominationIndex < 0))  // Should stop at returnAmt == 0.  Other conditions should never happen but are there for better error handling
+                return saveResults;  //done
+            else
+            {
+                if (StandardDenomination[country].allDenominations[denominationIndex].denominationAmt > returnAmt)
+                    return CalcChange(returnAmt, denominationIndex, country, ref saveResults);
+                else
+                {
+                    int NumberOfDenom = Convert.ToInt32(Math.Truncate(returnAmt / StandardDenomination[country].allDenominations[denominationIndex].denominationAmt));
+                    saveResults.Add(new ChangeResults { dIndex = denominationIndex, dNumberOf = NumberOfDenom });
+                    decimal NewAmt = returnAmt - NumberOfDenom * StandardDenomination[country].allDenominations[denominationIndex].denominationAmt;
+                    return CalcChange(NewAmt, denominationIndex, country, ref saveResults);
+                }
+            }
+        }
+
+        public static List<ChangeResults> CalcChange(decimal returnAmt, int country, ref List<ChangeResults> saveResults)   //Random
+        {
+            Random Randomizer = new Random();
+
+            int limitDenom = StandardDenomination[country].allDenominations.Count() - 1;  //limiting for speed/processing concerns.  Limit does make it seem less random but any amount picked outside of this range would have be thrown away
+            while (limitDenom > 0 &&  (StandardDenomination[country].allDenominations[limitDenom].denominationAmt > returnAmt))
+            {
+                limitDenom--;
+            }
+            int denominationIndex = Randomizer.Next(0, limitDenom);
+
+            if ((returnAmt <= 0) || (denominationIndex < 0))  // Should stop at returnAmt == 0.  Other conditions should never happen but are there for better error handling
+                return saveResults;  //done
+            else
+            {
+                if (StandardDenomination[country].allDenominations[denominationIndex].denominationAmt > returnAmt)
+                    return CalcChange(returnAmt, country, ref saveResults);   //Random
+                else
+                {
+                    // following limit does make it seem less random but any amount picked outside of this range would have be thrown away
+                    int NumberOfDenom = Randomizer.Next(1, Convert.ToInt32(Math.Truncate(returnAmt / StandardDenomination[country].allDenominations[denominationIndex].denominationAmt)));
+                    bool notFound = true;
+                    // check if previously generated for this denomination - if so combine number of
+                    for (int r = 0; r < saveResults.Count() && notFound; r++)
+                    {
+                        if (saveResults[r].dIndex == denominationIndex)
+                        {
+                            saveResults[r].dNumberOf += NumberOfDenom;
+                            notFound = false; // stop loop
+                        }
+                    }
+                    if (notFound)
+                    {
+                        saveResults.Add(new ChangeResults { dIndex = denominationIndex, dNumberOf = NumberOfDenom });
+                    }
+                    decimal NewAmt = returnAmt - NumberOfDenom * StandardDenomination[country].allDenominations[denominationIndex].denominationAmt;
+                    return CalcChange(NewAmt, country, ref saveResults); // Random
+                }
+            }
+
+        }
+
+
+        public static void WriteLineToFile(String outputFile, bool AppendOutput, String outputLine)
+        {
+            using (StreamWriter writetext = new StreamWriter(outputFile, AppendOutput))
+            {
+                writetext.WriteLine(outputLine);
+            }
+        }
+
+        public class ChangeResults
+        {
+            public int dIndex{ get; set; }
+            public int dNumberOf { get; set; }
+        }
+        public class denomination
+        {
+            public String denominationType { get; set; }
+            public String denominationMultLabel { get; set; }
+            public decimal denominationAmt { get; set; }
+        }
+        public class countryDenomination
+        {
+            public String currencyIndicator { get; set; }
+            public denomination[] allDenominations { get; set; }
+        }
+
+
+        public static readonly countryDenomination[] StandardDenomination = new countryDenomination[]
+        {
+
+            // Order is important.  In real world, may want to store this data in a database or file so could add additional currencies without changing program.
+            // Data would then have to be retrieved in order of, or sorted before used, with the lowest denomination in index 0 and the highest at the hightest index.
+            // To add other currencies, add/load data for them into this structure.
+            
+            // Having the plural text as another field is bordering on unneeded data redundancy.
+            // I was considering handling it a different way, but since this program might be used for 
+            // multiple international currencies, it seemed like it could be better to not have English-specific code.
+            
+            new countryDenomination {
+            currencyIndicator = "USD",
+            allDenominations = new denomination[]
+            {                
+                new denomination { denominationType = "penny", denominationMultLabel = "pennies", denominationAmt = 0.01m },
+                new denomination { denominationType = "nickel", denominationMultLabel = "nickels", denominationAmt = 0.05m },
+                new denomination { denominationType = "dime", denominationMultLabel = "dimes", denominationAmt = 0.10m },
+                new denomination { denominationType = "quarter", denominationMultLabel = "quarters", denominationAmt = 0.25m },
+                new denomination { denominationType = "one dollar bill", denominationMultLabel = "one dollar bills", denominationAmt = 1.00m },
+                new denomination { denominationType = "five dollar bill", denominationMultLabel = "five dollar bills", denominationAmt = 5.00m },
+                new denomination { denominationType = "ten dollar bill", denominationMultLabel = "ten dollar bills", denominationAmt = 10.00m },
+                new denomination { denominationType = "twenty dollar bill", denominationMultLabel = "twenty dollar bills", denominationAmt = 20.00m },
+                new denomination { denominationType = "fifty dollar bill", denominationMultLabel = "fifty dollar bills", denominationAmt = 50.00m }
+            }
+            }
+        };
+    }
+}
