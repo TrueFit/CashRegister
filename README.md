@@ -39,5 +39,14 @@ Have fun.
 Here are a couple of thoughts about the domain that could influence your response:
 
 * What might happen if the client needs to change the random divisor?
+basically would contact me so that I can make the change to the number that is after the modulus
 * What might happen if the client needs to add another special case (like the random twist)?
+They would contact me so that I would get the requirements and to add a new function to the Moneys object.
 * What might happen if sales closes a new client in France?
+I would need to add the new denominations to whatever they may be.
+
+I will add an explanation of my project. I approached this on the possibility that this needs to be demo-ed so I used MVC. It is easy as well as the logic is easily transferred to bigger solutions such as an api and perhaps a front end but it is pretty basic and can be easily moved.
+
+
+
+So given that it is an MVC project just start it from the sln file it should start from there. Just click the iis button from the start up ui in Visual Studio.

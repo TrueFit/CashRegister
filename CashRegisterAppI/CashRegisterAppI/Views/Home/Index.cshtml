@@ -1,0 +1,101 @@
+﻿@model Moneys
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Cash Register App</h1>
+
+
+    <form method="post">
+        <div class="container py-2 big-box">
+            <div class="instructions-box">
+                Enter the amount in the Enter Amt box. Then press the plus sign to confirm entry into the Items box. When done, enter the amount that you recieve as cash tender. The app should give you the correct change needed.
+            </div>
+            <div>
+                <p><label for="txtItem">Enter Amt: </label><input type="text" name="txtItem" onkeypress="return isNumberKey(event);" autocomplete="off" /></p>
+            </div>
+            <div class="items-box">
+                <p>Items</p>
+                <hr />
+
+            </div>
+            <div>
+                <p> <label for="txtTotal">Total: </label><input type="text" name="txtTotal" pattern="^[1-9]\d*(\.+\d+)?$" readonly /></p>
+                <p> <label for="txtCashTender">Cash Tender: </label><input type="text" name="txtCashTender" autocomplete="off" /></p>
+            </div>
+
+            <div>
+                <p><input class="btn btn-primary" type="submit" value="Get Totals" /> <button class="btn btn-danger">Clear form</button></p>
+
+            </div>
+        </div>
+            @Html.AntiForgeryToken()
+</form>
+    <div>
+        @{
+            if (@ViewBag.GetChange != null)
+            {
+                <div>
+                    Change Due: @ViewBag.GetChange.ChangeDue;
+                </div>
+                <div>
+                    Ones : @ViewBag.GetChange.Dollars;
+                </div>
+                <div>
+                    Quarters: @ViewBag.GetChange.Quarters;
+                </div>
+                <div>
+                    Dimes: @ViewBag.GetChange.Dimes;
+                </div>
+                <div>
+                    Nickels: @ViewBag.GetChange.Nickles;
+                </div>
+                <div>
+                    Pennies: @ViewBag.GetChange.Pennies;
+                </div>
+            }
+        }
+
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+<script>
+    $("input[name='txtItem']").keypress(function (e) {
+        if (e.charCode == 43) {
+            $(".items-box").append("<p class='items-text'>" + this.value + "</p>");
+            var getValue = 0.0;
+            if ($("input[name='txtTotal']").val() != null && $("input[name='txtTotal']").val() != '') {
+                getValue = parseFloat($("input[name='txtTotal']").val());
+            } else {
+                getValue = 0.0;
+            }
+            $("input[name='txtTotal']").val(getValue + parseFloat(this.value));
+            $(this).val('');
+        }
+
+        $("button").click(function (e) {
+            e.preventDefault();
+            $("input[type='text']").val('');
+            $(".items-text").remove();
+        });
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+        //$("input[name='txtItem']").click(function (e) {
+        //    $(this).val('');
+
+        //}
+
+
+    });
+
+</script>
