@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "STnXeglw/XmIbVAVvq2oN2CHAIXd1RjdRYSCQ62GTK9WdWnbzuoqD//LUgUoyucFGBV4bT/G/KeEAqoERa9E0w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\warwi\\source\\repos\\CashRegister\\MyCashRegister\\CashRegester_1\\CashRegester\\CashRegester.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\warwi\\.nuget\\packages\\csvhelper\\27.1.1\\csvhelper.27.1.1.nupkg.sha512",
+    "C:\\Users\\warwi\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
