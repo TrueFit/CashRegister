@@ -1,10 +1,9 @@
 {
   "USD": [
-    { "name": "penny", "pluralName": "pennies", "value": 1 },
-    { "name": "nickel", "pluralName": "nickels", "value": 5 },
-    { "name": "dime", "pluralName": "dimes", "value": 10 },
-    { "name": "quarter", "pluralName": "quarters", "value": 25 },
-    { "name": "half dollar", "pluralName": "half dollars", "value": 50 },
-    { "name": "dollar", "pluralName": "dollars", "value": 100 }
+    { "name": "penny", "value": 1 },
+    { "name": "nickel", "value": 5 },
+    { "name": "dime", "value": 10 },
+    { "name": "quarter", "value": 25 },
+    { "name": "dollar", "value": 100 }
   ]
 }

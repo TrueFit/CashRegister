@@ -1,61 +1,4 @@
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
-import {
-  ChangeQueryParams,
-  ChangePortion,
-  Denomination,
-  ChangeResponseBody,
-} from "./interfaces";
-
-import currencyDenominations from "./configuration/currencyDenominations.json";
-
-dotenv.config();
-
-const app: Express = express();
-const port = process.env.PORT;
-
-type CurrencyKey = keyof typeof currencyDenominations;
-
-app.get(
-  "/change",
-  (
-    req: Request<{}, {}, {}, ChangeQueryParams>,
-    res: Response<ChangeResponseBody>
-  ) => {
-    const { paid, owed, currency } = req.query;
-
-    const denominations = getCurrencyDenominations(currency);
-
-    if (denominations !== null) {
-      const change = calculateChange(paid, owed, denominations);
-      res.send({ change });
-    } else {
-      res.sendStatus(404);
-    }
-  }
-);
-
-app.listen(port, () => {
-  console.log(`Server is running at https://localhost:${port}`);
-});
-
-/**
- * Looks up the currency by name and returns the currency denominations that it's comprised of.
- * @param currencyName The name of the currency, e.g. "USD"
- * @returns A list of denominations, sorted by value descending.
- */
-const getCurrencyDenominations = (
-  currencyName: string
-): Denomination[] | null => {
-  if (currencyName in currencyDenominations) {
-    const denominations: Denomination[] =
-      currencyDenominations[currencyName as CurrencyKey];
-    denominations.sort((a, b) => b.value - a.value);
-    return denominations;
-  } else {
-    return null;
-  }
-};
+import { ChangePortion, Denomination } from "./interfaces";
 
 /**
  * Calculate the denominations and amounts needed to make change
@@ -64,7 +7,7 @@ const getCurrencyDenominations = (
  * @param denominations List of available currency denominations to make change with, sorted by value descending.
  * @returns A list of ChangePortions, sorted by denomination value descending.
  */
-const calculateChange = (
+export const calculateChange = (
   paid: number,
   owed: number,
   denominations: Denomination[]
