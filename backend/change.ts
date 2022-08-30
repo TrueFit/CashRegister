@@ -1,4 +1,5 @@
 import { ChangePortion, Denomination } from "../common/interfaces";
+import config from "./configuration/config.json";
 
 /**
  * Calculate the denominations and amounts needed to make change
@@ -20,7 +21,7 @@ export const calculateChange = (
   const targetChangeValue = paidCents - owedCents;
   let currentChangeValue = 0;
 
-  if (owedCents % 3 === 0) {
+  if (owedCents % config.randomDivisor === 0) {
     // Random change
     while (currentChangeValue !== targetChangeValue) {
       const remainingDifference = targetChangeValue - currentChangeValue;
