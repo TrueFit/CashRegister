@@ -1,5 +1,5 @@
 import currencyDenominations from "./configuration/currencyDenominations.json";
-import { Denomination } from "./interfaces";
+import { Denomination } from "../common/interfaces";
 
 type CurrencyKey = keyof typeof currencyDenominations;
 

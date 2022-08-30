@@ -1,4 +1,4 @@
-import { ChangePortion, Denomination } from "./interfaces";
+import { ChangePortion, Denomination } from "../common/interfaces";
 
 /**
  * Calculate the denominations and amounts needed to make change

@@ -1,6 +1,6 @@
 import { calculateChange } from "../change";
 import { getCurrencyDenominations } from "../currency";
-import { ChangeResponseBody, Denomination } from "../interfaces";
+import { ChangeResponseBody, Denomination } from "../../common/interfaces";
 import * as request from "supertest";
 import { app, server } from "../app";
 

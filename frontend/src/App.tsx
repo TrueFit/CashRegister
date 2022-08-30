@@ -1,24 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { FileSelector } from "./components/FileSelector";
+import { ChangeCalculator } from "./components/ChangeCalculator";
 
 function App() {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {selectedFile === null ? (
+        <FileSelector onFileSelect={(file) => setSelectedFile(file)} />
+      ) : (
+        <ChangeCalculator
+          file={selectedFile}
+          onReset={() => setSelectedFile(null)}
+        />
+      )}
     </div>
   );
 }

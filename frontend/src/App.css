@@ -1,5 +1,9 @@
 .App {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 .App-logo {
@@ -35,4 +39,89 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.component-container {
+  width: 20vw;
+  height: 20vw;
+  border: 1px solid grey;
+  border-radius: 1rem;
+  filter: drop-shadow(1rem 1rem 1rem grey);
+  background-color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drag-and-drop-file-selector {
+  width: 50%;
+  height: 40%;
+  border: 1px dotted black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey;
+}
+
+.drag-and-drop-prompt {
+  width: 80%;
+}
+
+.button-container {
+  padding-bottom: 2rem;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.browse-files-button {
+  background-color: #407f7f;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.make-change-button {
+  background-color: #407f7f;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.download-output-button {
+  background-color: #407f7f;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.select-another-file-button {
+  background-color: #7e7e7e;
+  color: white;
+
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.file-icon {
+  width: 30%;
+  height: 30%;
+}
+
+.change-output {
+  overflow-y: auto;
+}
+
+input[type="file"] {
+  display: none;
 }

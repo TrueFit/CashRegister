@@ -3,9 +3,17 @@ import { Request, Response } from "express";
 import { app } from "./app";
 import { calculateChange } from "./change";
 import { getCurrencyDenominations } from "./currency";
-import { ChangeQueryParams, ChangeResponseBody } from "./interfaces";
+import { ChangeQueryParams } from "./interfaces";
+import { ChangeResponseBody } from "../common/interfaces";
 
 export const setupAPIController = () => {
+  app.use((req, res, next) => {
+    res.append("Access-Control-Allow-Origin", ["*"]);
+    res.append("Access-Control-Allow-Methods", "GET");
+    res.append("Access-Control-Allow-Headers", "Content-Type");
+    next();
+  });
+
   app.get(
     "/change",
     (
