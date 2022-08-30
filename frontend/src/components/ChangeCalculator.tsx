@@ -1,11 +1,13 @@
 import { faFileCode } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { InputLine } from "../interfaces/InputLine";
 import { ChangeResponseBody } from "../../../common/interfaces";
+import { TFunction, useTranslation } from "react-i18next";
 
 const SEPARATOR = ",";
 const BASE_URL = "http://localhost:8000";
+const DEFAULT_CURRENCY = "USD";
 
 interface ChangeCalculatorProps {
   file: File;
@@ -13,13 +15,24 @@ interface ChangeCalculatorProps {
 }
 
 export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
+  const { t } = useTranslation();
   const [outputLines, setOutputLines] = useState<string[]>([]);
+
+  const outputFileHref = useMemo(() => {
+    if (outputLines.length > 0) {
+      return (
+        "data:text/plain;charset=utf-8," +
+        encodeURIComponent(outputLines.join("\n"))
+      );
+    } else {
+      return "";
+    }
+  }, [outputLines]);
 
   const makeChange = useCallback(() => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      console.log(reader.result);
       if (reader.result !== null) {
         const input = parseInputFile(reader.result.toString());
         const changePromises = input.map((inputLine) =>
@@ -27,8 +40,7 @@ export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
         );
         Promise.all(changePromises)
           .then((changeResponses) => {
-            const outputFileContents = createOutputContents(changeResponses);
-            console.log(outputFileContents);
+            const outputFileContents = createOutputContents(changeResponses, t);
             setOutputLines(outputFileContents);
           })
           .catch((error) => {
@@ -44,18 +56,18 @@ export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
     };
 
     reader.readAsText(file);
-  }, [file, setOutputLines]);
+  }, [file, setOutputLines, t]);
 
   return (
     <div className="component-container">
       {outputLines.length === 0 ? (
         <>
-          <h3>File selected: {file.name}</h3>
+          <h3>{t("fileSelected") + " " + file.name}</h3>
           <FontAwesomeIcon icon={faFileCode} className="file-icon" />
         </>
       ) : (
         <>
-          <h3>Your change is:</h3>
+          <h3>{t("yourChangeIs")}</h3>
           <div className="change-output">
             {outputLines.map((line) => (
               <p>{line}</p>
@@ -67,23 +79,20 @@ export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
       <div className="button-container">
         {outputLines.length === 0 ? (
           <button className="make-change-button" onClick={makeChange}>
-            Make Change
+            {t("calculateChange")}
           </button>
         ) : (
           <a
             className="download-output-button"
             download={"output.txt"}
-            href={
-              "data:text/plain;charset=utf-8," +
-              encodeURIComponent(outputLines.join("\n"))
-            }
+            href={outputFileHref}
           >
-            Download Output File
+            {t("downloadOutputFile")}
           </a>
         )}
 
         <button className="select-another-file-button" onClick={onReset}>
-          Select Another File
+          {t("selectAnotherFile")}
         </button>
       </div>
     </div>
@@ -106,18 +115,26 @@ const fetchChange = async (
   owed: number,
   paid: number
 ): Promise<ChangeResponseBody> => {
-  const url = `${BASE_URL}/change?owed=${owed}&paid=${paid}&currency=USD`;
+  const url = `${BASE_URL}/change?owed=${owed}&paid=${paid}&currency=${DEFAULT_CURRENCY}`;
   const response = await fetch(url);
   const json = await response.json();
   return json;
 };
 
-const createOutputContents = (responses: ChangeResponseBody[]): string[] => {
+const createOutputContents = (
+  responses: ChangeResponseBody[],
+  t: TFunction
+): string[] => {
   return responses.map((response) =>
     response.change
       .map(
         (changePortion) =>
-          `${changePortion.amount} ${changePortion.denomination.name}`
+          `${changePortion.amount} ${t(
+            `currency.${DEFAULT_CURRENCY}.${changePortion.denomination.name}`,
+            {
+              count: changePortion.amount,
+            }
+          )}`
       )
       .join(SEPARATOR)
   );

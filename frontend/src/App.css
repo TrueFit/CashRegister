@@ -101,6 +101,7 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
+  font-size: 0.8rem;
 }
 
 .select-another-file-button {

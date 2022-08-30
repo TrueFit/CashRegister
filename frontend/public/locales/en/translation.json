@@ -1,0 +1,24 @@
+{
+  "selectAFile": "Select a file",
+  "dragAndDropYourFileHere": "Drag and drop your file here",
+  "browseFiles": "Browse files",
+  "fileSelected": "File selected:",
+  "yourChangeIs": "Your change is:",
+  "calculateChange": "Calculate Change",
+  "downloadOutputFile": "Download Output File",
+  "selectAnotherFile": "Select Another File",
+  "currency": {
+    "USD": {
+      "penny_one": "penny",
+      "penny_other": "pennies",
+      "nickel_one": "nickel",
+      "nickel_other": "nickels",
+      "dime_one": "dime",
+      "dime_other": "dimes",
+      "quarter_one": "quarter",
+      "quarter_other": "quarters",
+      "dollar_one": "dollar",
+      "dollar_other": "dollars"
+    }
+  }
+}
