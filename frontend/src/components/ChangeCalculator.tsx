@@ -1,9 +1,10 @@
 import { faFileCode } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useMemo, useState } from "react";
+import { TFunction, useTranslation } from "react-i18next";
+
 import { InputLine } from "../interfaces/InputLine";
 import { ChangeResponseBody } from "../../../common/interfaces";
-import { TFunction, useTranslation } from "react-i18next";
 
 const SEPARATOR = ",";
 const BASE_URL = "http://localhost:8000";
@@ -17,6 +18,7 @@ interface ChangeCalculatorProps {
 export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
   const { t } = useTranslation();
   const [outputLines, setOutputLines] = useState<string[]>([]);
+  const [isError, setIsError] = useState(false);
 
   const outputFileHref = useMemo(() => {
     if (outputLines.length > 0) {
@@ -30,36 +32,50 @@ export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
   }, [outputLines]);
 
   const makeChange = useCallback(() => {
+    setIsError(false);
     const reader = new FileReader();
 
     reader.onload = () => {
       if (reader.result !== null) {
-        const input = parseInputFile(reader.result.toString());
-        const changePromises = input.map((inputLine) =>
-          fetchChange(inputLine.owed, inputLine.paid)
-        );
-        Promise.all(changePromises)
-          .then((changeResponses) => {
-            const outputFileContents = createOutputContents(changeResponses, t);
-            setOutputLines(outputFileContents);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        try {
+          const input = parseInputFile(reader.result.toString());
+          const changePromises = input.map((inputLine) =>
+            fetchChange(inputLine.owed, inputLine.paid)
+          );
+          Promise.all(changePromises)
+            .then((changeResponses) => {
+              const outputFileContents = createOutputContents(
+                changeResponses,
+                t
+              );
+              setOutputLines(outputFileContents);
+            })
+            .catch((error) => {
+              setIsError(true);
+              console.error(error);
+            });
+        } catch (error) {
+          setIsError(true);
+        }
       } else {
+        setIsError(true);
         console.error("Error reading file.");
       }
     };
 
     reader.onerror = (error) => {
+      setIsError(true);
       console.error(error);
     };
 
     reader.readAsText(file);
-  }, [file, setOutputLines, t]);
+  }, [file, setOutputLines, t, setIsError]);
 
   return (
     <div className="component-container">
+      {isError && (
+        <div className="error-message">{t("genericErrorMessage")}</div>
+      )}
       {outputLines.length === 0 ? (
         <>
           <h3>{t("fileSelected") + " " + file.name}</h3>
@@ -70,7 +86,7 @@ export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
           <h3>{t("yourChangeIs")}</h3>
           <div className="change-output">
             {outputLines.map((line) => (
-              <p>{line}</p>
+              <p key={line}>{line}</p>
             ))}
           </div>
         </>
@@ -100,15 +116,26 @@ export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
 };
 
 const parseInputFile = (fileContents: string): InputLine[] => {
-  const lines = fileContents.split("\n");
-  return lines
-    .filter((line) => line.trim().length > 0 && line.includes(SEPARATOR))
-    .map((line) => {
-      const splitLine = line.split(SEPARATOR);
-      const owed = parseFloat(splitLine[0]);
-      const paid = parseFloat(splitLine[1]);
-      return { owed, paid };
-    });
+  try {
+    const lines = fileContents.split("\n");
+    return lines
+      .filter((line) => line.trim().length > 0 && line.includes(SEPARATOR))
+      .map((line, index) => {
+        const splitLine = line.split(SEPARATOR);
+        const owed = parseFloat(splitLine[0]);
+        const paid = parseFloat(splitLine[1]);
+
+        if (isNaN(owed) || isNaN(paid)) {
+          throw new Error(
+            `Error: could not parse line ${index} of input file.`
+          );
+        }
+        return { owed, paid };
+      });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 const fetchChange = async (
