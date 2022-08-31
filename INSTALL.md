@@ -20,4 +20,10 @@ To use the app, first select your input file, either by dragging and dropping or
 
 ## Testing
 
+### Backend
+
 To run the backend unit tests, open a terminal to the `backend` folder and run `npm run test`.
+
+### Frontend
+
+To run the frontend unit tests, open a terminal to the `frontend` folder and run `npm run test`.
