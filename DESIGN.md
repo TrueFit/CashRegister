@@ -13,3 +13,11 @@ The frontend is written with React and TypeScript. I chose React mainly because 
 ## Backend
 
 The backend is a Node.js/Express server written with TypeScript. I chose this because it allows some of the TypeScript interfaces to be reused between the frontend and backend.
+
+## Where is the interesting code?
+
+`backend/change.ts` contains the actual implementation of the change-making algorithm. `backend/currency.ts` retrieves the currency info from the json file where it's configured, and `backend/controller.ts` handles the GET requests.
+
+As for the frontend, `frontend/src/App.tsx` is the entry point for the React app, and `frontend/src/components` folder holds the two components that actually make up the UI.
+
+Unit tests are in `backend/__tests__/` and `frontend/src/__tests__`.
