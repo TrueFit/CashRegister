@@ -5,10 +5,8 @@ import { faFileCode } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { InputLine } from "../interfaces/InputLine";
 import { ChangeResponseBody } from "../../../common/interfaces";
-
-const SEPARATOR = ",";
-const BASE_URL = "http://localhost:8000";
-const DEFAULT_CURRENCY = "USD";
+import { DEFAULT_CURRENCY, SEPARATOR } from "../constants";
+import { fetchChange } from "../api";
 
 const NO_ERROR = "";
 const FILE_ERROR_MESSAGE = "fileErrorMessage";
@@ -89,8 +87,8 @@ export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
         <>
           <h3>{t("yourChangeIs")}</h3>
           <div className="change-output">
-            {outputLines.map((line) => (
-              <p key={line}>{line}</p>
+            {outputLines.map((line, index) => (
+              <p key={index}>{line}</p>
             ))}
           </div>
         </>
@@ -140,16 +138,6 @@ const parseInputFile = (fileContents: string): InputLine[] => {
     console.error(error);
     throw error;
   }
-};
-
-const fetchChange = async (
-  owed: number,
-  paid: number
-): Promise<ChangeResponseBody> => {
-  const url = `${BASE_URL}/change?owed=${owed}&paid=${paid}&currency=${DEFAULT_CURRENCY}`;
-  const response = await fetch(url);
-  const json = await response.json();
-  return json;
 };
 
 const createOutputContents = (
