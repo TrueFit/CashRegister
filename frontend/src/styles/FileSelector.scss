@@ -1,0 +1,23 @@
+@import "./common.scss";
+
+.drag-and-drop-file-selector {
+  width: 50%;
+  height: 40%;
+  border: 1px dotted black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey;
+}
+
+.drag-and-drop-prompt {
+  width: 80%;
+}
+
+.browse-files-button {
+  @include action-button;
+}
+
+input[type="file"] {
+  display: none;
+}

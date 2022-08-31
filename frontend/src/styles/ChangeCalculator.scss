@@ -1,0 +1,30 @@
+@import "./common.scss";
+
+.make-change-button {
+  @include action-button;
+}
+
+.download-output-button {
+  @include link-button;
+}
+
+.select-another-file-button {
+  @include button;
+  background-color: #7e7e7e;
+}
+
+.file-icon {
+  width: 30%;
+  height: 30%;
+}
+
+.change-output {
+  overflow-y: auto;
+}
+
+.error-message {
+  background-color: tomato;
+  border-top-left-radius: $container-border-radius;
+  border-top-right-radius: $container-border-radius;
+  width: 100%;
+}

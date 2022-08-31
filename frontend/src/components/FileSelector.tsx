@@ -1,3 +1,4 @@
+import "../styles/FileSelector.scss";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 

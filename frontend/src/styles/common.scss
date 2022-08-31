@@ -1,0 +1,41 @@
+$container-border-radius: 1rem;
+
+.component-container {
+  width: 20vw;
+  height: 20vw;
+  border: 1px solid grey;
+  border-radius: $container-border-radius;
+  filter: drop-shadow(1rem 1rem 1rem grey);
+  background-color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-container {
+  padding-bottom: 2rem;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+@mixin button {
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+@mixin action-button {
+  @include button;
+  background-color: #407f7f;
+}
+
+@mixin link-button {
+  @include action-button;
+  text-decoration: none;
+}

@@ -1,8 +1,8 @@
-import { faFileCode } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../styles/ChangeCalculator.scss";
 import { useCallback, useMemo, useState } from "react";
 import { TFunction, useTranslation } from "react-i18next";
-
+import { faFileCode } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { InputLine } from "../interfaces/InputLine";
 import { ChangeResponseBody } from "../../../common/interfaces";
 

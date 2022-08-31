@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
+import "./styles/App.scss";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FileSelector } from "./components/FileSelector";
 import { ChangeCalculator } from "./components/ChangeCalculator";
-import { useTranslation } from "react-i18next";
 
 function App() {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ function App() {
   }, [t]);
 
   return (
-    <div className="App">
+    <div className="app-container">
       {selectedFile === null ? (
         <FileSelector onFileSelect={(file) => setSelectedFile(file)} />
       ) : (
