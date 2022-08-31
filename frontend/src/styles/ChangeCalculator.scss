@@ -23,8 +23,10 @@
 }
 
 .error-message {
+  @include flex-center;
   background-color: tomato;
   border-top-left-radius: $container-border-radius;
   border-top-right-radius: $container-border-radius;
   width: 100%;
+  height: 2rem;
 }

@@ -8,7 +8,8 @@
   "calculateChange": "Calculate Change",
   "downloadOutputFile": "Download Output File",
   "selectAnotherFile": "Select Another File",
-  "genericErrorMessage": "There was an error, please check your input file and try again.",
+  "fileErrorMessage": "Error: Please check your input file and try again.",
+  "networkErrorMessage": "Error: There is a problem with the server, please try again.",
   "currency": {
     "USD": {
       "penny_one": "penny",

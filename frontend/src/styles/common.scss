@@ -39,3 +39,9 @@ $container-border-radius: 1rem;
   @include action-button;
   text-decoration: none;
 }
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

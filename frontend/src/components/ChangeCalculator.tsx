@@ -10,6 +10,10 @@ const SEPARATOR = ",";
 const BASE_URL = "http://localhost:8000";
 const DEFAULT_CURRENCY = "USD";
 
+const NO_ERROR = "";
+const FILE_ERROR_MESSAGE = "fileErrorMessage";
+const NETWORK_ERROR_MESSAGE = "networkErrorMessage";
+
 interface ChangeCalculatorProps {
   file: File;
   onReset: () => void;
@@ -18,7 +22,7 @@ interface ChangeCalculatorProps {
 export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
   const { t } = useTranslation();
   const [outputLines, setOutputLines] = useState<string[]>([]);
-  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(NO_ERROR);
 
   const outputFileHref = useMemo(() => {
     if (outputLines.length > 0) {
@@ -32,7 +36,7 @@ export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
   }, [outputLines]);
 
   const makeChange = useCallback(() => {
-    setIsError(false);
+    setErrorMessage(NO_ERROR);
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -51,30 +55,30 @@ export const ChangeCalculator = ({ file, onReset }: ChangeCalculatorProps) => {
               setOutputLines(outputFileContents);
             })
             .catch((error) => {
-              setIsError(true);
+              setErrorMessage(NETWORK_ERROR_MESSAGE);
               console.error(error);
             });
         } catch (error) {
-          setIsError(true);
+          setErrorMessage(FILE_ERROR_MESSAGE);
         }
       } else {
-        setIsError(true);
+        setErrorMessage(FILE_ERROR_MESSAGE);
         console.error("Error reading file.");
       }
     };
 
     reader.onerror = (error) => {
-      setIsError(true);
+      setErrorMessage(FILE_ERROR_MESSAGE);
       console.error(error);
     };
 
     reader.readAsText(file);
-  }, [file, setOutputLines, t, setIsError]);
+  }, [file, setOutputLines, t, setErrorMessage]);
 
   return (
     <div className="component-container">
-      {isError && (
-        <div className="error-message">{t("genericErrorMessage")}</div>
+      {errorMessage !== NO_ERROR && (
+        <div className="error-message">{t(errorMessage)}</div>
       )}
       {outputLines.length === 0 ? (
         <>

@@ -31,10 +31,12 @@ export const FileSelector = ({ onFileSelect }: FileSelectorProps) => {
           selectFile(dragEvent.dataTransfer.files);
         }}
         onDragOver={(dragEvent) => {
+          console.log(dragEvent.type);
           dragEvent.preventDefault();
           setDragging(true);
         }}
-        onDragExit={() => {
+        onDragExit={(dragEvent) => {
+          console.log(dragEvent.type);
           setDragging(false);
         }}
       >
