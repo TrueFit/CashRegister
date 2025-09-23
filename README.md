@@ -1,5 +1,26 @@
 # Cash Register
 
+## The Solutions
+Cash Register API
+------------------
+Quick Setup:
+
+ 1. Run:
+    npm install
+    npm run dev (or npm start)
+
+ 2. Create a `.env` file from `.env.example`
+    and set the DIVISOR for random mode (default: 3)
+
+ 3. To test the method, make a GET request to:
+    http://localhost:3000/process-changes
+
+ The `input.txt` file should contain lines in the format:
+    <amount owed>,<amount paid>
+
+ Result: An `output.txt` file will be generated with the change breakdown.
+
+
 ## The Problem
 Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
 
