@@ -15,7 +15,7 @@ Quick Setup:
  3. To test the method, make a GET request to:
     http://localhost:3000/process-changes
 
- The `input.txt` file should contain lines in the format: <amount owed>,<amount paid>
+ The `input.txt` file should contain lines in the format: owed,paid
 
  Result: An `output.txt` file will be generated with the change breakdown.
 
