@@ -1,0 +1,195 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, dev, qa, staging ]
+  pull_request:
+    branches: [ main, dev, qa, staging ]
+
+jobs:
+  # Main job: Install dependencies, build and run tests with coverage
+  test:
+    name: Test & Coverage
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests with coverage
+        run: npm run test:coverage
+
+      - name: Check coverage threshold (>= 80%)
+        run: |
+          COVERAGE=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
+          echo "Code coverage: $COVERAGE%"
+          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+            echo "ERROR: Code coverage is below 80% threshold"
+            exit 1
+          fi
+          echo "✓ Coverage threshold met: $COVERAGE% >= 80%"
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage/coverage-final.json
+          flags: unittests
+          name: codecov-${{ matrix.node-version }}
+          fail_ci_if_error: false
+        continue-on-error: true
+
+      - name: Archive coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-${{ matrix.node-version }}
+          path: coverage/
+          retention-days: 30
+
+  # Security job: Dependency audit
+  security-audit:
+    name: Security Audit - Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate
+        continue-on-error: true
+
+      - name: Run npm audit (detailed report)
+        run: npm audit --json > audit-report.json || true
+
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-report
+          path: audit-report.json
+          retention-days: 30
+
+  # Security job: Snyk security scan
+  security-snyk:
+    name: Security Analysis - Snyk
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+      - name: Upload Snyk report
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: snyk.sarif
+        continue-on-error: true
+
+  # Security job: License compliance verification
+  security-licenses:
+    name: Security Analysis - License Compliance
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check licenses
+        run: |
+          npx license-checker --json --out licenses-report.json
+          npx license-checker --summary
+
+      - name: Upload license report
+        uses: actions/upload-artifact@v4
+        with:
+          name: licenses-report
+          path: licenses-report.json
+          retention-days: 30
+
+  # Code quality job: Static code analysis (Linting)
+  lint:
+    name: Code Quality - Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint (if configured)
+        run: npx eslint src/ tests/ --format=json --output-file=eslint-report.json || echo "ESLint not configured"
+        continue-on-error: true
+
+      - name: Upload ESLint report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eslint-report
+          path: eslint-report.json
+          retention-days: 30
+        continue-on-error: true
+
+  # Final status job (depends on all other jobs)
+  status:
+    name: CI/CD Status Check
+    runs-on: ubuntu-latest
+    needs: [test, security-audit, security-licenses]
+    if: always()
+
+    steps:
+      - name: Check job statuses
+        run: |
+          echo "Test: ${{ needs.test.result }}"
+          echo "Security Audit: ${{ needs.security-audit.result }}"
+          echo "CodeQL: ${{ needs.security-codeql.result }}"
+          echo "Secret Scanning: ${{ needs.security-secrets.result }}"
+          echo "License Check: ${{ needs.security-licenses.result }}"
+
+          if [[ "${{ needs.test.result }}" != "success" ]]; then
+            echo "ERROR: Tests failed or coverage below threshold"
+            exit 1
+          fi
+
+          echo "✓ All critical checks passed!"

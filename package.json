@@ -1,0 +1,34 @@
+{
+  "name": "cash-register",
+  "version": "1.0.0",
+  "description": "A CLI application that calculates change with configurable strategies",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
+    "test:coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage"
+  },
+  "keywords": [
+    "cash",
+    "register",
+    "change",
+    "calculator",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {},
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/index.js"
+    ]
+  }
+}

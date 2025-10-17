@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+
+# Yarn lock file (we use npm)
+yarn.lock
+
+# Test coverage
+coverage/
+*.lcov
+
+# Output files
+output.txt
+results.txt
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
