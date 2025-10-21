@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Register - Interactive Web Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .result.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .file-input {
+            margin-bottom: 15px;
+        }
+
+        .file-input input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+
+        .country-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .country-btn {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .country-btn:hover {
+            border-color: #4facfe;
+            background: #f0f8ff;
+        }
+
+        .country-btn.active {
+            border-color: #4facfe;
+            background: #4facfe;
+            color: white;
+        }
+
+        .demo-scenarios {
+            display: grid;
+            gap: 10px;
+        }
+
+        .scenario {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .scenario:hover {
+            border-color: #4facfe;
+            background: #f0f8ff;
+        }
+
+        .scenario h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .scenario p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .output-area {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4facfe;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Cash Register</h1>
+            <p>Interactive Web Demo - Calculate change with smart algorithms</p>
+        </div>
+
+        <div class="content">
+            <!-- Single Change Calculation -->
+            <div class="section">
+                <h2>💰 Single Change Calculation</h2>
+                <div class="form-group">
+                    <label for="owed">Amount Owed ($):</label>
+                    <input type="number" id="owed" step="0.01" placeholder="2.12" value="2.12">
+                </div>
+                <div class="form-group">
+                    <label for="paid">Amount Paid ($):</label>
+                    <input type="number" id="paid" step="0.01" placeholder="3.00" value="3.00">
+                </div>
+                <button class="btn" onclick="calculateSingleChange()">Calculate Change</button>
+                <button class="btn btn-secondary" onclick="clearSingleForm()">Clear</button>
+                <div id="singleResult" class="result" style="display: none;"></div>
+            </div>
+
+            <!-- Country Selection -->
+            <div class="section">
+                <h2>🌍 Country Selection</h2>
+                <p>Choose a country to see different currency denominations:</p>
+                <div class="country-selector">
+                    <div class="country-btn active" data-country="US" onclick="selectCountry('US')">
+                        🇺🇸 United States
+                    </div>
+                    <div class="country-btn" data-country="COLOMBIA" onclick="selectCountry('COLOMBIA')">
+                        🇨🇴 Colombia
+                    </div>
+                    <div class="country-btn" data-country="MEXICO" onclick="selectCountry('MEXICO')">
+                        🇲🇽 Mexico
+                    </div>
+                    <div class="country-btn" data-country="SPAIN" onclick="selectCountry('SPAIN')">
+                        🇪🇸 Spain
+                    </div>
+                </div>
+                <div id="countryInfo" class="result info">
+                    Selected: United States (USD) - Dollars, quarters, dimes, nickels, pennies
+                </div>
+            </div>
+
+            <!-- Demo Scenarios -->
+            <div class="section">
+                <h2>🎬 Demo Scenarios</h2>
+                <p>Click on any scenario to see how the system handles different cases:</p>
+                <div class="demo-scenarios">
+                    <div class="scenario" onclick="runScenario('normal')">
+                        <h3>📐 Normal Change (Minimum)</h3>
+                        <p>$2.12 owed, $3.00 paid → Uses minimum denominations</p>
+                    </div>
+                    <div class="scenario" onclick="runScenario('small')">
+                        <h3>🪙 Small Change</h3>
+                        <p>$1.97 owed, $2.00 paid → Very small change amount</p>
+                    </div>
+                    <div class="scenario" onclick="runScenario('random')">
+                        <h3>🎲 Random Change (Special)</h3>
+                        <p>$3.33 owed, $5.00 paid → Random denominations (divisible by 3)</p>
+                    </div>
+                    <div class="scenario" onclick="runScenario('none')">
+                        <h3>✅ No Change</h3>
+                        <p>$5.00 owed, $5.00 paid → Exact payment</p>
+                    </div>
+                </div>
+                <div id="scenarioResult" class="result" style="display: none;"></div>
+            </div>
+
+            <!-- File Processing -->
+            <div class="section">
+                <h2>📁 File Processing</h2>
+                <p>Upload a CSV file with transactions (format: amount_owed,amount_paid):</p>
+                <div class="file-input">
+                    <input type="file" id="fileInput" accept=".txt,.csv" onchange="handleFileUpload()">
+                </div>
+                <button class="btn" onclick="processFile()" id="processBtn" disabled>Process File</button>
+                <button class="btn btn-secondary" onclick="downloadSample()">Download Sample File</button>
+                <div id="fileResult" class="result" style="display: none;"></div>
+                <div id="fileOutput" class="output-area" style="display: none;"></div>
+            </div>
+
+            <!-- Batch Testing -->
+            <div class="section">
+                <h2>🧪 Batch Testing</h2>
+                <p>Test multiple scenarios at once:</p>
+                <button class="btn" onclick="runBatchTest()">Run Batch Test</button>
+                <button class="btn btn-secondary" onclick="runCountryTest()">Test All Countries</button>
+                <div id="batchResult" class="result" style="display: none;"></div>
+                <div id="batchOutput" class="output-area" style="display: none;"></div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Processing...</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>💡 <strong>Tip:</strong> Change amounts divisible by 3 trigger random denomination selection!</p>
+            <p>📚 Check the documentation for more details</p>
+        </div>
+    </div>
+
+    <script src="cash-register.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

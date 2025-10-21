@@ -1,5 +1,32 @@
 # Cash Register
 
+## 🚀 Quick Start
+
+**🎯 START HERE - Interactive Demo:**
+```bash
+node start-interactive.js
+```
+*Choose your preferred mode from the interactive menu*
+
+**📋 For complete instructions, see [START_HERE.md](START_HERE.md)**
+
+**Other Options:**
+```bash
+# Quick Demo (no interaction)
+node test_demo.js
+
+# Command Line
+node src/index.js input.txt output.txt
+cat output.txt
+
+# Run Tests
+node tests/cashRegister.test.js
+```
+
+**For detailed instructions, see [QUICK_START.md](QUICK_START.md)**
+
+---
+
 ## The Problem
 Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
 
