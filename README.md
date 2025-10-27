@@ -1,5 +1,42 @@
 # Cash Register
 
+App built using Vite, React, and MUI.
+
+Setup with Yarn
+
+```
+yarn install
+yarn dev
+```
+
+Open http://localhost:5173
+
+Docker
+
+```
+docker compose up --build
+docker compose down
+```
+
+Main page: Upload (bulk)
+
+- Upload a .txt file
+- Each line: owed,paid
+- Optional per line: USD: owed,paid or EUR: owed,paid or GBP: owed,paid
+- Output: text change lines, comma separated parts, blank line between entries
+
+Bonus pages
+
+- Till: sample cash drawer view
+- Settings: pick currency and options
+
+## Notes
+
+- The container exposes port 5173 and binds to 0.0.0.0 for LAN access if needed.
+- The container installs yarn automatically.
+
+
+
 ## The Problem
 Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
 

@@ -1,0 +1,14 @@
+services:
+  cashregister:
+    build: .
+    container_name: cashregister
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    command: yarn dev --host 0.0.0.0 --port 5173
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    restart: unless-stopped
