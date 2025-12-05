@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="cashregister.client/cashregister.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="CashRegister.Server/CashRegister.Server.csproj" />
+</Solution>
