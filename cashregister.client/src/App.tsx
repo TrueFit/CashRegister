@@ -17,12 +17,18 @@ interface Change {
 function App() {
     const defaultCurrencyOption1: CurrencyOption = { CurrencyCode: 'USD', Name: 'US Dollars' };
     const defaultCurrencyOption2: CurrencyOption = { CurrencyCode: 'EUR', Name: 'Euros' };
+    const [currencyOptions, setCurrencyOptions] = useState<CurrencyOption[]>([defaultCurrencyOption1, defaultCurrencyOption2]);
+
     const [serverIsUp, setServerIsUp] = useState<ServerIsUp[]>();
-    const [currencyOptions, setcurrencyOptions] = useState<CurrencyOption[]>([defaultCurrencyOption1, defaultCurrencyOption2]);
+
     const [due, setdDue] = useState<number | ''>('');
     const [paid, setPaid] = useState<number | ''>('');
     const [currency, setCurrency] = useState<string>('USD');
     const [message, setMessage] = useState<string>('');
+
+    const [fileUpload, setFileUpload] = useState<File | null>(null);
+    const [fileCurrency, setFileCurrency] = useState<string>('USD');
+    const [fileResponse, setFileResponse] = useState<string>('');
 
     async function checkServerIsUp() {
         const response = await fetch('api/healthcheck');
@@ -58,7 +64,10 @@ function App() {
 
     const onCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setCurrency(event.target.value);
+    };
 
+    const onFileCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setFileCurrency(event.target.value);
     };
 
     const submitSingleTransaction = async (
@@ -69,6 +78,10 @@ function App() {
     ) => {
         if ( due === '' || paid === '') {
             setMessage('Please enter the amounts due and paid.');
+            return;
+        }
+        if (currency === '') {
+            setMessage('Please choose your currency.');
             return;
         }
 
@@ -87,6 +100,52 @@ function App() {
             setMessage(`${formatChangeString(responseData)}`);
         } catch (error) {
             setMessage('Error processing transaction: ' + error);
+        }
+    };
+
+    const submitTransactionFile = async (
+        upload: File | null,
+        currency: string,
+        setFileResponse: (fileResponse: string) => void
+    ) => {
+        if (!upload) {
+            setFileResponse('Please choose a txt file to upload.');
+            return;
+        }
+        if (currency === '') {
+            setMessage('Please choose your currency.');
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('currency', currency)
+            formData.append('file', upload);
+
+            const response = await fetch('api/filetransaction', {
+                method: 'POST',
+                headers: { 'Response-Type': 'blob', },
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.style.display = 'none'
+            a.href = blobUrl
+            a.download = 'output.txt'
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+            window.URL.revokeObjectURL(blobUrl)
+
+            setFileResponse('File processed and results downloaded');
+        } catch (error) {
+            setFileResponse('Error processing transaction file: ' + error);
         }
     };
 
@@ -150,7 +209,38 @@ function App() {
             </div>
             <div>
                 <h2>Batch Processing</h2>
-                <p>TODO</p>
+                <form>
+                    <input
+                        type="file"
+                        accept=".txt"
+                        onChange={(e) => setFileUpload(e.target.files ? e.target.files[0] : null)}
+                    />
+                    <select value={fileCurrency} onChange={onFileCurrencyChange}>
+                        <option value="">-- Please choose a currency --</option>
+                        {currencyOptions.map((option) => (
+                            <option key={option.CurrencyCode} value={option.CurrencyCode}>
+                                {option.Name}
+                            </option>
+                        ))}
+                    </select>
+                    <button
+                        type="button"
+                        onClick={() =>
+                            submitTransactionFile(
+                                fileUpload,
+                                fileCurrency,
+                                fileResponse => setFileResponse(fileResponse)
+                            )
+                        }
+                    >
+                        Calculate Change
+                    </button>
+                </form>
+                {fileResponse && (
+                    <p>
+                        {fileResponse}
+                    </p>
+                )}
             </div>
         </div>;
 

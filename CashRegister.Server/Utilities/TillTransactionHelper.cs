@@ -12,8 +12,9 @@ namespace CashRegister.Server.Utilities
 
         public IEnumerable<Change> CalcChange(decimal due, decimal paid)
         {
+            retVal = [];
             var change = paid - due;
-            var changeInCents = Math.Round(change * 100);
+            var dueInCents = Math.Round(due * 100);
 
             using (var context = new ApplicationDbContext())
             {
@@ -21,7 +22,7 @@ namespace CashRegister.Server.Utilities
 
                 var currencyData = context.Currencies.First(c => c.CurrencyCode == currency);
 
-                if (changeInCents % randomDivisor == 0)
+                if (dueInCents % randomDivisor == 0)
                 {
                     GetRandomChange(currencyData, change);
                 }
@@ -40,7 +41,7 @@ namespace CashRegister.Server.Utilities
             var orderedDenoms = currencyData.Denominations.OrderByDescending(d => d.Value);
 
             //This logic ignores change in any amount less that the currencies minimum denomination
-            while (remaining > orderedDenoms.Last().Value)
+            while (remaining >= orderedDenoms.Last().Value)
             {
                 var currentDenom = orderedDenoms.First(d => d.Value <= remaining);
                 int count = (int)Math.Floor(remaining/currentDenom.Value);
@@ -56,7 +57,7 @@ namespace CashRegister.Server.Utilities
             var orderedDenomsList = currencyData.Denominations.OrderByDescending(d => d.Value).ToList();
 
             //This logic ignores change in any amount less that the currencies minimum denomination
-            while (remaining > orderedDenomsList.Last().Value)
+            while (remaining >= orderedDenomsList.Last().Value)
             {
                 var currentMaxDenomIndex = orderedDenomsList
                     .Select((d, i) => new { D = d, Index = i })
