@@ -1,6 +1,5 @@
 using CashRegister.Server.Models;
 using CashRegister.Server.Utilities;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Text;
