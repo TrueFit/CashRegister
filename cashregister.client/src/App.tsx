@@ -28,7 +28,7 @@ function App() {
     function formatChangeString(changeData: Change[]) {
         const denominationStrings = [];
         for (const item of changeData) {
-            denominationStrings.push(item.count + ' ' + item.denomination + (item.count > 1 ? 's' : ''))
+            denominationStrings.push(item.count + ' ' + item.denomination)
         }
 
         return 'The change for this transaction is ' + denominationStrings.join(', ') + '.';
