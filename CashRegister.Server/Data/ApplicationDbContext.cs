@@ -103,7 +103,7 @@ namespace CashRegister.Server.Data
                             CurrencyCode = "EUR",
                             Name = "Fifty",
                             Plural = "Fifties",
-                            Value = 20
+                            Value = 50
                         },
                         new() {
                             CurrencyCode = "EUR",

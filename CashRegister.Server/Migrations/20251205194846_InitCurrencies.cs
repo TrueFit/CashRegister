@@ -58,7 +58,7 @@ namespace CashRegister.Server.Migrations
                 columns: new[] { "CurrencyCode", "Name", "Plural", "Value" },
                 values: new object[,]
                 {
-                    { "EUR", "Fifty", "Fifties", 20m },
+                    { "EUR", "Fifty", "Fifties", 50m },
                     { "EUR", "Fifty Cent Coin", "Fifty Cent Coins", 0.50m },
                     { "EUR", "Five", "Fives", 5m },
                     { "EUR", "Five Cent Coin", "Five Cent Coins", 0.05m },

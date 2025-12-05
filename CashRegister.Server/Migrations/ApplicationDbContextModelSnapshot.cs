@@ -142,7 +142,7 @@ namespace CashRegister.Server.Migrations
                                     CurrencyCode = "EUR",
                                     Name = "Fifty",
                                     Plural = "Fifties",
-                                    Value = 20m
+                                    Value = 50m
                                 },
                                 new
                                 {

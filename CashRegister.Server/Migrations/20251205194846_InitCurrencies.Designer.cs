@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CashRegister.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251205170229_InitCurrencies")]
+    [Migration("20251205194846_InitCurrencies")]
     partial class InitCurrencies
     {
         /// <inheritdoc />
@@ -145,7 +145,7 @@ namespace CashRegister.Server.Migrations
                                     CurrencyCode = "EUR",
                                     Name = "Fifty",
                                     Plural = "Fifties",
-                                    Value = 20m
+                                    Value = 50m
                                 },
                                 new
                                 {
