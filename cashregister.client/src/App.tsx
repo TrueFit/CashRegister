@@ -72,9 +72,7 @@ function App() {
             }
 
             const responseData: Change[] = await response.json();
-            setMessage(
-                `Your change is ${formatChangeString(responseData)}`
-            );
+            setMessage(`${formatChangeString(responseData)}`);
         } catch (error) {
             setMessage('Error processing transaction: ' + error);
         }

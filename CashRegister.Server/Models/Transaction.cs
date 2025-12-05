@@ -1,4 +1,4 @@
-namespace CashRegister.Server
+namespace CashRegister.Server.Models
 {
     public class Transaction
     {

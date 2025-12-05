@@ -1,4 +1,7 @@
-namespace CashRegister.Server
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CashRegister.Server.Models
 {
     public class Change
     {
