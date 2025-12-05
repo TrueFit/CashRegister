@@ -82,8 +82,12 @@ function App() {
         checkServerIsUp();
     }, []);
 
+    const handleRefresh = () => {
+        window.location.reload(); // Reloads the entire page
+    };
+
     const contents = serverIsUp === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
+        ? <p><em>The server is loading... Please <button onClick={handleRefresh}>Refresh Page</button> in a moment.</em></p>
         : <div className="transactionContainer">
             <div>
                 <h2>Single Transaction</h2>
