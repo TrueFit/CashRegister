@@ -4,6 +4,10 @@ import './App.css';
 interface ServerIsUp {
     status: string;
 }
+interface CurrencyOption {
+    CurrencyCode: string;
+    Name: string;
+}
 
 interface Change {
     denomination: string;
@@ -11,7 +15,10 @@ interface Change {
 }
 
 function App() {
+    const defaultCurrencyOption1: CurrencyOption = { CurrencyCode: 'USD', Name: 'US Dollars' };
+    const defaultCurrencyOption2: CurrencyOption = { CurrencyCode: 'EUR', Name: 'Euros' };
     const [serverIsUp, setServerIsUp] = useState<ServerIsUp[]>();
+    const [currencyOptions, setcurrencyOptions] = useState<CurrencyOption[]>([defaultCurrencyOption1, defaultCurrencyOption2]);
     const [due, setdDue] = useState<number | ''>('');
     const [paid, setPaid] = useState<number | ''>('');
     const [currency, setCurrency] = useState<string>('USD');
@@ -47,6 +54,11 @@ function App() {
         } else {
             setter('');
         }
+    };
+
+    const onCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setCurrency(event.target.value);
+
     };
 
     const submitSingleTransaction = async (
@@ -108,6 +120,14 @@ function App() {
                         onChange={(e) => onNumChange(e, setPaid)}
                         placeholder="Paid (ex: 5.00)"
                     />
+                    <select value={currency} onChange={onCurrencyChange}>
+                        <option value="">-- Please choose a currency --</option>
+                        {currencyOptions.map((option) => (
+                            <option key={option.CurrencyCode} value={option.CurrencyCode}>
+                                {option.Name}
+                            </option>
+                        ))}
+                    </select>
                     <button
                         type="button"
                         onClick={() =>

@@ -39,8 +39,8 @@ namespace CashRegister.Server.Utilities
             var remaining = change;
             var orderedDenoms = currencyData.Denominations.OrderByDescending(d => d.Value);
 
-            //This logic would have to be modified if a currency was defined without a 0.01 value denomination
-            while (remaining > 0)
+            //This logic ignores change in any amount less that the currencies minimum denomination
+            while (remaining > orderedDenoms.Last().Value)
             {
                 var currentDenom = orderedDenoms.First(d => d.Value <= remaining);
                 int count = (int)Math.Floor(remaining/currentDenom.Value);
@@ -55,8 +55,8 @@ namespace CashRegister.Server.Utilities
             var remaining = change;
             var orderedDenomsList = currencyData.Denominations.OrderByDescending(d => d.Value).ToList();
 
-            //This logic would have to be modified if a currency was defined without a 0.01 value denomination
-            while (remaining > 0)
+            //This logic ignores change in any amount less that the currencies minimum denomination
+            while (remaining > orderedDenomsList.Last().Value)
             {
                 var currentMaxDenomIndex = orderedDenomsList
                     .Select((d, i) => new { D = d, Index = i })
