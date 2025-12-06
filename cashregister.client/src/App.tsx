@@ -1,32 +1,10 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 import './App.css';
-
-interface ServerIsUp {
-    status: string;
-}
-interface CurrencyOption {
-    CurrencyCode: string;
-    Name: string;
-}
-
-interface Change {
-    denomination: string;
-    count: number;
-}
+import { submitSingleTransaction, submitTransactionFile, } from './utilities/apiHandlers';
+import type { ServerIsUp, CurrencyOption, } from './types/types';
 
 function App() {
-    const [currencyOptions, setCurrencyOptions] = useState<CurrencyOption[]>([]);
-
     const [serverIsUp, setServerIsUp] = useState<ServerIsUp[]>();
-
-    const [due, setdDue] = useState<number | ''>('');
-    const [paid, setPaid] = useState<number | ''>('');
-    const [currency, setCurrency] = useState<string>('USD');
-    const [message, setMessage] = useState<string>('');
-
-    const [fileUpload, setFileUpload] = useState<File | null>(null);
-    const [fileCurrency, setFileCurrency] = useState<string>('USD');
-    const [fileResponse, setFileResponse] = useState<string>('');
 
     async function checkServerIsUp() {
         const response = await fetch('api/healthcheck');
@@ -35,6 +13,8 @@ function App() {
             setServerIsUp(data);
         }
     }
+
+    const [currencyOptions, setCurrencyOptions] = useState<CurrencyOption[]>([]);
 
     async function getCurrencyOptions() {
         const response = await fetch('api/currencyoptions');
@@ -51,14 +31,14 @@ function App() {
         }
     }
 
-    function formatChangeString(changeData: Change[]) {
-        const denominationStrings = [];
-        for (const item of changeData) {
-            denominationStrings.push(item.count + ' ' + item.denomination)
-        }
+    const [due, setdDue] = useState<number | ''>('');
+    const [paid, setPaid] = useState<number | ''>('');
+    const [currency, setCurrency] = useState<string>('USD');
+    const [message, setMessage] = useState<string>('');
 
-        return 'The change for this transaction is ' + denominationStrings.join(', ') + '.';
-    }
+    const [fileUpload, setFileUpload] = useState<File | null>(null);
+    const [fileCurrency, setFileCurrency] = useState<string>('USD');
+    const [fileResponse, setFileResponse] = useState<string>('');
 
     const onNumChange = (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -81,85 +61,6 @@ function App() {
 
     const onFileCurrencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setFileCurrency(event.target.value);
-    };
-
-    const submitSingleTransaction = async (
-        due: number | '',
-        paid: number | '',
-        currency: string,
-        setMessage: (message: string) => void
-    ) => {
-        if ( due === '' || paid === '') {
-            setMessage('Please enter the amounts due and paid.');
-            return;
-        }
-        if (currency === '') {
-            setMessage('Please choose your currency.');
-            return;
-        }
-
-        try {
-            const response = await fetch('api/tilltransaction', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json; charset=UTF-8',                },
-                body: JSON.stringify({ due, paid, currency })
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const responseData: Change[] = await response.json();
-            setMessage(`${formatChangeString(responseData)}`);
-        } catch (error) {
-            setMessage('Error processing transaction: ' + error);
-        }
-    };
-
-    const submitTransactionFile = async (
-        upload: File | null,
-        currency: string,
-        setFileResponse: (fileResponse: string) => void
-    ) => {
-        if (!upload) {
-            setFileResponse('Please choose a txt file to upload.');
-            return;
-        }
-        if (currency === '') {
-            setMessage('Please choose your currency.');
-            return;
-        }
-
-        try {
-            const formData = new FormData();
-            formData.append('currency', currency)
-            formData.append('file', upload);
-
-            const response = await fetch('api/filetransaction', {
-                method: 'POST',
-                headers: { 'Response-Type': 'blob', },
-                body: formData
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const blob = await response.blob();
-            const blobUrl = window.URL.createObjectURL(blob)
-            const a = document.createElement('a')
-            a.style.display = 'none'
-            a.href = blobUrl
-            a.download = 'output.txt'
-            document.body.appendChild(a)
-            a.click()
-            document.body.removeChild(a)
-            window.URL.revokeObjectURL(blobUrl)
-
-            setFileResponse('File processed and results downloaded');
-        } catch (error) {
-            setFileResponse('Error processing transaction file: ' + error);
-        }
     };
 
     useEffect(() => {
@@ -221,6 +122,7 @@ function App() {
                     </p>
                 )}
             </div>
+            <hr></hr>
             <div>
                 <h2>Batch Processing</h2>
                 <form>
