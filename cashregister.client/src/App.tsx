@@ -15,9 +15,7 @@ interface Change {
 }
 
 function App() {
-    const defaultCurrencyOption1: CurrencyOption = { CurrencyCode: 'USD', Name: 'US Dollars' };
-    const defaultCurrencyOption2: CurrencyOption = { CurrencyCode: 'EUR', Name: 'Euros' };
-    const [currencyOptions, setCurrencyOptions] = useState<CurrencyOption[]>([defaultCurrencyOption1, defaultCurrencyOption2]);
+    const [currencyOptions, setCurrencyOptions] = useState<CurrencyOption[]>([]);
 
     const [serverIsUp, setServerIsUp] = useState<ServerIsUp[]>();
 
@@ -35,6 +33,21 @@ function App() {
         if (response.ok) {
             const data = await response.json();
             setServerIsUp(data);
+        }
+    }
+
+    async function getCurrencyOptions() {
+        const response = await fetch('api/currencyoptions');
+        if (response.ok) {
+            const currencyData: [] = await response.json();
+            const formattedCurrencyOptions = [];
+            currencyData.forEach((item) => {
+                formattedCurrencyOptions.push({
+                        Name: item.name,
+                        CurrencyCode: item.currencyCode
+                })
+            })
+            setCurrencyOptions(formattedCurrencyOptions);
         }
     }
 
@@ -151,6 +164,7 @@ function App() {
 
     useEffect(() => {
         checkServerIsUp();
+        getCurrencyOptions();
     }, []);
 
     const handleRefresh = () => {
