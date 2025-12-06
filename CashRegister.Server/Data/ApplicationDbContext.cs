@@ -1,6 +1,5 @@
 ﻿using CashRegister.Server.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace CashRegister.Server.Data
 {

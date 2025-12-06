@@ -1,9 +1,7 @@
 using CashRegister.Server.Models;
 using CashRegister.Server.Utilities;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
 using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CashRegister.Server.Controllers
 {
