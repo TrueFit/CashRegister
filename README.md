@@ -2,6 +2,12 @@
 
 > **Hey!** I had a lot of fun with this challenge. I wasn't sure how to approach a POS system from an AI Engineer perspective, so I decided to revolutionize it with a **human language interface**. This probably wasn't what you expected, but it was a blast to build. 😄
 
+---
+
+## 🚀 **TEST IT HERE:** [cashregister.nomada.dev](https://cashregister.nomada.dev) 🚀
+
+---
+
 ![Demo](specs/demo.gif)
 
 ---
