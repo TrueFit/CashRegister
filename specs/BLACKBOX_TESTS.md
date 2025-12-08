@@ -71,6 +71,73 @@
 
 ---
 
+### Scenario 4: Multiple Different Items in Cart
+**Description:** The user adds multiple different products to the cart, and the system correctly calculates the total across all items.
+
+* **Given** the database has the following products:
+    * "Santa Clara Milk 1L" - Price: $28.50, Stock: 50
+    * "Coca Cola Original 600ml" - Price: $18.00, Stock: 100
+    * "Sabritas Original 45g" - Price: $16.00, Stock: 60
+* **And** a new session with `session_id: "test-multi-items"`.
+* **When** I add the first item:
+    ```bash
+    curl -X POST http://localhost:5000/api/chat \
+    -H "Content-Type: application/json" \
+    -d '{"session_id": "test-multi-items", "message": "Add 2 milks"}'
+    ```
+* **Then** the response should confirm "Added 2 Santa Clara Milk".
+* **And** the cart total should be $57.00.
+* **When** I add a second different item:
+    ```bash
+    curl -X POST http://localhost:5000/api/chat \
+    -H "Content-Type: application/json" \
+    -d '{"session_id": "test-multi-items", "message": "Add 1 Coca Cola"}'
+    ```
+* **Then** the response should confirm the addition.
+* **And** the cart should show 2 different products.
+* **And** the total should be $75.00 ($57.00 + $18.00).
+* **When** I add a third different item:
+    ```bash
+    curl -X POST http://localhost:5000/api/chat \
+    -H "Content-Type: application/json" \
+    -d '{"session_id": "test-multi-items", "message": "Give me 3 Sabritas"}'
+    ```
+* **Then** the cart should contain 3 different product types.
+* **And** the total should be $123.00 ($75.00 + $48.00).
+* **And** (**DB Check**) Stock should be: Milk: 48, Coca Cola: 99, Sabritas: 57.
+
+---
+
+### Scenario 5: Ambiguity Resolution (AI Engineering)
+**Description:** The user requests a product with an ambiguous name. The agent should detect multiple matches and ask for clarification instead of guessing.
+
+* **Given** the database has:
+    * "Coca Cola Original 600ml" - Price: $18.00, Stock: 100
+    * "Coca Cola Zero 600ml" - Price: $18.00, Stock: 80
+* **And** a new session with `session_id: "test-ambiguity"`.
+* **When** I send an ambiguous request:
+    ```bash
+    curl -X POST http://localhost:5000/api/chat \
+    -H "Content-Type: application/json" \
+    -d '{"session_id": "test-ambiguity", "message": "I want a Coca Cola"}'
+    ```
+* **Then** the `ai_response` should contain a question asking for clarification.
+* **And** the response should mention both "Original" and "Zero" options.
+* **And** (**DB Check**) the `cart_items` table should be empty (nothing added yet).
+* **And** (**DB Check**) stock for both products should remain unchanged.
+* **When** I clarify my choice:
+    ```bash
+    curl -X POST http://localhost:5000/api/chat \
+    -H "Content-Type: application/json" \
+    -d '{"session_id": "test-ambiguity", "message": "The Zero one"}'
+    ```
+* **Then** the response should confirm "Added Coca Cola Zero".
+* **And** the cart should contain 1 item: "Coca Cola Zero".
+* **And** (**DB Check**) Stock for "Coca Cola Zero" should be 79.
+* **And** (**DB Check**) Stock for "Coca Cola Original" should remain 100.
+
+---
+
 # TEST_REPORT.md Specification
 
 This is the format that the agent should generate after running the tests.
@@ -80,7 +147,7 @@ This is the format that the agent should generate after running the tests.
 
 **Date:** YYYY-MM-DD HH:MM:SS
 **Environment:** Local / Flask Dev Server
-**Total Tests:** 3
+**Total Tests:** 5
 **Result:** [PASS / FAIL]
 
 ## Summary of Execution
@@ -90,6 +157,8 @@ This is the format that the agent should generate after running the tests.
 | **1. Happy Path** | ✅ PASS | 120ms | Flow completed. Stock updated correctly. |
 | **2. Stock Limit** | ✅ PASS | 85ms | Tool correctly rejected quantity > stock. |
 | **3. Random Twist** | ⚠️ WARN | 150ms | Change sum matches, strictly random distribution verification required manual eye-check. |
+| **4. Multi Items** | ✅ PASS | 180ms | Cart correctly handles multiple different products. Total calculation accurate. |
+| **5. Ambiguity** | ✅ PASS | 220ms | Agent correctly detected ambiguity, asked for clarification, and added correct item after user response. |
 
 ## Detailed Logs (Failures Only)
 
