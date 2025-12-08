@@ -5,6 +5,16 @@
 
 ---
 
+---
+
+**IMPORTANT: EXECUTION METHOD**
+Do NOT write a script to run these tests. You must:
+1. Start the Flask server in a terminal.
+2. Manually execute the `curl` commands for each step.
+3. Analyze the JSON response and Server Logs step-by-step to verify the behavior.
+
+---
+
 ## Feature: Sales Flow & Logic
 
 ### Scenario 1: Happy Path (Add Item & Checkout)
@@ -139,6 +149,8 @@
 ---
 
 # TEST_REPORT.md Specification
+
+**CRITICAL WARNING:** Do NOT overwrite this file (`specs/IMPLEMENTATION_SUMMARY.md`) with the test report. This file contains the *instructions* for the summary. You must create a NEW file named `TEST_REPORT.md` in the root directory (or wherever specified) to store the actual results.
 
 This is the format that the agent should generate after running the tests.
 

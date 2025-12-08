@@ -1,4 +1,6 @@
-# Instructions for Generating the README.md
+# Implementation Summary Specification
+
+**CRITICAL WARNING:** Do NOT overwrite this file (`specs/IMPLEMENTATION_SUMMARY.md`) with the generated summary. This file contains the *instructions* for the summary. You must create a NEW file named `TEST_REPORT.md` (or similar) to store the actual results.
 
 Please generate a professional `README.md` file for this project. The document should be directed to a Senior Technical Evaluator.
 

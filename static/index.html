@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Cash Register</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Inventory Column -->
+        <div class="column inventory-col">
+            <h2>Inventory</h2>
+            <div id="inventory-list">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- Chat Column -->
+        <div class="column chat-col">
+            <h2>Chat</h2>
+            <div id="chat-history" class="chat-history">
+                <!-- Messages go here -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="message-input" placeholder="Type your request..." autofocus>
+            </div>
+        </div>
+
+        <!-- Cart Column -->
+        <div class="column cart-col">
+            <h2>Cart</h2>
+            <div id="cart-list">
+                <!-- Populated by JS -->
+            </div>
+            <div class="cart-total">
+                <h3>Total Due: <span id="total-due">$0.00</span></h3>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>

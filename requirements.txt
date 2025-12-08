@@ -1,0 +1,9 @@
+flask
+langgraph
+langchain
+langchain-openai
+sqlalchemy
+python-dotenv
+openai
+pytest
+
