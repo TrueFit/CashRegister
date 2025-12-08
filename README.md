@@ -1,5 +1,11 @@
 # AI Agent Cash Register
 
+> **Hey!** I had a lot of fun with this challenge. I wasn't sure how to approach a POS system from an AI Engineer perspective, so I decided to revolutionize it with a **human language interface**. This probably wasn't what you expected, but it was a blast to build. 😄
+
+![Demo](specs/demo.gif)
+
+---
+
 ## 1. Architecture Overview (The "Why")
 
 This project implements a robust **Stateless Agent / Stateful Database** architecture, designed to handle the complexities of a conversational commerce interface while ensuring data integrity and scalability.
@@ -10,39 +16,70 @@ This project implements a robust **Stateless Agent / Stateful Database** archite
 
 ## 2. The Agent Graph
 
-The following ASCII art illustrates the decision-making flow within the LangGraph agent:
+The architecture uses a **multi-node graph** with specialized nodes for routing, checking, decision-making, and updating. This design enables **model flexibility**: each node can use a different LLM, allowing lightweight local models (e.g., Ollama, LM Studio) for simple tasks like routing, while reserving more capable models for complex decisions.
 
-```ascii
-                 +----------------+
-                 |    START       |
-                 +-------+--------+
-                         |
-                         v
-                 +-------+--------+
-                 |    ChatBot     |
-                 | (LLM + Tools)  |
-                 +-------+--------+
-                         |
-           +-------------+-------------+
-           |                           |
-  [Tool Call?] --(Yes)--> +------------v-----------+
-           |              |      Tools Node        |
-           |              | (Inventory, Cart, Pay) |
-           |              +------------+-----------+
-           |                           |
-           |                           |
-           +<-----------(Output)-------+
-           |
-           v
-    [Response to User]
-           |
-           v
-          END
+```
+                           START
+                             │
+                             ▼
+                     ┌───────────────┐
+                     │    ROUTER     │  ← Classifies intent (add/remove/checkout/off_topic)
+                     │   (LLM #1)    │    Can use lightweight local model
+                     └───────────────┘
+                             │
+         ┌───────────┬───────┴───────┬───────────┐
+         ▼           ▼               ▼           ▼
+     [add_flow] [remove_flow]  [checkout]   [off_topic]
+         │           │               │           │
+         ▼           ▼               ▼           │
+    ┌─────────┐ ┌─────────┐   ┌──────────┐      │
+    │  CHECK  │ │  CHECK  │   │  CHECK   │      │ (static response)
+    │ (tools) │ │ (tools) │   │  (tools) │      │
+    └─────────┘ └─────────┘   └──────────┘      │
+         │           │               │           │
+         ▼           ▼               ▼           │
+    ┌─────────┐ ┌─────────┐   ┌──────────┐      │
+    │ DECIDE  │ │ DECIDE  │   │  DECIDE  │      │
+    │ (LLM #2)│ │ (LLM #2)│   │ (LLM #2) │      │
+    └─────────┘ └─────────┘   └──────────┘      │
+         │           │               │           │
+     ┌───┴───┐   ┌───┴───┐     ┌────┴────┐     │
+     ▼       ▼   ▼       ▼     ▼         ▼     │
+  UPDATE   ASK UPDATE  ASK  UPDATE     ASK     │
+     │       │   │       │     │         │     │
+     └───────┴───┴───────┴─────┴─────────┴─────┘
+                             │
+                             ▼
+                     ┌───────────────┐
+                     │   RESPONSE    │  ← Generates final user-facing message
+                     │   (LLM #3)    │
+                     └───────────────┘
+                             │
+                             ▼
+                           END
 ```
 
-*   **ChatBot Node:** The core reasoning engine using **gpt-5-nano**. It analyzes user intent and decides whether to call a tool or respond directly.
-*   **Tools Node:** Executes deterministic Python functions (e.g., `add_item`, `checkout`) when requested by the ChatBot.
-*   **Conditional Edge:** A router determines if the flow should loop back to the ChatBot (after a tool execution) or end the turn.
+### Why Two Levels? (Check → Decision → Update)
+
+The separation of **Check Tools** (read-only) and **Update Tools** (modify state) into distinct phases serves two critical purposes:
+
+1.  **Safety Before Mutation:** The Check phase verifies availability, resolves ambiguity, and validates the request *before* any database writes occur. This prevents the bug where an item gets removed but the LLM still asks for clarification (action executed before decision was finalized).
+
+2.  **100% Local Model Deployment:** By separating concerns into single-purpose nodes, the architecture enables **complete replacement of paid API models** with local alternatives:
+    *   **Router Node**: Simple intent classification → Lightweight local model (e.g., Llama 3.2 via Ollama)
+    *   **Check/Decision Nodes**: Context analysis → Local model with good reasoning (e.g., Mistral, Qwen)
+    *   **Response Node**: Natural language generation → Any local model
+
+    This design eliminates API costs entirely for production deployments, making the system viable for cost-sensitive or offline environments.
+
+> **Note:** For practical demonstration purposes, this implementation uses **gpt-5-nano** across all nodes. In production, each node can be configured independently.
+
+### Tool Groups
+
+| Group | Tools | Purpose |
+|-------|-------|---------|
+| **Check** | `get_product_catalog`, `get_cart_contents` | Read-only verification |
+| **Update** | `add_item_tool`, `remove_item_tool`, `checkout_tool` | State modification |
 
 ## 3. "The Twist" & Math Safety (Critical)
 
@@ -58,10 +95,13 @@ A core requirement was to solve the "Cash Register Problem" with a specific twis
 
 The agent is engineered to handle vague or misspelled user requests gracefully, prioritizing accuracy over guessing.
 
-*   **Search & Analyze:** When a user requests an item (e.g., "Coke"), the agent first uses the `get_product_catalog` tool to inspect available options.
-*   **Clarification Loop:** If multiple matches are found (e.g., "Coca Cola Original" and "Coca Cola Zero"), the agent is instructed via the System Prompt to **ask the user for clarification** rather than making an assumption.
-*   **Context Loading:** For this MVP, the product catalog is loaded into the context.
-    *   *Scalability Note:* While efficient for a small inventory, a production system with thousands of SKUs would replace this with a Vector Store (RAG) or Trigram search to retrieve only relevant items, ensuring the context window remains manageable.
+*   **Search & Analyze:** When a user requests an item (e.g., "Coke"), the Check node uses `get_product_catalog` to inspect available options.
+*   **Decision Phase:** The Decision node analyzes matches:
+    *   **Exact Match**: Proceeds to Update
+    *   **Multiple Matches**: Asks for clarification (e.g., "Original or Zero?")
+    *   **No Match**: Informs the user
+*   **Context-Aware Router:** The Router considers conversation history, so when a user responds "original" to a clarification question, it correctly routes to `add_flow` instead of `off_topic`.
+*   **Scalability Note:** For this MVP, the product catalog is loaded into context. A production system with thousands of SKUs would use Vector Search or Trigram matching.
 
 ## 5. Project Structure
 
@@ -69,15 +109,14 @@ The agent is engineered to handle vague or misspelled user requests gracefully, 
 .
 ├── api/
 │   └── routes.py           # Flask endpoints (Chat, State, /clear logic)
-├── core/                   # (Conceptually represented by utils/ and db/)
 ├── db/
 │   ├── database.py         # SQLAlchemy setup and session management
 │   └── models.py           # Database schema (Product, Cart, CartItem)
 ├── graph/
 │   ├── agent.py            # LangGraph state graph definition
-│   ├── nodes.py            # ChatBot node logic
-│   ├── tools.py            # AI Tools (Catalog, Add/Remove, Checkout)
-│   └── prompts.py          # System Prompt engineering
+│   ├── nodes.py            # Router, Check, Decision, Update, Response nodes
+│   ├── tools.py            # Check Tools + Update Tools (separated)
+│   └── prompts.py          # Specialized prompts for each node
 ├── utils/
 │   └── change_calculator.py # Core business logic (Greedy & Random strategies)
 ├── static/                 # Frontend assets (HTML, CSS, JS)
@@ -112,11 +151,24 @@ We successfully validated 5 critical scenarios:
     pip install -r requirements.txt
     ```
 
-2.  **Run the Server:**
+2.  **Configure Environment:**
+    ```bash
+    cp .env.example .env
+    # Edit .env and add your OPENAI_API_KEY
+    ```
+
+3.  **Run the Server:**
     ```bash
     python app.py
     ```
-    The application will start on `http://localhost:5000` (or 5001 if 5000 is busy).
+    The application will start on `http://localhost:5001`.
 
-3.  **Access the UI:**
+4.  **Access the UI:**
     Open your browser to the URL displayed in the terminal.
+
+## 8. Future Improvements
+
+*   **Full Local Deployment:** Configure each node to use Ollama/LM Studio models for 100% offline, zero-cost operation.
+*   **Vector Search:** Replace `get_product_catalog` with semantic search for large inventories.
+*   **Streaming Responses:** Implement SSE for real-time response streaming.
+*   **Multi-language Support:** Extend prompts for Spanish/English bilingual interactions.

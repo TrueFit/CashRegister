@@ -17,7 +17,7 @@ body {
     height: 90vh;
     background-color: white;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
@@ -38,25 +38,75 @@ h2 {
     color: #333;
 }
 
+/* Session Info */
+.session-info {
+    font-size: 0.75em;
+    color: #888;
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 4px 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.session-info code {
+    font-family: 'Courier New', monospace;
+    background-color: #e0e0e0;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+/* Help Section */
+.help-section {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.help-section h4 {
+    margin: 0 0 10px 0;
+    font-size: 0.85em;
+    color: #666;
+}
+
+.help-section code {
+    display: block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8em;
+    background-color: #f5f5f5;
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+    color: #555;
+}
+
 /* Inventory */
 .inventory-item {
     display: flex;
     justify-content: space-between;
     padding: 8px;
     border-bottom: 1px solid #eee;
+    transition: background-color 0.3s, font-weight 0.3s;
 }
+
 .inventory-item:last-child {
     border-bottom: none;
 }
+
 .inventory-name {
     font-weight: bold;
 }
+
 .inventory-details {
     color: #666;
     font-size: 0.9em;
 }
 
 /* Chat */
+.chat-col {
+    position: relative;
+}
+
 .chat-history {
     flex-grow: 1;
     overflow-y: auto;
@@ -67,6 +117,7 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-height: calc(100% - 120px);
 }
 
 .message {
@@ -90,13 +141,72 @@ h2 {
     border-bottom-left-radius: 0;
 }
 
-.chat-input input {
-    width: 100%;
+/* Chat Input Container */
+.chat-input-container {
+    display: flex;
+    gap: 8px;
+}
+
+.chat-input-container input {
+    flex-grow: 1;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 16px;
+}
+
+.chat-input-container input:disabled {
+    background-color: #f0f0f0;
+}
+
+#send-btn {
+    padding: 12px 16px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+#send-btn:hover {
+    background-color: #0056b3;
+}
+
+#send-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.loading-spinner.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #e0e0e0;
+    border-top-color: #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Cart */
@@ -105,10 +215,76 @@ h2 {
     justify-content: space-between;
     padding: 8px;
     border-bottom: 1px solid #eee;
+    transition: background-color 0.3s, font-weight 0.3s;
 }
+
 .cart-total {
     margin-top: auto;
     text-align: right;
     padding-top: 10px;
     border-top: 2px solid #333;
+}
+
+/* Highlight Animation */
+.highlight {
+    animation: highlightPulse 3.5s ease-out;
+}
+
+@keyframes highlightPulse {
+    0% {
+        background-color: #fff3cd;
+        font-weight: bold;
+    }
+
+    100% {
+        background-color: transparent;
+        font-weight: normal;
+    }
+}
+
+#total-due.highlight {
+    animation: totalHighlight 3.5s ease-out;
+}
+
+@keyframes totalHighlight {
+    0% {
+        color: #28a745;
+        transform: scale(1.1);
+    }
+
+    100% {
+        color: inherit;
+        transform: scale(1);
+    }
+}
+
+/* Countdown Message (inline in chat) */
+.message.system {
+    align-self: center;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.countdown-message #countdown-seconds {
+    color: #007bff;
+    font-size: 1.2em;
+}
+
+#cancel-countdown {
+    padding: 4px 12px;
+    font-size: 0.85em;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#cancel-countdown:hover {
+    background-color: #5a6268;
 }

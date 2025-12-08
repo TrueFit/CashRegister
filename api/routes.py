@@ -42,6 +42,7 @@ def chat():
             db.commit()
             return jsonify({
                 "text": "Cart cleared.",
+                "action": "clear",
                 "cart_data": [],
                 "inventory_data": _get_inventory_data(db)
             })
@@ -74,11 +75,18 @@ def chat():
         
         db.commit()
         
-        return jsonify({
+        # Detect checkout completion
+        action = "checkout_complete" if cart.status == 'completed' else None
+        
+        response_data = {
             "text": response_text,
             "cart_data": _get_cart_data(cart),
             "inventory_data": _get_inventory_data(db)
-        })
+        }
+        if action:
+            response_data["action"] = action
+        
+        return jsonify(response_data)
         
     except Exception as e:
         db.rollback()
