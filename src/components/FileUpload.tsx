@@ -3,7 +3,7 @@ import type { DragEvent, ChangeEvent } from 'react';
 import './FileUpload.css';
 
 interface FileUploadProps {
-  onFileContent: (content: string) => void;
+  onFileContent: (content: string, fileName?: string) => void;
   error?: string;
 }
 
@@ -47,14 +47,14 @@ export function FileUpload({ onFileContent, error }: FileUploadProps) {
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = e.target?.result as string;
-      onFileContent(content);
+      onFileContent(content, file.name);
     };
     reader.readAsText(file);
   };
 
   const handleClear = () => {
     setFileName('');
-    onFileContent('');
+    onFileContent('', '');
   };
 
   return (

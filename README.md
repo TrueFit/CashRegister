@@ -41,3 +41,58 @@ Here are a couple of thoughts about the domain that could influence your respons
 * What might happen if the client needs to change the random divisor?
 * What might happen if the client needs to add another special case (like the random twist)?
 * What might happen if sales closes a new client in France?
+---
+
+## Solution
+
+### How to Run
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server (http://localhost:5173)
+npm run dev
+
+# Run tests
+npm test
+
+# Build for production
+npm run build
+```
+
+### Using the Application
+
+1. **Configure** - Set the random divisor (default: 3) and enable/disable random feature
+2. **Upload File** - Drag and drop or browse for a `.txt` file with format: `owed,paid` per line
+3. **View Results** - See calculated change for each transaction in a table
+4. **Download** - Export results to a text file or copy to clipboard
+
+A sample input file (`sample-input.txt`) is included in the project root for testing.
+
+### Architecture & Design
+
+See [SOLUTION.md](./SOLUTION.md) for detailed documentation including:
+- Architecture overview
+- Key design decisions
+- How extensibility requirements are addressed
+- Testing strategy
+- Technology choices
+
+### Key Features
+
+- ✅ Accepts flat file input (CSV format)
+- ✅ Minimum change calculation (greedy algorithm)
+- ✅ Random denominations when owed amount divisible by 3
+- ✅ Configurable divisor in UI
+- ✅ Professional React interface
+- ✅ Download/copy results
+- ✅ Comprehensive test suite
+- ✅ Extensible architecture (strategy pattern, currency system)
+
+### Tech Stack
+
+- **React 19** + **Vite** - Modern UI framework and build tool
+- **TypeScript** - Type safety and better developer experience
+- **Jest** - Testing framework
+- **CSS** - Custom styling (no framework dependencies)
