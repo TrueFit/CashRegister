@@ -1,13 +1,13 @@
 /* CSS Reset & Design System */
 :root {
   /* Color System */
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --success: #16a34a;
-  --error: #dc2626;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --success: #10b981;
+  --error: #ef4444;
 
   /* Neutrals */
-  --text-primary: #1f2937;
+  --text-primary: #111827;
   --text-secondary: #6b7280;
   --border: #e5e7eb;
   --bg: #f9fafb;
@@ -30,6 +30,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   min-width: 320px;
@@ -49,6 +53,13 @@ p {
 
 button {
   font-family: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 #root {

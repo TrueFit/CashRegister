@@ -1,0 +1,93 @@
+.file-upload-container {
+  width: 100%;
+}
+
+.file-upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 56px 24px;
+  text-align: center;
+  transition: all 200ms ease;
+  cursor: pointer;
+  background: #fafafa;
+}
+
+.file-upload-zone:hover {
+  border-color: var(--primary);
+  background: #f0f7ff;
+  transform: translateY(-2px);
+}
+
+.file-upload-zone.dragging {
+  border-color: var(--primary);
+  background: #dbeafe;
+  border-style: solid;
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+}
+
+.file-upload-zone svg {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.file-upload-text {
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.file-upload-link {
+  color: var(--primary);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.file-upload-link:hover {
+  color: var(--primary-hover);
+}
+
+.file-upload-hint {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.file-upload-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fade-in 300ms ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.file-upload-success svg {
+  color: var(--success);
+}
+
+.file-upload-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .file-upload-zone {
+    padding: 40px 20px;
+  }
+
+  .file-upload-zone svg {
+    width: 40px;
+    height: 40px;
+  }
+}

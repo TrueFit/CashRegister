@@ -5,17 +5,19 @@
 }
 
 .app-header {
-  padding: 32px 24px;
+  padding: 40px 24px;
   background-color: white;
   border-bottom: 1px solid var(--border);
   text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .app-header h1 {
   margin: 0 0 8px 0;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 600;
   color: var(--text-primary);
+  letter-spacing: -0.5px;
 }
 
 .subtitle {
@@ -25,37 +27,65 @@
 }
 
 .app-main {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 40px 24px;
+}
+
+@media (max-width: 768px) {
+  .app-main {
+    padding: 24px 16px;
+  }
+
+  .app-header {
+    padding: 24px 16px;
+  }
+
+  .app-header h1 {
+    font-size: 22px;
+  }
 }
 
 /* Card Component */
 .card {
   background: white;
-  border-radius: 8px;
-  padding: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
   margin-bottom: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: box-shadow 150ms ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .card-title {
-  margin: 0 0 16px 0;
+  margin: 0 0 20px 0;
   font-size: 18px;
   font-weight: 600;
   color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 20px;
+  }
 }
 
 /* Button Styles */
 .button {
   padding: 10px 20px;
-  border-radius: 6px;
+  border-radius: 8px;
   border: none;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 150ms ease;
   font-family: inherit;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .button-primary {
@@ -65,16 +95,23 @@
 
 .button-primary:hover:not(:disabled) {
   background-color: var(--primary-hover);
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  transform: translateY(-1px);
+}
+
+.button-primary:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .button-secondary {
-  background-color: var(--bg);
+  background-color: white;
   color: var(--text-primary);
   border: 1px solid var(--border);
 }
 
 .button-secondary:hover:not(:disabled) {
-  background-color: var(--border);
+  background-color: var(--bg);
+  border-color: var(--text-secondary);
 }
 
 .button:disabled {
@@ -85,12 +122,17 @@
 /* Input Styles */
 .input {
   width: 100%;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
   font-size: 14px;
   font-family: inherit;
-  transition: border-color 150ms ease;
+  transition: all 150ms ease;
+  background-color: white;
+}
+
+.input:hover {
+  border-color: var(--text-secondary);
 }
 
 .input:focus {
@@ -101,10 +143,18 @@
 
 .input-label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-size: 14px;
   font-weight: 500;
   color: var(--text-primary);
+}
+
+/* Checkbox Styles */
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--primary);
 }
 
 /* Utility Classes */

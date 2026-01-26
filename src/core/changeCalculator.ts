@@ -28,9 +28,10 @@ export function calculateChange(
     };
   }
 
-  // Use random strategy if change is divisible by configured divisor
+  // Use random strategy if owed amount is divisible by configured divisor
+  const owedInCents = toCents(owed);
   const shouldUseRandom =
-    config.randomEnabled && changeInCents % config.randomDivisor === 0;
+    config.randomEnabled && owedInCents % config.randomDivisor === 0;
 
   const denominations = shouldUseRandom
     ? calculateRandomChange(changeInCents, currency)
