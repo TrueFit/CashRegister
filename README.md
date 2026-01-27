@@ -51,17 +51,30 @@ Here are a couple of thoughts about the domain that could influence your respons
 # Install dependencies
 npm install
 
-# Run development server (http://localhost:5173)
+# CLI (satisfies README spec exactly)
+npm run cli -- sample-input.txt
+npm run cli -- input.txt --divisor=5 --random=false
+
+# Web UI (http://localhost:5173)
 npm run dev
 
 # Run tests
 npm test
-
-# Build for production
-npm run build
 ```
 
-### Using the Application
+### CLI Usage
+
+The CLI provides a direct implementation of the spec requirements:
+
+```bash
+npm run cli -- <input-file> [options]
+
+Options:
+  --divisor=<n>      Set random divisor (default: 3)
+  --random=<bool>    Enable/disable random mode (default: true)
+```
+
+### Web Application
 
 1. **Configure** - Set the random divisor (default: 3) and enable/disable random feature
 2. **Upload File** - Drag and drop or browse for a `.txt` file with format: `owed,paid` per line
