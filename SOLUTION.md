@@ -228,3 +228,8 @@ src/
 4. **Comprehensive Tests** - Proves correctness
 5. **Thoughtful Decisions** - Integer math, strategy pattern, etc.
 6. **Good Documentation** - Explains "why" not just "what"
+
+## Development Notes
+
+This solution was built with assistance from Claude AI. All architectural decisions,
+implementation choices, code review, and testing were performed by me.
