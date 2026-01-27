@@ -107,7 +107,7 @@ function App() {
                 Cash Register Change Calculator
               </h2>
               <p style={{ margin: '0', fontSize: '14px', lineHeight: '1.6', opacity: 0.95 }}>
-                Calculates optimal change denominations with a twist: when the <strong>owed amount</strong> (in cents) is divisible by 3, it randomly generates denominations!
+                Calculates optimal change denominations with a twist: when the <strong>owed amount</strong> (in cents) is divisible by {config.randomDivisor}, it randomly generates denominations!
               </p>
             </div>
 
@@ -196,8 +196,17 @@ function App() {
                   type="number"
                   className="input"
                   value={config.randomDivisor}
-                  onChange={(e) => handleConfigChange({ ...config, randomDivisor: parseInt(e.target.value) || 3 })}
-                  min="1"
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === '') {
+                      handleConfigChange({ ...config, randomDivisor: 3 });
+                    } else {
+                      const num = parseInt(value);
+                      if (num > 0) {
+                        handleConfigChange({ ...config, randomDivisor: num });
+                      }
+                    }
+                  }}
                   style={{ maxWidth: '120px' }}
                 />
                 <p style={{ marginTop: '8px', fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
