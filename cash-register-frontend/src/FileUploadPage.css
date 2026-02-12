@@ -1,0 +1,33 @@
+.fileUploadDivContiner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    width: 50vh;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: antiquewhite;
+}
+
+.uploadButton{
+    width: min-content;
+    height: 3vh;
+}
+
+.uploadButtonDiv{
+    margin-top: 16px;
+    display: flex;
+    justify-content: right;
+    width: 50vh;
+    height: 5vh;
+}
+
+.cardContentStack{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    width: 50vh;
+}

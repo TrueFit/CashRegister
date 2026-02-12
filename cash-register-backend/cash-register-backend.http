@@ -1,0 +1,6 @@
+@cash_register_backend_HostAddress = http://localhost:5079
+
+GET {{cash_register_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,74 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build output
+[Bb]in/
+[Oo]bj/
+out/
+publish/
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+_ReSharper*/
+*reSharper*/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+.nuget/
+
+# Logs, test results, coverage
+*.log
+logs/
+TestResults/
+coverage.*
+*.coverage
+coverage.xml
+*.lcov
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local DB / DB files (ignore if you don't keep DB files in repo)
+*.mdf
+*.ldf
+*.db
+*.sqlite
+*.sqlite3
+
+# User secrets (accidental)
+secrets.json
+appsettings.*.Local.json
+
+# Visual Studio DB / component files
+*.VC.db
+*.VC.VC.opendb
+
+# VS publish / profile files (sensitive publish settings)
+*.pubxml
+Properties/PublishProfiles/
+
+# dotnet watch
+.dotnet-watch/
+
+# Tools / binaries
+*.exe
+*.dll
+*.pdb
+
+# Node (if front-end assets are added)
+node_modules/
+
+# Packaging
+*.vsix
