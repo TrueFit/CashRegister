@@ -1,0 +1,29 @@
+@CashRegister.API_HostAddress = http://localhost:5090
+
+### Calculate change from a single transaction
+POST {{CashRegister.API_HostAddress}}/api/change/calculate-single
+Content-Type: application/json
+
+{
+  "owed": 2.12,
+  "paid": 3.00
+}
+
+### Get available currencies
+GET {{CashRegister.API_HostAddress}}/api/change/currencies
+Accept: application/json
+
+### Get current config
+GET {{CashRegister.API_HostAddress}}/api/config
+Accept: application/json
+
+### Update config
+PUT {{CashRegister.API_HostAddress}}/api/config
+Content-Type: application/json
+
+{
+  "randomDivisor": 5,
+  "currencyCode": "EUR"
+}
+
+###

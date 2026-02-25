@@ -1,0 +1,112 @@
+# Archivos de compilación
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Archivos de Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Archivos de NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+# Archivos de pruebas y cobertura de código
+TestResults/
+[Cc]overage*/
+*.coverage
+*.coveragexml
+coverage.json
+coverage.opencover.xml
+
+# Archivos de publicación
+**/publish/
+**/PublishProfiles/
+
+# Archivos del sistema operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Archivos de secretos y configuración sensible
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+*.pfx
+*.key
+
+# Archivos de entorno
+.env
+.env.*
+
+# Archivos temporales
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# Archivos de caché de dotnet
+.dotnet/
+
+# ─── React / Node.js (client/) ───────────────────────────────────────────────
+
+# Dependencias
+client/node_modules/
+client/.pnp
+client/.pnp.js
+
+# Archivos de producción
+client/build/
+client/dist/
+
+# Archivos de entorno locales
+client/.env
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+
+# Logs de npm / yarn / pnpm
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+client/.pnpm-debug.log*
+
+# Caché
+client/.cache/
+client/.parcel-cache/
+client/.eslintcache
+client/.stylelintcache
+
+# TypeScript
+client/*.tsbuildinfo
+
+# Vite
+client/.vite/
