@@ -1,0 +1,55 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1>Smart Change Calculator</h1>
+    <p class="subtitle">Creative Cash Draw Solutions</p>
+  </header>
+  <main>
+    <app-transactions></app-transactions>
+  </main>
+  <footer class="app-footer">
+    <p>TrueFit &mdash; Smart Change Calculator</p>
+  </footer>
+</div>
+
+<style>
+  .app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-header {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .app-header h1 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    opacity: 0.85;
+    font-size: 1rem;
+  }
+
+  main {
+    flex: 1;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .app-footer {
+    background: #2c3e50;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+</style>

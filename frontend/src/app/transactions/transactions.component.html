@@ -1,0 +1,92 @@
+<div class="transactions-container">
+  <div class="upload-card">
+    <h2>Upload Transactions CSV</h2>
+    <p class="description">
+      Upload a CSV file with columns <code>amount_owed,amount_paid</code> to calculate change denominations.
+    </p>
+
+    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="upload-form">
+      <div class="form-group">
+        <label for="csvFile" class="file-label">
+          <span class="file-label-icon">&#128196;</span>
+          <span>{{ selectedFileName || 'Choose a CSV file...' }}</span>
+        </label>
+        <input
+          id="csvFile"
+          type="file"
+          accept=".csv,text/csv"
+          (change)="onFileChange($event)"
+          class="file-input"
+          aria-label="Upload CSV file"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          [disabled]="isLoading || uploadForm.invalid"
+          class="btn btn-primary"
+        >
+          <span *ngIf="isLoading" class="spinner"></span>
+          {{ isLoading ? 'Processing...' : 'Calculate Change' }}
+        </button>
+        <button
+          type="button"
+          (click)="reset()"
+          class="btn btn-secondary"
+          [disabled]="isLoading"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="errorMessage" class="alert alert-error" role="alert">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success" role="status">
+      {{ successMessage }}
+    </div>
+  </div>
+
+  <div *ngIf="results.length > 0" class="results-card">
+    <h2>Transaction Results</h2>
+    <div class="table-responsive">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Owed</th>
+            <th>Paid</th>
+            <th>Change</th>
+            <th>Denominations</th>
+            <th>Strategy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let tx of results; let i = index"
+            [class.row-random]="tx.strategy === 'random'"
+            [class.row-greedy]="tx.strategy === 'greedy'"
+          >
+            <td class="row-num">{{ i + 1 }}</td>
+            <td>{{ formatCurrency(tx.amountOwed) }}</td>
+            <td>{{ formatCurrency(tx.amountPaid) }}</td>
+            <td class="change-amount">{{ formatCurrency(tx.change) }}</td>
+            <td class="denominations">{{ tx.denominations }}</td>
+            <td>
+              <span class="strategy-badge" [class.badge-random]="tx.strategy === 'random'" [class.badge-greedy]="tx.strategy === 'greedy'">
+                {{ tx.strategy }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="results.length === 0 && !isLoading && successMessage" class="no-results">
+    <p>No transactions found in the uploaded file.</p>
+  </div>
+</div>

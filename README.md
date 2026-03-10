@@ -41,3 +41,20 @@ Here are a couple of thoughts about the domain that could influence your respons
 * What might happen if the client needs to change the random divisor?
 * What might happen if the client needs to add another special case (like the random twist)?
 * What might happen if sales closes a new client in France?
+
+
+## Run the project
+
+### Pre-requisites
+- Docker
+- Node v25
+- NPM v11
+
+### Start MongoDB
+docker-compose up -d
+
+### Backend (port 3000)
+cd backend && npm install && npm run start:dev
+
+### Frontend (port 4200)
+cd frontend && npm install && ng serve
