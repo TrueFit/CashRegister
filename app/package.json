@@ -5,23 +5,26 @@
   "scripts": {
     "wasm:build": "cd ../cash-register-wasm && wasm-pack build --target nodejs --out-dir ../app/src/wasm-pkg",
     "wasm:test": "cd ../cash-register-wasm && cargo test",
-    "dev": "bun run wasm:build && vinxi dev",
-    "build": "bun run wasm:build && vinxi build",
-    "start": "vinxi start",
+    "dev": "bun run wasm:build && vite dev --port 3456",
+    "build": "bun run wasm:build && vite build",
+    "start": "vite preview",
     "test": "vitest run"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1",
-    "@tanstack/start": "^1",
+    "@tanstack/react-router": "latest",
+    "@tanstack/react-start": "latest",
+    "@tanstack/router-plugin": "^1.132.0",
     "react": "^19",
     "react-dom": "^19",
-    "vinxi": "^0.5",
     "zod": "^3"
   },
   "devDependencies": {
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5",
     "typescript": "^5",
+    "vite": "^7",
+    "vite-tsconfig-paths": "^5",
     "vitest": "^3"
   }
 }

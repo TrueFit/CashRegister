@@ -3,4 +3,6 @@ dist/
 .vinxi/
 .output/
 src/wasm-pkg/
+src/routeTree.gen.ts
 bun.lock
+*.timestamp_*.js

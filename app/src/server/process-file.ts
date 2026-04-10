@@ -1,4 +1,4 @@
-import { createServerFn } from "@tanstack/start"
+import { createServerFn } from "@tanstack/react-start"
 import { ProcessRequestSchema, ProcessResponseSchema } from "../lib/schemas"
 import type { ProcessResponse } from "../lib/schemas"
 import { loadWasmModule } from "./wasm-loader"
@@ -8,7 +8,7 @@ type ProcessResult =
   | { ok: false; error: string }
 
 export const processTransactions = createServerFn({ method: "POST" })
-  .validator((data: unknown) => ProcessRequestSchema.parse(data))
+  .inputValidator((data: unknown) => ProcessRequestSchema.parse(data))
   .handler(async ({ data }): Promise<ProcessResult> => {
     try {
       const wasm = await loadWasmModule()
