@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "wasm:build": "cd ../cash-register-wasm && wasm-pack build --target nodejs --out-dir ../app/src/wasm-pkg",
+    "wasm:build": "cd ../cash-register-wasm && wasm-pack build --target bundler --out-dir ../app/src/wasm-pkg",
     "wasm:test": "cd ../cash-register-wasm && cargo test",
     "dev": "bun run wasm:build && vite dev --port 3456",
     "build": "bun run wasm:build && vite build",
@@ -16,9 +16,11 @@
     "@tanstack/router-plugin": "^1.132.0",
     "react": "^19",
     "react-dom": "^19",
+    "vite-plugin-wasm": "^3.6.0",
     "zod": "^3"
   },
   "devDependencies": {
+    "@types/node": "^25.6.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^5",
