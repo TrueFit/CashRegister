@@ -1,0 +1,27 @@
+{
+  "name": "cash-register-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "wasm:build": "cd ../cash-register-wasm && wasm-pack build --target nodejs --out-dir ../app/src/wasm-pkg",
+    "wasm:test": "cd ../cash-register-wasm && cargo test",
+    "dev": "bun run wasm:build && vinxi dev",
+    "build": "bun run wasm:build && vinxi build",
+    "start": "vinxi start",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1",
+    "@tanstack/start": "^1",
+    "react": "^19",
+    "react-dom": "^19",
+    "vinxi": "^0.5",
+    "zod": "^3"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5",
+    "vitest": "^3"
+  }
+}
