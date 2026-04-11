@@ -68,8 +68,11 @@ export function RulesBuilder({
   return (
     <div className="config-controls">
       <div className="config-field">
-        <label className="config-field-label">Currency</label>
+        <label htmlFor="currency-select" className="config-field-label">
+          Currency
+        </label>
         <select
+          id="currency-select"
           className="select-control-full"
           value={config.currency}
           onChange={(e) => updateCurrency(e.target.value)}
@@ -83,8 +86,11 @@ export function RulesBuilder({
       </div>
 
       <div className="config-field">
-        <label className="config-field-label">Default Strategy</label>
+        <label htmlFor="default-strategy-select" className="config-field-label">
+          Default Strategy
+        </label>
         <select
+          id="default-strategy-select"
           className="select-control-full"
           value={config.default_strategy}
           onChange={(e) => updateDefaultStrategy(e.target.value)}

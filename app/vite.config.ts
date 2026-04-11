@@ -3,10 +3,12 @@ import tsconfigPaths from "vite-tsconfig-paths"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite"
 import viteReact from "@vitejs/plugin-react"
 import wasm from "vite-plugin-wasm"
+import topLevelAwait from "vite-plugin-top-level-await"
 
 const config = defineConfig({
   plugins: [
     wasm(),
+    topLevelAwait(),
     tsconfigPaths({ projects: ["./tsconfig.json"] }),
     tanstackStart(),
     viteReact(),
