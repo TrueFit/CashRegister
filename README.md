@@ -1,5 +1,48 @@
 # Cash Register
 
+Cash Register is a React + TypeScript app that calculates physical change for individual transactions or flat-file inputs. It supports configurable currencies, denominations, local transaction history, and a twist rule that can return random denominations when the owed amount matches the configured divisor.
+
+## Live Demo
+
+https://d3o90obztbl98t.cloudfront.net
+
+## Getting Started
+
+```sh
+npm install
+npm run dev
+```
+
+## Quality Checks
+
+```sh
+npm run check
+```
+
+`npm run check` runs the TypeScript project build followed by the Vitest suite. Use `npm run test:watch` while developing focused changes.
+
+## Project Structure
+
+- `src/domain/changeRules.ts` contains the cash-register rule engine and pure change-calculation behavior.
+- `src/domain/currency.ts` defines supported denomination data and money parsing/formatting for output strings.
+- `src/domain/currencies.ts`, `src/domain/denominations.ts`, and `src/domain/transactions.ts` keep application business helpers out of the React component.
+- `src/app/routes.ts` defines URL routes for the calculator, history, settings, denominations, and about pages.
+- `src/app/storageKeys.ts` centralizes browser storage keys so persisted data contracts are explicit.
+- `src/pages/` contains one component per routed page.
+- `src/components/` contains reusable UI pieces shared across pages.
+- `src/App.tsx` owns app-level state, storage synchronization, routing layout, and page callbacks.
+
+## Input Format
+
+Flat-file input expects one transaction per line:
+
+```txt
+2.12,3.00
+1.97,2.00
+3.33,5.00
+```
+# Cash Register
+
 ## The Problem
 Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
 
