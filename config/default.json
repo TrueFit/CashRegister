@@ -1,0 +1,26 @@
+{
+  "currency": "USD",
+  "decimalSeparator": ".",
+  "zeroChangeMessage": "0 pennies",
+  "plugins": {
+    "RandomChangeWithDivisorPlugin": {
+      "randomDivisor": 3
+    }
+  },
+  "currencies": {
+    "USD": {
+      "name": "US Dollar",
+      "symbol": "$",
+      "smallestUnit": "penny",
+      "smallestUnitPlural": "pennies",
+      "multiplier": 100,
+      "denominations": [
+        { "name": "dollar", "plural": "dollars", "value": 100 },
+        { "name": "quarter", "plural": "quarters", "value": 25 },
+        { "name": "dime", "plural": "dimes", "value": 10 },
+        { "name": "nickel", "plural": "nickels", "value": 5 },
+        { "name": "penny", "plural": "pennies", "value": 1 }
+      ]
+    }
+  }
+}

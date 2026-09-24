@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: creative-cash-draw
+  labels:
+    app: creative-cash-draw
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: creative-cash-draw
+  template:
+    metadata:
+      labels:
+        app: creative-cash-draw
+    spec:
+      containers:
+        - name: creative-cash-draw
+          image: creative-cash-draw:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: creative-cash-draw-service
+spec:
+  type: ClusterIP
+  selector:
+    app: creative-cash-draw
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

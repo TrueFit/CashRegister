@@ -1,0 +1,7 @@
+7 dimes, 12 nickels, 3 pennies
+1 quarter, 2 dimes, 1 nickel, 35 pennies
+1 dollar, 2 quarters, 1 dime, 1 nickel, 2 pennies
+2 dollars, 13 quarters, 39 dimes, 4 nickels, 15 pennies
+0 pennies
+3 dollars, 1 quarter, 1 nickel, 4 pennies
+Error processing line 7: Insufficient payment: Paid amount (500) is less than owed amount (650).

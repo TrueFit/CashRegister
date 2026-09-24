@@ -1,0 +1,23 @@
+{
+  "name": "creative-cash-draw",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "cash-draw": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "cli": "node src/cli.js",
+    "test": "node test/runTests.js"
+  },
+  "keywords": [
+    "cash-drawer",
+    "change-calculator",
+    "microservice",
+    "lambda",
+    "kubernetes"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "A microservice that calculates exact or randomized cash change based on configured divisor and currency denominations."
+}

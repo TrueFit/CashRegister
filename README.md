@@ -1,43 +1,164 @@
-# Cash Register
+# Creative Cash Draw Microservice
 
-## The Problem
-Creative Cash Draw Solutions is a client who wants to provide something different for the cashiers who use their system. The function of the application is to tell the cashier how much change is owed, and what denominations should be used. In most cases the app should return the minimum amount of physical change, but the client would like to add a twist. If the "owed" amount is divisible by 3, the app should randomly generate the change denominations (but the math still needs to be right :))
+A high-efficiency, portable cash drawer microservice designed to maximize utility and correctness across diverse execution targets (Command Line CLI, AWS Lambda, or Docker/Kubernetes).
 
-Please write a program which accomplishes the clients goals. The program should:
+---
 
-1. Accept a flat file as input
-	1. Each line will contain the amount owed and the amount paid separated by a comma (for example: 2.13,3.00)
-	2. Expect that there will be multiple lines
-2. Output the change the cashier should return to the customer
-	1. The return string should look like: 1 dollar,2 quarters,1 nickel, etc ...
-	2. Each new line in the input file should be a new line in the output file
+### Key Features
 
-## Sample Input
-2.12,3.00
+1. **Precision Change Calculation**: Uses integer currency units (cents) to completely eliminate floating-point rounding errors.
+2. **Baseline Minimum Physical Change**: Computes optimal minimal denomination breakdown in descending order.
+3. **Pluggable Special-Case Architecture**: Extensible plugin system allowing any custom transaction exceptions or promotional rules to be packaged independently.
+4. **Packaged Divisible-by-Divisor Plugin**: Packaged exception for owed amounts divisible by 3 (or configured divisor) returning randomized denomination breakdowns.
+5. **Preserved Newline Encoding**: Detects whether the input text uses Windows CRLF (`\r\n`), Unix LF (`\n`), or classic Mac CR (`\r`), and faithfully reproduces the identical newline format in the output.
+6. **Externalized Configuration**: Configurable currency, decimal separator (default `.`), divisor (default `3`), and denomination sets via `config/default.json` or custom configuration paths.
+7. **Multi-Environment Support**:
+   - **CLI with Test Mode**: Run transactions or execute self-test diagnostics directly from the command line.
+   - **AWS Lambda**: Native serverless handler supporting API Gateway, S3, or direct JSON invocations.
+   - **Portable Kubernetes / Docker Container**: Lightweight HTTP server with `/healthz`, `/readyz`, and `/process` endpoints.
 
-1.97,2.00
+---
 
-3.33,5.00
+### Special Case Plugin Architecture
 
-## Sample Output
-3 quarters,1 dime,3 pennies
+Special case calculation exceptions (such as the divisible-by-3 randomized change rule, rounding promotions, or custom denomination constraints) are packaged as modular plugins conforming to the `SpecialCasePlugin` interface.
 
-3 pennies
+#### 1. The `SpecialCasePlugin` Interface
 
-1 dollar,1 quarter,6 nickels,12 pennies
+Every plugin implements two core methods:
+- `isApplicable(context)`: Returns a boolean indicating whether the rule applies given `{ owedCents, paidCents, changeCents, denominations, config, options, rng }`.
+- `calculate(context)`: Calculates and returns `{ changeCents, breakdown, isRandom, pluginName, metadata }`.
 
-*Remember the last one is random
+```javascript
+const { SpecialCasePlugin } = require('./src/plugins');
 
-## The Fine Print
-Please use whatever technology and techniques you feel are applicable to solve the problem. We suggest that you approach this exercise as if this code was part of a larger system. The end result should be representative of your abilities and style.
+class NoPenniesPromotionPlugin extends SpecialCasePlugin {
+  constructor() {
+    super({
+      name: 'NoPenniesPromotionPlugin',
+      description: 'Rounds remaining change to nickels when promo flag is set',
+      priority: 50 // Lower priority runs first
+    });
+  }
 
-Please fork this repository. When you have completed your solution, please issue a pull request to notify us that you are ready.
+  isApplicable(context) {
+    return context.options && context.options.noPennies === true;
+  }
 
-Have fun.
+  calculate(context) {
+    // Custom change breakdown logic
+    return {
+      changeCents: context.changeCents,
+      pluginName: this.name,
+      breakdown: [ /* ... */ ]
+    };
+  }
+}
+```
 
-## Things To Consider
-Here are a couple of thoughts about the domain that could influence your response:
+#### 2. Built-in `RandomChangeWithDivisorPlugin`
 
-* What might happen if the client needs to change the random divisor?
-* What might happen if the client needs to add another special case (like the random twist)?
-* What might happen if sales closes a new client in France?
+The exception for owed amounts divisible by 3 is packaged in `src/plugins/RandomChangeWithDivisorPlugin.js`. It checks if `owedCents % divisor === 0` and calculates randomized change breakdowns that match the exact change amount.
+
+#### 3. Managing Plugins with `PluginRegistry`
+
+```javascript
+const { PluginRegistry, RandomChangeWithDivisorPlugin, defaultRegistry } = require('./src/plugins');
+
+// Create custom registry or register to default singleton
+const registry = new PluginRegistry();
+registry.register(new RandomChangeWithDivisorPlugin({ randomDivisor: 3 }));
+registry.register(new CustomSpecialCasePlugin());
+```
+
+---
+
+### Configuration (`config/default.json`)
+
+```json
+{
+  "currency": "USD",
+  "decimalSeparator": ".",
+  "zeroChangeMessage": "0 pennies",
+  "plugins": {
+    "RandomChangeWithDivisorPlugin": {
+      "randomDivisor": 3
+    }
+  },
+  "currencies": {
+    "USD": {
+      "name": "US Dollar",
+      "symbol": "$",
+      "smallestUnit": "penny",
+      "smallestUnitPlural": "pennies",
+      "multiplier": 100,
+      "denominations": [
+        { "name": "dollar", "plural": "dollars", "value": 100 },
+        { "name": "quarter", "plural": "quarters", "value": 25 },
+        { "name": "dime", "plural": "dimes", "value": 10 },
+        { "name": "nickel", "plural": "nickels", "value": 5 },
+        { "name": "penny", "plural": "pennies", "value": 1 }
+      ]
+    }
+  }
+}
+```
+
+#### Configuration Retrieval Helper (`getConfigValue`)
+
+The microservice provides a universal helper function `getConfigValue` for concise, safe, and readable configuration lookups:
+
+```javascript
+const { getConfigValue } = require('./src/config');
+
+// Path resolution with fallback and type validation
+const divisor = getConfigValue(
+  context && context.config,
+  'plugins.RandomChangeWithDivisorPlugin.randomDivisor',
+  3,
+  'number'
+);
+```
+
+---
+
+### Command Line Interface (CLI)
+
+#### Run CLI Tests
+```bash
+node src/cli.js --test
+# or
+npm test
+```
+
+#### Process Input File to Output File
+```bash
+node src/cli.js -i sample/input.txt -o sample/output.txt
+```
+
+#### Process with Custom Config
+```bash
+node src/cli.js -i sample/input.txt -o sample/output.txt -c path/to/custom_config.json
+```
+
+---
+
+### AWS Lambda Deployment
+
+Exported in `src/lambda.js` or root `index.js`:
+- Handler: `src/lambda.handler` (or `index.handler`)
+- Supports direct JSON `{ "input": "1.00,2.33\n" }` and API Gateway text payloads.
+
+---
+
+### Kubernetes & Container Deployment
+
+Build container:
+```bash
+docker build -t creative-cash-draw:latest .
+```
+
+Deploy to Kubernetes:
+```bash
+kubectl apply -f k8s/deployment.yaml
+```
